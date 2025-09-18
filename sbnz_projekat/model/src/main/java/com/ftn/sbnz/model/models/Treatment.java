@@ -1,6 +1,9 @@
 package com.ftn.sbnz.model.models;
 
 import java.util.UUID;
+import java.util.List;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class Treatment {
     private UUID id;
@@ -10,10 +13,22 @@ public class Treatment {
     private int withdrawalDays;
     private String modeOfAction;
     private boolean recommended;
+    private String activeIngredient;
+    private String manufacturer;
+    private double costPerUnit;
+    private String applicationMethod;
+    private List<Contraindication> contraindications;
+    private List<Phenophase> allowedPhenophases;
+    private LocalDateTime createdAt;
+    private boolean active;
 
     public Treatment() {
         this.id = UUID.randomUUID();
         this.recommended = false;
+        this.contraindications = new ArrayList<>();
+        this.allowedPhenophases = new ArrayList<>();
+        this.createdAt = LocalDateTime.now();
+        this.active = true;
     }
 
     public Treatment(String name, TreatmentType type) {
@@ -86,6 +101,74 @@ public class Treatment {
         this.recommended = recommended;
     }
 
+    public String getActiveIngredient() {
+        return activeIngredient;
+    }
+
+    public void setActiveIngredient(String activeIngredient) {
+        this.activeIngredient = activeIngredient;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public double getCostPerUnit() {
+        return costPerUnit;
+    }
+
+    public void setCostPerUnit(double costPerUnit) {
+        this.costPerUnit = costPerUnit;
+    }
+
+    public String getApplicationMethod() {
+        return applicationMethod;
+    }
+
+    public void setApplicationMethod(String applicationMethod) {
+        this.applicationMethod = applicationMethod;
+    }
+
+    public List<Contraindication> getContraindications() {
+        return contraindications;
+    }
+
+    public void setContraindications(List<Contraindication> contraindications) {
+        this.contraindications = contraindications;
+    }
+
+    public List<Phenophase> getAllowedPhenophases() {
+        return allowedPhenophases;
+    }
+
+    public void setAllowedPhenophases(List<Phenophase> allowedPhenophases) {
+        this.allowedPhenophases = allowedPhenophases;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isAllowedInPhenophase(Phenophase phenophase) {
+        return allowedPhenophases.isEmpty() || allowedPhenophases.contains(phenophase);
+    }
+
     @Override
     public String toString() {
         return "Treatment{" +
@@ -96,6 +179,7 @@ public class Treatment {
                 ", withdrawalDays=" + withdrawalDays +
                 ", modeOfAction='" + modeOfAction + '\'' +
                 ", recommended=" + recommended +
+                ", active=" + active +
                 '}';
     }
 }
