@@ -27,6 +27,13 @@ public class Crop {
         this.active = true;
     }
 
+    public Crop(String name, String variety, Phenophase phenophase) {
+        this();
+        this.name = name;
+        this.variety = variety;
+        this.phenophase = phenophase;
+    }
+
     public Crop(String name, String variety, Phenophase phenophase, UUID plotId) {
         this();
         this.name = name;
