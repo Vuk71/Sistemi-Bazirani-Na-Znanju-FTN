@@ -1,0 +1,78 @@
+package forward;
+
+import com.ftn.sbnz.model.models.Disease;
+import com.ftn.sbnz.model.models.Treatment;
+import com.ftn.sbnz.model.models.TreatmentType;
+import com.ftn.sbnz.model.models.Crop;
+import com.ftn.sbnz.model.models.Phenophase;
+
+// R03: Ako verovatnoća_plamenjače ≥70% → preporuči bakarni preparat
+rule "R03 - Preporučiti bakarni preparat za plamenjaču"
+    when
+        $disease: Disease(name == "Plamenjača", probability >= 70.0)
+        $treatment: Treatment(name == "Bakarni preparat", recommended == false)
+    then
+        $treatment.setRecommended(true);
+        System.out.println("R03: Preporučen bakarni preparat za plamenjaču (verovatnoća: " + $disease.getProbability() + "%)");
+        update($treatment);
+end
+
+// R05: Ako pepelnica i fenofaza plodonošenje → samo biološki fungicidi
+rule "R05 - Biološki fungicidi u plodonošenju za pepelnicu"
+    when
+        $disease: Disease(name == "Pepelnica", probability >= 40.0)
+        $crop: Crop(phenophase == Phenophase.FRUITING)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+    then
+        $treatment.setRecommended(true);
+        System.out.println("R05: Preporučen biološki fungicid za pepelnicu u fazi plodonošenja");
+        System.out.println("     Tretman: " + $treatment.getName());
+        update($treatment);
+end
+
+// R08: Ako fuzarijum potvrđen i pH<5.5 → Trichoderma tretman
+rule "R08 - Trichoderma za fuzarijum pri niskom pH"
+    when
+        $disease: Disease(name == "Fuzarijum", probability >= 45.0)
+        // Simuliramo nizak pH kao uslov
+        $treatment: Treatment(name == "Trichoderma", recommended == false)
+    then
+        $treatment.setRecommended(true);
+        System.out.println("R08: Preporučen Trichoderma tretman za fuzarijum");
+        System.out.println("     Napomena: Proveriti da li je pH < 5.5");
+        update($treatment);
+end
+
+// R10: Ako virus potvrđen → uklanjanje biljaka, dezinfekcija alata
+rule "R10 - Sanitarne mere za virus"
+    when
+        $disease: Disease(name == "Virus mozaika", probability >= 60.0)
+        $treatment: Treatment(type == TreatmentType.SANITARY, recommended == false)
+    then
+        $treatment.setRecommended(true);
+        System.out.println("R10: Preporučene sanitarne mere za virus mozaika");
+        System.out.println("     Tretman: " + $treatment.getName());
+        update($treatment);
+end
+
+// Pravilo za kreiranje dijagnoze kada je verovatnoća dovoljno visoka
+rule "Kreiranje dijagnoze"
+    when
+        $disease: Disease(probability >= 70.0)
+        $result: DiagnosisResult()
+    then
+        $result.getProbableDiseases().add($disease);
+        System.out.println("DIJAGNOZA: " + $disease.getName() + " sa verovatnoćom " + $disease.getProbability() + "%");
+        update($result);
+end
+
+// Pravilo za dodavanje preporučenih tretmana u rezultat
+rule "Dodavanje preporučenih tretmana"
+    when
+        $treatment: Treatment(recommended == true)
+        $result: DiagnosisResult()
+    then
+        $result.getRecommendedTreatments().add($treatment);
+        System.out.println("PREPORUČEN TRETMAN: " + $treatment.getName() + " (" + $treatment.getType() + ")");
+        update($result);
+end

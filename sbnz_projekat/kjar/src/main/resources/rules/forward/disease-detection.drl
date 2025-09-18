@@ -1,0 +1,90 @@
+package forward;
+
+import com.ftn.sbnz.model.models.Disease;
+import com.ftn.sbnz.model.models.Symptom;
+import com.ftn.sbnz.model.models.SymptomType;
+import com.ftn.sbnz.model.models.EnvironmentalCondition;
+import com.ftn.sbnz.model.models.Treatment;
+import com.ftn.sbnz.model.models.TreatmentType;
+import com.ftn.sbnz.model.models.Crop;
+import com.ftn.sbnz.model.models.Phenophase;
+import com.ftn.sbnz.model.models.DiagnosisResult;
+
+// R01: Ako RH>85% i T∈[22,28]°C → rizik_plamenjače = visok
+rule "R01 - Visok rizik plamenjače zbog uslova"
+    when
+        $env: EnvironmentalCondition(humidity > 85, temperature >= 22, temperature <= 28)
+        $disease: Disease(name == "Plamenjača", probability < 30.0)
+    then
+        $disease.increaseProbability(30.0);
+        System.out.println("R01: Detektovani kritični uslovi za plamenjaču - RH: " + $env.getHumidity() + "%, T: " + $env.getTemperature() + "°C");
+        System.out.println("     Povećana verovatnoća plamenjače na: " + $disease.getProbability() + "%");
+        update($disease);
+end
+
+// R02: Ako rizik_plamenjače=visok i vodenaste lezije → verovatnoća_plamenjače +=25%
+rule "R02 - Plamenjača sa vodenastim lezijama"
+    when
+        $disease: Disease(name == "Plamenjača", probability >= 30.0, probability < 55.0)
+        $symptom: Symptom(type == SymptomType.WATERY_LESIONS, present == true)
+    then
+        $disease.increaseProbability(25.0);
+        System.out.println("R02: Detektovane vodenaste lezije uz visok rizik plamenjače");
+        System.out.println("     Povećana verovatnoća plamenjače na: " + $disease.getProbability() + "%");
+        update($disease);
+end
+
+// R04: Ako bele naslage i nema kondenzacije → pepelnica verovatna
+rule "R04 - Pepelnica sa belim naslagama"
+    when
+        $symptom: Symptom(type == SymptomType.WHITE_DEPOSITS, present == true)
+        $env: EnvironmentalCondition(humidity < 90)
+        $disease: Disease(name == "Pepelnica", probability < 40.0)
+    then
+        $disease.increaseProbability(40.0);
+        System.out.println("R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica");
+        System.out.println("     Povećana verovatnoća pepelnice na: " + $disease.getProbability() + "%");
+        update($disease);
+end
+
+// R06: Ako siva prevlaka i RH>90% → siva trulež; uklanjanje + ventilacija
+rule "R06 - Siva trulež sa sivom prevlakom"
+    when
+        $symptom: Symptom(type == SymptomType.GRAY_COATING, present == true)
+        $env: EnvironmentalCondition(humidity > 90)
+        $disease: Disease(name == "Siva trulež", probability < 50.0)
+    then
+        $disease.increaseProbability(50.0);
+        System.out.println("R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež");
+        System.out.println("     Povećana verovatnoća sive truleži na: " + $disease.getProbability() + "%");
+        System.out.println("     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije");
+        update($disease);
+end
+
+// R07: Ako uvenuće i posmeđenje žila → fuzarijum; proveri pH
+rule "R07 - Fuzarijum sa uvenućem i posmeđenjem"
+    when
+        $symptom1: Symptom(type == SymptomType.WILTING, present == true)
+        $symptom2: Symptom(type == SymptomType.BROWNING, present == true)
+        $disease: Disease(name == "Fuzarijum", probability < 45.0)
+    then
+        $disease.increaseProbability(45.0);
+        System.out.println("R07: Detektovano uvenuće i posmeđenje žila - fuzarijum");
+        System.out.println("     Povećana verovatnoća fuzarijuma na: " + $disease.getProbability() + "%");
+        System.out.println("     PREPORUKA: Proveriti pH zemljišta");
+        update($disease);
+end
+
+// R09: Ako mozaik šare i nema gljivičnih prevlaka → virus mozaika
+rule "R09 - Virus mozaika"
+    when
+        $symptom: Symptom(type == SymptomType.MOSAIC, present == true)
+        not Symptom(type == SymptomType.GRAY_COATING, present == true)
+        not Symptom(type == SymptomType.WHITE_DEPOSITS, present == true)
+        $disease: Disease(name == "Virus mozaika", probability < 60.0)
+    then
+        $disease.increaseProbability(60.0);
+        System.out.println("R09: Detektovane mozaik šare bez gljivičnih prevlaka - virus mozaika");
+        System.out.println("     Povećana verovatnoća virusa mozaika na: " + $disease.getProbability() + "%");
+        update($disease);
+end
