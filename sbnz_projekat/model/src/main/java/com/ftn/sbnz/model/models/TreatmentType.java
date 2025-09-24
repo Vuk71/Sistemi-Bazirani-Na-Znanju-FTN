@@ -3,7 +3,8 @@ package com.ftn.sbnz.model.models;
 public enum TreatmentType {
     BIOLOGICAL("Biološki"),
     CHEMICAL("Hemijski"),
-    SANITARY("Higijensko-sanitarne mere");
+    SANITARY("Higijensko-sanitarne mere"),
+    IRRIGATION("Navodnjavanje");
 
     private final String description;
 

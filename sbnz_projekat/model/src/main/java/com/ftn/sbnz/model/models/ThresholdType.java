@@ -5,7 +5,8 @@ public enum ThresholdType {
     WARNING("Upozorenje"),
     CRITICAL("Kritični opseg"),
     DISEASE_RISK("Rizik od bolesti"),
-    TREATMENT_WINDOW("Prozor za tretman");
+    TREATMENT_WINDOW("Prozor za tretman"),
+    PH("pH vrednost");
 
     private final String description;
 

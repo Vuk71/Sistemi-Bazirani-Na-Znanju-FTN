@@ -21,6 +21,10 @@ public class Treatment {
     private List<Phenophase> allowedPhenophases;
     private LocalDateTime createdAt;
     private boolean active;
+    private String recommendationReason;
+    private boolean blocked;
+    private String blockReason;
+    private int priority;
 
     public Treatment() {
         this.id = UUID.randomUUID();
@@ -83,6 +87,14 @@ public class Treatment {
 
     public void setWithdrawalDays(int withdrawalDays) {
         this.withdrawalDays = withdrawalDays;
+    }
+
+    public int getWithdrawalPeriod() {
+        return withdrawalDays;
+    }
+
+    public void setWithdrawalPeriod(int withdrawalPeriod) {
+        this.withdrawalDays = withdrawalPeriod;
     }
 
     public String getModeOfAction() {
@@ -163,6 +175,38 @@ public class Treatment {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getRecommendationReason() {
+        return recommendationReason;
+    }
+
+    public void setRecommendationReason(String recommendationReason) {
+        this.recommendationReason = recommendationReason;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    public String getBlockReason() {
+        return blockReason;
+    }
+
+    public void setBlockReason(String blockReason) {
+        this.blockReason = blockReason;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public boolean isAllowedInPhenophase(Phenophase phenophase) {

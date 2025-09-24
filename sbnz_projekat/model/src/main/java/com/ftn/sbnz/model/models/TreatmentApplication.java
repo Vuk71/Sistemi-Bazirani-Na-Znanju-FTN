@@ -16,6 +16,9 @@ public class TreatmentApplication {
     private String notes;
     private double effectiveness; // 0-100%
     private LocalDateTime effectivenessEvaluatedAt;
+    private TreatmentType treatmentType;
+    private LocalDateTime applicationTime;
+    private Treatment treatment;
 
     public TreatmentApplication() {
         this.id = UUID.randomUUID();
@@ -119,6 +122,33 @@ public class TreatmentApplication {
 
     public void setEffectivenessEvaluatedAt(LocalDateTime effectivenessEvaluatedAt) {
         this.effectivenessEvaluatedAt = effectivenessEvaluatedAt;
+    }
+
+    public TreatmentType getTreatmentType() {
+        return treatmentType;
+    }
+
+    public void setTreatmentType(TreatmentType treatmentType) {
+        this.treatmentType = treatmentType;
+    }
+
+    public LocalDateTime getApplicationTime() {
+        return applicationTime != null ? applicationTime : appliedAt;
+    }
+
+    public void setApplicationTime(LocalDateTime applicationTime) {
+        this.applicationTime = applicationTime;
+    }
+
+    public Treatment getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+        if (treatment != null) {
+            this.treatmentType = treatment.getType();
+        }
     }
 
     @Override

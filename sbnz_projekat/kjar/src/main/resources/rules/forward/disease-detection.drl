@@ -88,3 +88,98 @@ rule "R09 - Virus mozaika"
         System.out.println("     Povećana verovatnoća virusa mozaika na: " + $disease.getProbability() + "%");
         update($disease);
 end
+
+// R11: Ako navodnjavanje kasno uveče → rizik plamenjače +10% (samo jednom)
+rule "R11 - Kasno navodnjavanje povećava rizik"
+    when
+        $env: EnvironmentalCondition(humidity > 80)
+        $disease: Disease(name == "Plamenjača", probability < 90.0)
+    then
+        $disease.increaseProbability(10.0);
+        System.out.println("R11: Visoka vlažnost povećava rizik plamenjače");
+        System.out.println("     Povećana verovatnoća plamenjače na: " + $disease.getProbability() + "%");
+        update($disease);
+end
+
+// R12: Ako RH>92% kontinuirano 2h → alarm „kritična zasićenost"
+rule "R12 - Kritična zasićenost vlažnosti"
+    when
+        $env: EnvironmentalCondition(humidity > 92)
+        $alert: RiskAlert(message == null || message == "")
+    then
+        $alert.setRiskLevel(RiskLevel.CRITICAL);
+        $alert.setMessage("KRITIČNA ZASIĆENOST - RH > 92%");
+        $alert.setRecommendation("HITNO: Maksimalna ventilacija, grejanje, smanjiti navodnjavanje");
+        
+        System.out.println("R12: KRITIČNI ALARM - Zasićenost vlažnosti!");
+        System.out.println("     RH = " + $env.getHumidity() + "% (kritično > 92%)");
+        System.out.println("     " + $alert.getRecommendation());
+        
+        update($alert);
+end
+
+// R13: Ako isti MOA ponovljen >3x → upozorenje na rezistenciju
+rule "R13 - Upozorenje na rezistenciju"
+    when
+        $treatment: Treatment($moa: modeOfAction, modeOfAction != null)
+        $applications: List(size > 3) from collect(
+            TreatmentApplication(treatment.modeOfAction == $moa)
+        )
+        $alert: RiskAlert(message == null || message == "")
+    then
+        $alert.setRiskLevel(RiskLevel.MEDIUM);
+        $alert.setMessage("UPOZORENJE: Isti MOA (" + $moa + ") korišćen > 3x");
+        $alert.setRecommendation("Promeniti mehanizam delovanja, rotacija fungicida");
+        
+        System.out.println("R13: UPOZORENJE - Rizik rezistencije!");
+        System.out.println("     MOA " + $moa + " korišćen " + $applications.size() + " puta");
+        System.out.println("     " + $alert.getRecommendation());
+        
+        update($alert);
+end
+
+// R14: Ako karenca preparata > 7 dana → blokiraj preporuku za kratkoročnu berbu
+rule "R14 - Blokiranje tretmana zbog karence"
+    when
+        $treatment: Treatment(withdrawalPeriod > 7, blocked == false)
+        $crop: Crop(phenophase == Phenophase.FRUITING)
+    then
+        System.out.println("R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!");
+        System.out.println("     Tretman: " + $treatment.getName());
+        System.out.println("     Karenca: " + $treatment.getWithdrawalPeriod() + " dana");
+        System.out.println("     PREPORUKA: Koristiti tretman bez karence");
+        
+        $treatment.setBlocked(true);
+        $treatment.setBlockReason("Karenca (" + $treatment.getWithdrawalPeriod() + "d) > 7d u plodonošenju");
+        update($treatment);
+end
+
+// R15: Ako više bolesti verovatne → izračunaj skor po Bayes priorima
+rule "R15 - Bayes analiza za više bolesti"
+    when
+        $diseases: List(size > 1) from collect(
+            Disease(probability >= 30.0)
+        )
+        $result: DiagnosisResult()
+    then
+        System.out.println("R15: Detektovano više verovatnih bolesti - Bayes analiza");
+        
+        double totalProbability = 0.0;
+        for (Object obj : $diseases) {
+            Disease disease = (Disease) obj;
+            totalProbability += disease.getProbability();
+        }
+        
+        // Normalizacija verovatnoća
+        for (Object obj : $diseases) {
+            Disease disease = (Disease) obj;
+            double normalizedProb = (disease.getProbability() / totalProbability) * 100.0;
+            disease.setProbability(normalizedProb);
+            
+            System.out.println("     " + disease.getName() + ": " + 
+                String.format("%.1f", normalizedProb) + "% (normalizovano)");
+        }
+        
+        $result.setProbableDiseases($diseases);
+        update($result);
+end

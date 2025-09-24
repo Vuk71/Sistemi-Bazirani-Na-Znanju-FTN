@@ -1,19 +1,24 @@
 package forward;
 
-import com.ftn.sbnz.model.models.Disease;
-import com.ftn.sbnz.model.models.Treatment;
-import com.ftn.sbnz.model.models.TreatmentType;
-import com.ftn.sbnz.model.models.Crop;
-import com.ftn.sbnz.model.models.Phenophase;
+import com.ftn.sbnz.model.models.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 // R03: Ako verovatnoća_plamenjače ≥70% → preporuči bakarni preparat
 rule "R03 - Preporučiti bakarni preparat za plamenjaču"
     when
         $disease: Disease(name == "Plamenjača", probability >= 70.0)
         $treatment: Treatment(name == "Bakarni preparat", recommended == false)
+        $crop: Crop()
     then
         $treatment.setRecommended(true);
-        System.out.println("R03: Preporučen bakarni preparat za plamenjaču (verovatnoća: " + $disease.getProbability() + "%)");
+        $treatment.setRecommendationReason("Visoka verovatnoća plamenjače (" + $disease.getProbability() + "%)");
+        
+        System.out.println("R03: Preporučen bakarni preparat za plamenjaču");
+        System.out.println("     Verovatnoća: " + $disease.getProbability() + "%");
+        System.out.println("     Doza: " + $treatment.getDosage());
+        System.out.println("     Karenca: " + $treatment.getWithdrawalPeriod() + " dana");
+        
         update($treatment);
 end
 
@@ -25,21 +30,27 @@ rule "R05 - Biološki fungicidi u plodonošenju za pepelnicu"
         $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
     then
         $treatment.setRecommended(true);
-        System.out.println("R05: Preporučen biološki fungicid za pepelnicu u fazi plodonošenja");
+        $treatment.setRecommendationReason("Pepelnica u fazi plodonošenja - samo biološki tretmani");
+        
+        System.out.println("R05: Preporučen biološki fungicid za pepelnicu u plodonošenju");
         System.out.println("     Tretman: " + $treatment.getName());
+        System.out.println("     Razlog: Bezbednost u fazi plodonošenja");
+        
         update($treatment);
 end
 
-// R08: Ako fuzarijum potvrđen i pH<5.5 → Trichoderma tretman
-rule "R08 - Trichoderma za fuzarijum pri niskom pH"
+// R08: Ako fuzarijum potvrđen → Trichoderma tretman
+rule "R08 - Trichoderma za fuzarijum"
     when
         $disease: Disease(name == "Fuzarijum", probability >= 45.0)
-        // Simuliramo nizak pH kao uslov
         $treatment: Treatment(name == "Trichoderma", recommended == false)
     then
         $treatment.setRecommended(true);
+        $treatment.setRecommendationReason("Fuzarijum detektovan - Trichoderma efikasna");
+        
         System.out.println("R08: Preporučen Trichoderma tretman za fuzarijum");
-        System.out.println("     Napomena: Proveriti da li je pH < 5.5");
+        System.out.println("     Doza: " + $treatment.getDosage());
+        
         update($treatment);
 end
 
@@ -50,19 +61,86 @@ rule "R10 - Sanitarne mere za virus"
         $treatment: Treatment(type == TreatmentType.SANITARY, recommended == false)
     then
         $treatment.setRecommended(true);
+        $treatment.setRecommendationReason("Virus mozaika - potrebne hitne sanitarne mere");
+        
         System.out.println("R10: Preporučene sanitarne mere za virus mozaika");
         System.out.println("     Tretman: " + $treatment.getName());
+        System.out.println("     HITNO: Sprečiti širenje virusa");
+        
+        update($treatment);
+end
+
+// Novo pravilo: Kombinovani tretman za sive truleži
+rule "R16 - Kombinovani tretman za sivu trulež"
+    when
+        $disease: Disease(name == "Siva trulež", probability >= 50.0)
+        $env: EnvironmentalCondition(humidity > 90)
+        $treatment1: Treatment(name == "Uklanjanje zaraženih biljaka", recommended == false)
+        $treatment2: Treatment(name == "Biološki fungicid", recommended == false)
+    then
+        $treatment1.setRecommended(true);
+        $treatment1.setRecommendationReason("Siva trulež + visoka vlažnost - hitno uklanjanje");
+        
+        $treatment2.setRecommended(true);
+        $treatment2.setRecommendationReason("Preventivni tretman nakon uklanjanja");
+        
+        System.out.println("R16: Kombinovani tretman za sivu trulež");
+        System.out.println("     1. " + $treatment1.getName());
+        System.out.println("     2. " + $treatment2.getName());
+        System.out.println("     RH: " + $env.getHumidity() + "% - kritično!");
+        
+        update($treatment1);
+        update($treatment2);
+end
+
+// Novo pravilo: Preventivni tretman na osnovu CEP alarma
+rule "R17 - Preventivni tretman na osnovu CEP alarma"
+    when
+        $alert: RiskAlert(riskLevel == RiskLevel.HIGH, diseaseName != null)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+        $disease: Disease(name == $alert.diseaseName, probability < 50.0)
+    then
+        $treatment.setRecommended(true);
+        $treatment.setRecommendationReason("Preventivni tretman na osnovu CEP alarma: " + $alert.getMessage());
+        
+        System.out.println("R17: Preventivni tretman na osnovu CEP alarma");
+        System.out.println("     Alarm: " + $alert.getMessage());
+        System.out.println("     Tretman: " + $treatment.getName());
+        
         update($treatment);
 end
 
 // Pravilo za kreiranje dijagnoze kada je verovatnoća dovoljno visoka
-rule "Kreiranje dijagnoze"
+rule "Kreiranje dijagnoze - visoka verovatnoća"
     when
         $disease: Disease(probability >= 70.0)
         $result: DiagnosisResult()
+        not (DiagnosisResult(probableDiseases contains $disease))
     then
         $result.getProbableDiseases().add($disease);
-        System.out.println("DIJAGNOZA: " + $disease.getName() + " sa verovatnoćom " + $disease.getProbability() + "%");
+        $result.addExplanation("DIJAGNOZA: " + $disease.getName() + " sa verovatnoćom " + 
+            String.format("%.1f", $disease.getProbability()) + "%");
+        
+        System.out.println("DIJAGNOZA: " + $disease.getName() + " sa verovatnoćom " + 
+            String.format("%.1f", $disease.getProbability()) + "%");
+        
+        update($result);
+end
+
+// Pravilo za sumnjive dijagnoze (umerena verovatnoća)
+rule "Kreiranje dijagnoze - umerena verovatnoća"
+    when
+        $disease: Disease(probability >= 40.0, probability < 70.0)
+        $result: DiagnosisResult()
+        not (DiagnosisResult(probableDiseases contains $disease))
+    then
+        $result.getProbableDiseases().add($disease);
+        $result.addExplanation("SUMNJA: " + $disease.getName() + " sa verovatnoćom " + 
+            String.format("%.1f", $disease.getProbability()) + "% - potrebno dodatno praćenje");
+        
+        System.out.println("SUMNJA: " + $disease.getName() + " sa verovatnoćom " + 
+            String.format("%.1f", $disease.getProbability()) + "%");
+        
         update($result);
 end
 
@@ -71,8 +149,50 @@ rule "Dodavanje preporučenih tretmana"
     when
         $treatment: Treatment(recommended == true)
         $result: DiagnosisResult()
+        not (DiagnosisResult(recommendedTreatments contains $treatment))
     then
         $result.getRecommendedTreatments().add($treatment);
+        $result.addExplanation("TRETMAN: " + $treatment.getName() + " (" + $treatment.getType() + 
+            ") - " + $treatment.getRecommendationReason());
+        
         System.out.println("PREPORUČEN TRETMAN: " + $treatment.getName() + " (" + $treatment.getType() + ")");
+        if ($treatment.getRecommendationReason() != null) {
+            System.out.println("     Razlog: " + $treatment.getRecommendationReason());
+        }
+        
         update($result);
+end
+
+// Pravilo za prioritizaciju tretmana
+rule "Prioritizacija tretmana po hitnosti"
+    salience 100
+    when
+        $treatment: Treatment(recommended == true, type == TreatmentType.SANITARY)
+        $result: DiagnosisResult()
+    then
+        $treatment.setPriority(1); // Najviši prioritet za sanitarne mere
+        System.out.println("PRIORITET 1 (HITNO): " + $treatment.getName());
+        update($treatment);
+end
+
+rule "Prioritizacija bioloških tretmana"
+    salience 90
+    when
+        $treatment: Treatment(recommended == true, type == TreatmentType.BIOLOGICAL)
+        $result: DiagnosisResult()
+    then
+        $treatment.setPriority(2);
+        System.out.println("PRIORITET 2 (BIOLOŠKI): " + $treatment.getName());
+        update($treatment);
+end
+
+rule "Prioritizacija hemijskih tretmana"
+    salience 80
+    when
+        $treatment: Treatment(recommended == true, type == TreatmentType.CHEMICAL)
+        $result: DiagnosisResult()
+    then
+        $treatment.setPriority(3);
+        System.out.println("PRIORITET 3 (HEMIJSKI): " + $treatment.getName());
+        update($treatment);
 end

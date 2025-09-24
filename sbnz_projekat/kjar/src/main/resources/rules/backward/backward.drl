@@ -1,1 +1,189 @@
 package backward;
+
+import com.ftn.sbnz.model.models.*;
+import java.util.List;
+import java.util.ArrayList;
+
+// Backward chaining pravilo za dijagnostiku bolesti
+rule "BC-C1: Proveri da li je bolest verovatna"
+    when
+        $query: DiagnosticQuery(queryType == "IS_DISEASE_PROBABLE", result == null)
+        $disease: Disease(name == $query.getDiseaseName(), probability >= 50.0)
+    then
+        $query.setResult("DA - Bolest " + $query.getDiseaseName() + " je verovatna sa " + $disease.getProbability() + "%");
+        
+        List<String> explanations = new ArrayList<>();
+        explanations.add("Verovatnoća bolesti: " + $disease.getProbability() + "%");
+        explanations.add("Prag za pozitivnu dijagnozu: 50%");
+        
+        if ($disease.getProbability() >= 70.0) {
+            explanations.add("VISOKA verovatnoća - preporučuje se tretman");
+        } else if ($disease.getProbability() >= 50.0) {
+            explanations.add("UMERENA verovatnoća - potrebno dodatno praćenje");
+        }
+        
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC-C1: Odgovor na upit 'Da li je " + $query.getDiseaseName() + " verovatna?'");
+        System.out.println("       Rezultat: " + $query.getResult());
+        for (String exp : explanations) {
+            System.out.println("       - " + exp);
+        }
+        
+        update($query);
+end
+
+rule "BC-C1: Bolest nije verovatna"
+    when
+        $query: DiagnosticQuery(queryType == "IS_DISEASE_PROBABLE", result == null)
+        $disease: Disease(name == $query.getDiseaseName(), probability < 50.0)
+    then
+        $query.setResult("NE - Bolest " + $query.getDiseaseName() + " nije dovoljno verovatna (" + $disease.getProbability() + "%)");
+        
+        List<String> explanations = new ArrayList<>();
+        explanations.add("Verovatnoća bolesti: " + $disease.getProbability() + "%");
+        explanations.add("Prag za pozitivnu dijagnozu: 50%");
+        explanations.add("Potrebni dodatni simptomi ili uslovi za dijagnozu");
+        
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC-C1: Odgovor na upit 'Da li je " + $query.getDiseaseName() + " verovatna?'");
+        System.out.println("       Rezultat: " + $query.getResult());
+        
+        update($query);
+end
+
+// Backward chaining pravilo za dozvolu tretmana
+rule "BC-C2: Tretman je dozvoljen u fenofazi"
+    when
+        $query: DiagnosticQuery(queryType == "IS_TREATMENT_ALLOWED", result == null)
+        $treatment: Treatment(name == $query.getTreatmentName())
+        $crop: Crop(phenophase == $query.getPhenophase())
+        not Contraindication(
+            treatmentName == $query.getTreatmentName(), 
+            phenophase == $query.getPhenophase()
+        )
+    then
+        $query.setResult("DA - Tretman " + $query.getTreatmentName() + " je dozvoljen u fenofazi " + $query.getPhenophase());
+        
+        List<String> explanations = new ArrayList<>();
+        explanations.add("Tretman: " + $treatment.getName() + " (" + $treatment.getType() + ")");
+        explanations.add("Fenofaza: " + $query.getPhenophase());
+        explanations.add("Karenca: " + $treatment.getWithdrawalPeriod() + " dana");
+        explanations.add("Nema registrovanih kontraindikacija");
+        
+        if ($treatment.getWithdrawalPeriod() > 0) {
+            explanations.add("PAŽNJA: Poštovati karencu od " + $treatment.getWithdrawalPeriod() + " dana");
+        }
+        
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC-C2: Odgovor na upit 'Da li je tretman dozvoljen?'");
+        System.out.println("       Rezultat: " + $query.getResult());
+        
+        update($query);
+end
+
+rule "BC-C2: Tretman nije dozvoljen"
+    when
+        $query: DiagnosticQuery(queryType == "IS_TREATMENT_ALLOWED", result == null)
+        $contraindication: Contraindication(
+            treatmentName == $query.getTreatmentName(),
+            phenophase == $query.getPhenophase()
+        )
+    then
+        $query.setResult("NE - Tretman " + $query.getTreatmentName() + " NIJE dozvoljen u fenofazi " + $query.getPhenophase());
+        
+        List<String> explanations = new ArrayList<>();
+        explanations.add("Razlog: " + $contraindication.getDescription());
+        explanations.add("Tip kontraindikacije: " + $contraindication.getType());
+        explanations.add("Preporučuje se konsultacija sa agronomom");
+        
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC-C2: Odgovor na upit 'Da li je tretman dozvoljen?'");
+        System.out.println("       Rezultat: " + $query.getResult());
+        
+        update($query);
+end
+
+rule "BC-C2: Tretman nije pronađen"
+    when
+        $query: DiagnosticQuery(queryType == "IS_TREATMENT_ALLOWED", result == null)
+        not Treatment(name == $query.getTreatmentName())
+    then
+        $query.setResult("NE - Tretman " + $query.getTreatmentName() + " nije pronađen u bazi");
+        
+        List<String> explanations = new ArrayList<>();
+        explanations.add("Tretman nije pronađen u bazi");
+        explanations.add("Preporučuje se konsultacija sa agronomom");
+        
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC-C2: Odgovor na upit 'Da li je tretman dozvoljen?'");
+        System.out.println("       Rezultat: " + $query.getResult());
+        
+        update($query);
+end
+
+// Backward chaining pravilo za uzroke rizika
+rule "BC-C3: Analiza uzroka rizika bolesti"
+    when
+        $query: DiagnosticQuery(queryType == "WHAT_CAUSED_RISK", result == null)
+        $disease: Disease(name == $query.getDiseaseName(), probability > 0)
+        $env: EnvironmentalCondition()
+    then
+        List<String> causes = new ArrayList<>();
+        List<String> explanations = new ArrayList<>();
+        
+        // Analiza uzroka na osnovu uslova
+        if ($query.getDiseaseName().equals("Plamenjača")) {
+            if ($env.getHumidity() > 85 && $env.getTemperature() >= 22 && $env.getTemperature() <= 28) {
+                causes.add("Kritični uslovi: RH=" + $env.getHumidity() + "%, T=" + $env.getTemperature() + "°C");
+                explanations.add("Optimalni uslovi za Phytophthora infestans");
+            }
+        } else if ($query.getDiseaseName().equals("Pepelnica")) {
+            if ($env.getHumidity() >= 60 && $env.getHumidity() <= 80) {
+                causes.add("Umerena vlažnost: RH=" + $env.getHumidity() + "%");
+                explanations.add("Pepelnica preferira umerenu vlažnost");
+            }
+        } else if ($query.getDiseaseName().equals("Siva trulež")) {
+            if ($env.getHumidity() > 90) {
+                causes.add("Visoka vlažnost: RH=" + $env.getHumidity() + "%");
+                explanations.add("Botrytis cinerea treba visoku vlažnost");
+            }
+        }
+        
+        if (causes.isEmpty()) {
+            causes.add("Uslovi nisu kritični, mogući drugi faktori");
+            explanations.add("Potrebna analiza simptoma i istorije tretmana");
+        }
+        
+        $query.setResult("Identifikovani uzroci rizika za " + $query.getDiseaseName() + ": " + String.join(", ", causes));
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC-C3: Odgovor na upit 'Koji uslovi su doveli do rizika?'");
+        System.out.println("       Bolest: " + $query.getDiseaseName());
+        System.out.println("       Rezultat: " + $query.getResult());
+        
+        update($query);
+end
+
+// Pravilo za slučaj kada bolest nije pronađena
+rule "BC: Bolest nije pronađena"
+    when
+        $query: DiagnosticQuery(result == null)
+        not Disease(name == $query.getDiseaseName())
+    then
+        $query.setResult("GREŠKA - Bolest '" + $query.getDiseaseName() + "' nije pronađena u bazi znanja");
+        
+        List<String> explanations = new ArrayList<>();
+        explanations.add("Proverite naziv bolesti");
+        explanations.add("Dostupne bolesti: Plamenjača, Pepelnica, Siva trulež, Fuzarijum, Virus mozaika");
+        
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC: GREŠKA - Nepoznata bolest: " + $query.getDiseaseName());
+        
+        update($query);
+end

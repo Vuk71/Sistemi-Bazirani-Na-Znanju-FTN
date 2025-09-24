@@ -18,6 +18,11 @@ public class RiskAlert {
     private LocalDateTime acknowledgedAt;
     private UUID acknowledgedBy;
     private String recommendedAction;
+    private RiskLevel riskLevel;
+    private String message;
+    private String diseaseName;
+    private LocalDateTime timestamp;
+    private String recommendation;
 
     public RiskAlert() {
         this.id = UUID.randomUUID();
@@ -147,6 +152,50 @@ public class RiskAlert {
 
     public void resolve() {
         this.status = AlertStatus.RESOLVED;
+    }
+
+    public RiskLevel getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(RiskLevel riskLevel) {
+        this.riskLevel = riskLevel;
+        this.level = riskLevel; // Keep both for compatibility
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+        this.description = message; // Keep both for compatibility
+    }
+
+    public String getDiseaseName() {
+        return diseaseName;
+    }
+
+    public void setDiseaseName(String diseaseName) {
+        this.diseaseName = diseaseName;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+        this.triggeredAt = timestamp; // Keep both for compatibility
+    }
+
+    public String getRecommendation() {
+        return recommendation;
+    }
+
+    public void setRecommendation(String recommendation) {
+        this.recommendation = recommendation;
+        this.recommendedAction = recommendation; // Keep both for compatibility
     }
 
     @Override

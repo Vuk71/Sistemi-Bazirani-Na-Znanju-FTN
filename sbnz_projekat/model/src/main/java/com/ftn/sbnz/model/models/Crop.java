@@ -99,6 +99,14 @@ public class Crop {
         this.expectedHarvestDate = expectedHarvestDate;
     }
 
+    public LocalDate getPlannedHarvestDate() {
+        return expectedHarvestDate;
+    }
+
+    public void setPlannedHarvestDate(LocalDate plannedHarvestDate) {
+        this.expectedHarvestDate = plannedHarvestDate;
+    }
+
     public List<SymptomReport> getSymptomReports() {
         return symptomReports;
     }

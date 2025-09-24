@@ -2,10 +2,15 @@ package com.ftn.sbnz.model.models;
 
 import java.util.UUID;
 import java.time.LocalDateTime;
+import org.kie.api.definition.type.Role;
+import org.kie.api.definition.type.Timestamp;
 
+@Role(Role.Type.EVENT)
+@Timestamp("timestampMillis")
 public class SensorReading {
     private UUID id;
     private UUID sensorId;
+    private SensorType sensorType;
     private double value;
     private LocalDateTime timestamp;
     private boolean validated;
@@ -25,6 +30,17 @@ public class SensorReading {
 
     public SensorReading(UUID sensorId, double value, LocalDateTime timestamp) {
         this(sensorId, value);
+        this.timestamp = timestamp;
+    }
+
+    public SensorReading(SensorType sensorType, double value) {
+        this();
+        this.sensorType = sensorType;
+        this.value = value;
+    }
+
+    public SensorReading(SensorType sensorType, double value, LocalDateTime timestamp) {
+        this(sensorType, value);
         this.timestamp = timestamp;
     }
 
@@ -61,6 +77,12 @@ public class SensorReading {
         this.timestamp = timestamp;
     }
 
+    public long getTimestampMillis() {
+        return timestamp != null ? 
+            timestamp.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli() : 
+            System.currentTimeMillis();
+    }
+
     public boolean isValidated() {
         return validated;
     }
@@ -75,6 +97,14 @@ public class SensorReading {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public SensorType getSensorType() {
+        return sensorType;
+    }
+
+    public void setSensorType(SensorType sensorType) {
+        this.sensorType = sensorType;
     }
 
     @Override

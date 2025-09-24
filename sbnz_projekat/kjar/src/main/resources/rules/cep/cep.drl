@@ -1,1 +1,156 @@
 package cep;
+
+import com.ftn.sbnz.model.models.*;
+import com.ftn.sbnz.model.events.*;
+import java.time.LocalDateTime;
+
+// E1: Kritični uslovi za plamenjaču - simulacija sliding window
+rule "CEP-E1: Kritični uslovi za plamenjaču"
+    when
+        $humidityReadings: List(size >= 3) from collect(
+            SensorReading(sensorType == SensorType.HUMIDITY, value > 85.0)
+        )
+        $tempReadings: List(size >= 3) from collect(
+            SensorReading(sensorType == SensorType.TEMPERATURE, value >= 22.0, value <= 28.0)
+        )
+        $alert: RiskAlert(message == null || message.equals(""))
+    then
+        $alert.setRiskLevel(RiskLevel.HIGH);
+        $alert.setMessage("Kritični uslovi za plamenjaču detektovani - sliding window simulacija");
+        $alert.setDiseaseName("Plamenjača");
+        $alert.setTimestamp(LocalDateTime.now());
+        $alert.setRecommendation("Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman");
+        
+        System.out.println("CEP-E1: ALARM - Kritični uslovi za plamenjaču!");
+        System.out.println("        RH > 85% (" + $humidityReadings.size() + " očitavanja) + T: 22-28°C (" + $tempReadings.size() + " očitavanja)");
+        System.out.println("        Preporuka: " + $alert.getRecommendation());
+        
+        update($alert);
+end
+
+// E2: Rizik kondenzacije - tumbling window simulacija
+rule "CEP-E2: Rizik kondenzacije"
+    when
+        $highHumidityReadings: List(size >= 4) from collect(
+            SensorReading(sensorType == SensorType.HUMIDITY, value > 90.0)
+        )
+        $ventilationOff: List(size >= 2) from collect(
+            VentilationEvent(active == false)
+        )
+        $alert: RiskAlert(message == null || message.equals(""))
+    then
+        $alert.setRiskLevel(RiskLevel.CRITICAL);
+        $alert.setMessage("Kritičan rizik kondenzacije - visoka vlažnost bez ventilacije");
+        $alert.setDiseaseName("Botrytis/Siva trulež");
+        $alert.setTimestamp(LocalDateTime.now());
+        $alert.setRecommendation("HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke");
+        
+        System.out.println("CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!");
+        System.out.println("        RH > 90% (" + $highHumidityReadings.size() + " očitavanja) + ventilacija OFF (" + $ventilationOff.size() + " događaja)");
+        System.out.println("        Preporuka: " + $alert.getRecommendation());
+        
+        update($alert);
+end
+
+// E3: Sekvencijalni obrazac - Rizik Botrytis nakon navodnjavanja
+rule "CEP-E3: Rizik Botrytis nakon navodnjavanja"
+    when
+        $irrigation: IrrigationEvent()
+        $humidity: SensorReading(sensorType == SensorType.HUMIDITY, value > 88.0)
+        $co2: SensorReading(sensorType == SensorType.CO2, value > 1200.0)
+        $alert: RiskAlert(message == null || message.equals(""))
+    then
+        $alert.setRiskLevel(RiskLevel.HIGH);
+        $alert.setMessage("Rizik Botrytis nakon navodnjavanja - visoka vlažnost i CO2");
+        $alert.setDiseaseName("Botrytis cinerea");
+        $alert.setTimestamp(LocalDateTime.now());
+        $alert.setRecommendation("Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost");
+        
+        System.out.println("CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!");
+        System.out.println("        Navodnjavanje + RH: " + $humidity.getValue() + "% + CO2: " + $co2.getValue() + "ppm");
+        System.out.println("        Preporuka: " + $alert.getRecommendation());
+        
+        update($alert);
+end
+
+// E4: Nedostajući događaj - Alarm ventilacije
+rule "CEP-E4: Alarm ventilacije - nedostajući događaj"
+    when
+        $humidity: SensorReading(sensorType == SensorType.HUMIDITY, value > 90.0)
+        not VentilationEvent(active == true)
+        $alert: RiskAlert(message == null || message.equals(""))
+    then
+        $alert.setRiskLevel(RiskLevel.CRITICAL);
+        $alert.setMessage("Ventilacija nije aktivirana uprkos visokoj vlažnosti");
+        $alert.setDiseaseName("Opšti rizik gljivičnih bolesti");
+        $alert.setTimestamp(LocalDateTime.now());
+        $alert.setRecommendation("HITNO: Aktivirati ventilaciju, proveriti sistem");
+        
+        System.out.println("CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!");
+        System.out.println("        RH: " + $humidity.getValue() + "% > 90% bez aktivne ventilacije");
+        System.out.println("        Preporuka: " + $alert.getRecommendation());
+        
+        update($alert);
+end
+
+// E5: Kombinovani uslovi - Optimalni uslovi za pepelnicu
+rule "CEP-E5: Optimalni uslovi za pepelnicu"
+    when
+        $tempReadings: List(size >= 2) from collect(
+            SensorReading(sensorType == SensorType.TEMPERATURE, value >= 20.0, value <= 25.0)
+        )
+        $humidityReadings: List(size >= 2) from collect(
+            SensorReading(sensorType == SensorType.HUMIDITY, value >= 60.0, value <= 80.0)
+        )
+        $alert: RiskAlert(message == null || message.equals(""))
+    then
+        $alert.setRiskLevel(RiskLevel.MEDIUM);
+        $alert.setMessage("Optimalni uslovi za razvoj pepelnice");
+        $alert.setDiseaseName("Pepelnica");
+        $alert.setTimestamp(LocalDateTime.now());
+        $alert.setRecommendation("Preventivni tretman biološkim fungicidima, monitoring simptoma");
+        
+        System.out.println("CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!");
+        System.out.println("        T: 20-25°C (" + $tempReadings.size() + " očitavanja) + RH: 60-80% (" + $humidityReadings.size() + " očitavanja)");
+        System.out.println("        Preporuka: " + $alert.getRecommendation());
+        
+        update($alert);
+end
+
+// E6: Trend analiza - Rastući trend vlažnosti
+rule "CEP-E6: Rastući trend vlažnosti"
+    when
+        $readings: List(size >= 5) from collect(
+            SensorReading(sensorType == SensorType.HUMIDITY) over window:time(2h)
+        )
+        eval(isIncreasingTrend($readings))
+    then
+        RiskAlert alert = new RiskAlert();
+        alert.setRiskLevel(RiskLevel.MEDIUM);
+        alert.setMessage("Detektovan rastući trend vlažnosti");
+        alert.setDiseaseName("Preventivno upozorenje");
+        alert.setTimestamp(LocalDateTime.now());
+        alert.setRecommendation("Pripremiti ventilaciju, pratiti razvoj situacije");
+        
+        System.out.println("CEP-E6: TREND ALARM - Rastući trend vlažnosti!");
+        System.out.println("        Kontinuirani rast vlažnosti u poslednjih 2h");
+        System.out.println("        Preporuka: " + alert.getRecommendation());
+        
+        insert(alert);
+end
+
+function boolean isIncreasingTrend(java.util.List readings) {
+    if (readings.size() < 3) return false;
+    
+    java.util.List<SensorReading> sortedReadings = new java.util.ArrayList(readings);
+    sortedReadings.sort((a, b) -> a.getTimestamp().compareTo(b.getTimestamp()));
+    
+    int increasingCount = 0;
+    for (int i = 1; i < sortedReadings.size(); i++) {
+        if (sortedReadings.get(i).getValue() > sortedReadings.get(i-1).getValue()) {
+            increasingCount++;
+        }
+    }
+    
+    return increasingCount >= (sortedReadings.size() * 0.7); // 70% rastućih vrednosti
+}

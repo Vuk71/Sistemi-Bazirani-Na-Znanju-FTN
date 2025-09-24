@@ -8,6 +8,8 @@ public class Contraindication {
     private ContraindicationType type;
     private String severity; // LOW, MEDIUM, HIGH, CRITICAL
     private String conditions;
+    private String treatmentName;
+    private Phenophase phenophase;
 
     public Contraindication() {
         this.id = UUID.randomUUID();
@@ -59,6 +61,22 @@ public class Contraindication {
 
     public void setConditions(String conditions) {
         this.conditions = conditions;
+    }
+
+    public String getTreatmentName() {
+        return treatmentName;
+    }
+
+    public void setTreatmentName(String treatmentName) {
+        this.treatmentName = treatmentName;
+    }
+
+    public Phenophase getPhenophase() {
+        return phenophase;
+    }
+
+    public void setPhenophase(Phenophase phenophase) {
+        this.phenophase = phenophase;
     }
 
     @Override

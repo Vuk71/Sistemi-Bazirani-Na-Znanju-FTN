@@ -124,6 +124,18 @@ public class Threshold {
         return value >= minValue && value <= maxValue;
     }
 
+    public double getValue() {
+        // For single value thresholds, return the minimum value
+        // This is used in rules where we check against a specific threshold
+        return minValue;
+    }
+
+    public void setValue(double value) {
+        this.minValue = value;
+        this.maxValue = value;
+        this.range = String.valueOf(value);
+    }
+
     @Override
     public String toString() {
         return "Threshold{" +
