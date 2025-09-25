@@ -47,12 +47,7 @@ public class CEPService {
                 cepSession.insert(event);
             }
             
-            // Kreiranje praznih alert objekata koje pravila mogu da popune
-            for (int i = 0; i < 10; i++) {
-                RiskAlert alert = new RiskAlert();
-                alerts.add(alert);
-                cepSession.insert(alert);
-            }
+            // Ne kreiramo unapred alert objekte - pravila će ih kreirati po potrebi
             
             // Pokretanje CEP pravila
             int firedRules = cepSession.fireAllRules();
@@ -60,11 +55,14 @@ public class CEPService {
             System.out.println("\n=== REZULTAT CEP ANALIZE ===");
             System.out.println("Aktivirano pravila: " + firedRules);
             
-            // Filtriranje samo popunjenih alertova
+            // Prikupljanje svih RiskAlert objekata iz sesije
             List<RiskAlert> activeAlerts = new ArrayList<>();
-            for (RiskAlert alert : alerts) {
-                if (alert.getMessage() != null && !alert.getMessage().isEmpty()) {
-                    activeAlerts.add(alert);
+            for (Object obj : cepSession.getObjects()) {
+                if (obj instanceof RiskAlert) {
+                    RiskAlert alert = (RiskAlert) obj;
+                    if (alert.getMessage() != null && !alert.getMessage().isEmpty()) {
+                        activeAlerts.add(alert);
+                    }
                 }
             }
             

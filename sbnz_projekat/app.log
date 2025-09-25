@@ -37,31 +37,31 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.9)
 
-2025-09-24 11:40:02.249  INFO 18699 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Starting ServiceApplication using Java 11.0.28 on C14788 with PID 18699 (/Users/vdimitrov/Documents/SBNZ/Sistemi-Bazirani-Na-Znanju-FTN/sbnz_projekat/service/target/classes started by vdimitrov in /Users/vdimitrov/Documents/SBNZ/Sistemi-Bazirani-Na-Znanju-FTN/sbnz_projekat/service)
-2025-09-24 11:40:02.251  INFO 18699 --- [           main] com.ftn.sbnz.service.ServiceApplication  : No active profile set, falling back to 1 default profile: "default"
-2025-09-24 11:40:02.504  INFO 18699 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
-2025-09-24 11:40:02.507  INFO 18699 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-09-24 11:40:02.508  INFO 18699 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
-2025-09-24 11:40:02.540  INFO 18699 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-09-24 11:40:02.540  INFO 18699 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 276 ms
-2025-09-24 11:40:02.575  INFO 18699 --- [           main] o.d.c.k.builder.impl.KieRepositoryImpl   : Adding KieModule from classpath: file:/Users/vdimitrov/.m2/repository/com/ftn/sbnz/kjar/0.0.1-SNAPSHOT/kjar-0.0.1-SNAPSHOT.jar
-2025-09-24 11:40:02.691  WARN 18699 --- [           main] o.a.m.i.embedder.MavenSettings           : Environment variable M2_HOME is not set
-2025-09-24 11:40:07.011  WARN 18699 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xerces:xercesImpl:2.12.0.SP03
-2025-09-24 11:40:07.320  WARN 18699 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xmlpull:xmlpull:1.2.0
-2025-09-24 11:40:07.596  WARN 18699 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xpp3:xpp3_min:1.2.0
-2025-09-24 11:40:07.620  INFO 18699 --- [           main] com.ftn.sbnz.service.SampleAppService    : Initialising a new example session.
-2025-09-24 11:40:07.716  INFO 18699 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
-2025-09-24 11:40:07.720  INFO 18699 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Started ServiceApplication in 5.687 seconds (JVM running for 5.83)
+2025-09-25 10:22:24.170  INFO 6218 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Starting ServiceApplication using Java 11.0.28 on C14788 with PID 6218 (/Users/vdimitrov/Documents/SBNZ/Sistemi-Bazirani-Na-Znanju-FTN/sbnz_projekat/service/target/classes started by vdimitrov in /Users/vdimitrov/Documents/SBNZ/Sistemi-Bazirani-Na-Znanju-FTN/sbnz_projekat/service)
+2025-09-25 10:22:24.171  INFO 6218 --- [           main] com.ftn.sbnz.service.ServiceApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-09-25 10:22:24.436  INFO 6218 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-09-25 10:22:24.439  INFO 6218 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-25 10:22:24.439  INFO 6218 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2025-09-25 10:22:24.473  INFO 6218 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-25 10:22:24.473  INFO 6218 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 284 ms
+2025-09-25 10:22:24.510  INFO 6218 --- [           main] o.d.c.k.builder.impl.KieRepositoryImpl   : Adding KieModule from classpath: file:/Users/vdimitrov/.m2/repository/com/ftn/sbnz/kjar/0.0.1-SNAPSHOT/kjar-0.0.1-SNAPSHOT.jar
+2025-09-25 10:22:24.633  WARN 6218 --- [           main] o.a.m.i.embedder.MavenSettings           : Environment variable M2_HOME is not set
+2025-09-25 10:22:28.942  WARN 6218 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xerces:xercesImpl:2.12.0.SP03
+2025-09-25 10:22:29.110  WARN 6218 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xmlpull:xmlpull:1.2.0
+2025-09-25 10:22:29.284  WARN 6218 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xpp3:xpp3_min:1.2.0
+2025-09-25 10:22:29.309  INFO 6218 --- [           main] com.ftn.sbnz.service.SampleAppService    : Initialising a new example session.
+2025-09-25 10:22:29.429  INFO 6218 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2025-09-25 10:22:29.434  INFO 6218 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Started ServiceApplication in 5.482 seconds (JVM running for 5.625)
 
 ============================================================
 POKRETANJE TESTOVA EKSPERTSKOG SISTEMA
 ============================================================
 
 --- TEST 1: PLAMENJAČA ---
-2025-09-24 11:40:07.722  WARN 18699 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:07.722  WARN 18699 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:07.723  WARN 18699 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:07.723  WARN 18699 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:22:29.437  WARN 6218 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:22:29.437  WARN 6218 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:22:29.437  WARN 6218 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:22:29.437  WARN 6218 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
 === POKRETANJE DIJAGNOSTIKE ===
 Uslovi: T=25.0°C, RH=87.0%
 Kultura: Paradajz (Vegetativni rast)
@@ -72,26 +72,27 @@ R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
      Povećana verovatnoća plamenjače na: 30.0%
 R02: Detektovane vodenaste lezije uz visok rizik plamenjače
      Povećana verovatnoća plamenjače na: 55.0%
-SUMNJA: Plamenjača sa verovatnoćom 55.0%
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 65.0%
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 75.0%
-R03: Preporučen bakarni preparat za plamenjaču
-     Verovatnoća: 75.0%
-     Doza: 2-3g/L
-     Karenca: 14 dana
-PRIORITET 3 (HEMIJSKI): Bakarni preparat
-PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
-     Razlog: Visoka verovatnoća plamenjače (75.0%)
-PRIORITET 3 (HEMIJSKI): Bakarni preparat
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 85.0%
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 95.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 95.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+DIJAGNOZA: Plamenjača sa verovatnoćom 95.0%
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (95.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
 
 === REZULTAT DIJAGNOSTIKE ===
-Aktivirano pravila: 11
+Aktivirano pravila: 12
 
 Rezultat dijagnoze:
   Dijagnostikovane bolesti:
@@ -108,6 +109,10 @@ Simptomi:
 
 R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
      Povećana verovatnoća pepelnice na: 40.0%
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
 R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
      Tretman: Biološki fungicid
      Razlog: Bezbednost u fazi plodonošenja
@@ -127,10 +132,6 @@ PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
      Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
 PRIORITET 2 (BIOLOŠKI): Trichoderma
 PRIORITET 2 (BIOLOŠKI): Biološki fungicid
-R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
-     Tretman: Bakarni preparat
-     Karenca: 14 dana
-     PREPORUKA: Koristiti tretman bez karence
 
 === REZULTAT DIJAGNOSTIKE ===
 Aktivirano pravila: 15
@@ -154,44 +155,14 @@ R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
 R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
      Povećana verovatnoća sive truleži na: 50.0%
      PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
-R16: Kombinovani tretman za sivu trulež
-     1. Uklanjanje zaraženih biljaka
-     2. Biološki fungicid
-     RH: 95.0% - kritično!
-PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
-PRIORITET 2 (BIOLOŠKI): Biološki fungicid
-SUMNJA: Siva trulež sa verovatnoćom 50.0%
-PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
-PRIORITET 2 (BIOLOŠKI): Biološki fungicid
-PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
-     Razlog: Preventivni tretman nakon uklanjanja
-PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
-PRIORITET 2 (BIOLOŠKI): Biološki fungicid
-PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
-     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
-PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
-PRIORITET 2 (BIOLOŠKI): Biološki fungicid
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 40.0%
-SUMNJA: Plamenjača sa verovatnoćom 40.0%
-PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
-PRIORITET 2 (BIOLOŠKI): Biološki fungicid
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 50.0%
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 60.0%
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 70.0%
-R03: Preporučen bakarni preparat za plamenjaču
-     Verovatnoća: 70.0%
-     Doza: 2-3g/L
-     Karenca: 14 dana
-PRIORITET 3 (HEMIJSKI): Bakarni preparat
-PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
-     Razlog: Visoka verovatnoća plamenjače (70.0%)
-PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
-PRIORITET 2 (BIOLOŠKI): Biološki fungicid
-PRIORITET 3 (HEMIJSKI): Bakarni preparat
 R11: Visoka vlažnost povećava rizik plamenjače
      Povećana verovatnoća plamenjače na: 80.0%
 R11: Visoka vlažnost povećava rizik plamenjače
@@ -199,9 +170,44 @@ R11: Visoka vlažnost povećava rizik plamenjače
 R15: Detektovano više verovatnih bolesti - Bayes analiza
      Siva trulež: 35.7% (normalizovano)
      Plamenjača: 64.3% (normalizovano)
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 64.28571428571429%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (64.28571428571429%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
 
 === REZULTAT DIJAGNOSTIKE ===
-Aktivirano pravila: 30
+Aktivirano pravila: 29
 
 Rezultat dijagnoze:
   Dijagnostikovane bolesti:
@@ -283,7 +289,7 @@ Rezultat dijagnoze:
 ============================================================
 SVI TESTOVI ZAVRŠENI
 ============================================================
-2025-09-24 11:40:08.118  INFO 18699 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Application beans:
+2025-09-25 10:22:29.893  INFO 6218 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Application beans:
 CEPController
 CEPService
 applicationAvailability
@@ -427,17 +433,17 @@ webServerFactoryCustomizerBeanPostProcessor
 websocketServletWebServerCustomizer
 welcomePageHandlerMapping
 
-2025-09-24 11:40:44.250  INFO 18699 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-24 11:40:44.251  INFO 18699 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-09-24 11:40:44.251  INFO 18699 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-09-25 10:23:03.203  INFO 6218 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-25 10:23:03.204  INFO 6218 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-25 10:23:03.204  INFO 6218 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
 
 ============================================================
 TEST: Kritični uslovi za plamenjaču (CEP-E1)
 ============================================================
-2025-09-24 11:40:44.260  WARN 18699 --- [nio-8081-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:44.260  WARN 18699 --- [nio-8081-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:44.261  WARN 18699 --- [nio-8081-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:44.261  WARN 18699 --- [nio-8081-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:03.213  WARN 6218 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:03.213  WARN 6218 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:03.213  WARN 6218 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:03.213  WARN 6218 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
 === POKRETANJE CEP ANALIZE ===
 Senzorska očitavanja: 12
 Događaji navodnjavanja: 0
@@ -445,37 +451,13 @@ Događaji ventilacije: 0
 CEP-E1: ALARM - Kritični uslovi za plamenjaču!
         RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
         Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
+        RH: 94.50691103293508% > 90% bez aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
 
 === REZULTAT CEP ANALIZE ===
-Aktivirano pravila: 10
-Generisano alertova: 10
+Aktivirano pravila: 2
+Generisano alertova: 2
 
 ============================================================
 TEST: Rizik kondenzacije (CEP-E2)
@@ -487,37 +469,13 @@ Događaji ventilacije: 3
 CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
         RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
         Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
-CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
-        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
-        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
+CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
+        RH: 92.50769239753657% > 90% bez aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
 
 === REZULTAT CEP ANALIZE ===
-Aktivirano pravila: 10
-Generisano alertova: 10
+Aktivirano pravila: 2
+Generisano alertova: 2
 
 ============================================================
 TEST: Rizik Botrytis nakon navodnjavanja (CEP-E3)
@@ -529,37 +487,10 @@ Događaji ventilacije: 0
 CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
         Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
         Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
-CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
-        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
-        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
 
 === REZULTAT CEP ANALIZE ===
-Aktivirano pravila: 10
-Generisano alertova: 10
+Aktivirano pravila: 1
+Generisano alertova: 1
 
 ============================================================
 TEST: Alarm ventilacije - nedostajući događaj (CEP-E4)
@@ -571,37 +502,10 @@ Događaji ventilacije: 0
 CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
         RH: 95.0% > 90% bez aktivne ventilacije
         Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH: 95.0% > 90% bez aktivne ventilacije
-        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
 
 === REZULTAT CEP ANALIZE ===
-Aktivirano pravila: 10
-Generisano alertova: 10
+Aktivirano pravila: 1
+Generisano alertova: 1
 
 ============================================================
 TEST: Optimalni uslovi za pepelnicu (CEP-E5)
@@ -613,37 +517,10 @@ Događaji ventilacije: 0
 CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
         T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
         Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
-CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
-        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
-        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
 
 === REZULTAT CEP ANALIZE ===
-Aktivirano pravila: 10
-Generisano alertova: 10
+Aktivirano pravila: 1
+Generisano alertova: 1
 
 ============================================================
 TEST: Rastući trend vlažnosti (CEP-E6)
@@ -658,15 +535,15 @@ CEP-E6: TREND ALARM - Rastući trend vlažnosti!
 
 === REZULTAT CEP ANALIZE ===
 Aktivirano pravila: 1
-Generisano alertova: 0
+Generisano alertova: 1
 
 ============================================================
 TEST: BC-C1 - Da li je bolest sa visokom verovatnoćom dijagnostikovana?
 ============================================================
-2025-09-24 11:40:51.346  WARN 18699 --- [nio-8081-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:51.346  WARN 18699 --- [nio-8081-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:51.346  WARN 18699 --- [nio-8081-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:40:51.346  WARN 18699 --- [nio-8081-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:09.652  WARN 6218 --- [nio-8080-exec-2] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:09.653  WARN 6218 --- [nio-8080-exec-2] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:09.653  WARN 6218 --- [nio-8080-exec-2] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-09-25 10:23:09.653  WARN 6218 --- [nio-8080-exec-2] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
 === BACKWARD CHAINING UPIT ===
 Tip upita: Da li je bolest verovatna?
 Bolest: Plamenjača
@@ -750,16 +627,850 @@ BC-C3: Odgovor na upit 'Koji uslovi su doveli do rizika?'
 === REZULTAT BC UPITA ===
 Aktivirano pravila: 1
 Odgovor: Identifikovani uzroci rizika za Pepelnica: Umerena vlažnost: RH=70.0%
-2025-09-24 11:58:52.496  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.497  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.497  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.497  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.539  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.539  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.539  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.539  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.621  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.621  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.621  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.621  WARN 18699 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
-2025-09-24 11:58:52.680  INFO 18699 --- [        Timer-0] org.kie.api.builder.KieScanner           : The following artifacts have been updated: {com.ftn.sbnz:kjar:0.0.1-SNAPSHOT=com.ftn.sbnz:kjar:jar:0.0.1-SNAPSHOT}
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 95.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+DIJAGNOZA: Plamenjača sa verovatnoćom 95.0%
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (95.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 12
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=24.0°C, RH=75.0%
+Kultura: Krastavac (Plodonošenje)
+Simptomi:
+  - Bele naslage
+
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Biološki fungicid
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Trichoderma
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 15
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=22.0°C, RH=95.0%
+Kultura: Paprika (Cvetanje)
+Simptomi:
+  - Siva prevlaka
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 50.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 60.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 70.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 80.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 90.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 64.28571428571429%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (64.28571428571429%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 29
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=28.0°C, RH=70.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Uvenuće
+  - Posmeđenje
+
+R07: Detektovano uvenuće i posmeđenje žila - fuzarijum
+     Povećana verovatnoća fuzarijuma na: 45.0%
+     PREPORUKA: Proveriti pH zemljišta
+R08: Preporučen Trichoderma tretman za fuzarijum
+     Doza: 5g/L
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Fuzarijum sa verovatnoćom 45.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Fuzarijum detektovan - Trichoderma efikasna
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 7
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=26.0°C, RH=65.0%
+Kultura: Duvanski list (Vegetativni rast)
+Simptomi:
+  - Mozaik
+
+R09: Detektovane mozaik šare bez gljivičnih prevlaka - virus mozaika
+     Povećana verovatnoća virusa mozaika na: 60.0%
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Uklanjanje zaraženih biljaka
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Dezinfekcija alata
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Dezinfekcija alata
+SUMNJA: Virus mozaika sa verovatnoćom 60.0%
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Dezinfekcija alata (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 70.37037037037037%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (70.37037037037037%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 13
+
+============================================================
+TEST: Više verovatnih bolesti - Bayes analiza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=24.0°C, RH=92.0%
+Kultura: Paradajz (Cvetanje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Siva prevlaka
+  - Uvenuće
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 92.0%, T: 24.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 65.51724137931035%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 92.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (65.51724137931035%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 28
+
+============================================================
+TEST: Ograničenja tretmana - karenca i fenofaza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Plodonošenje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 95.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+DIJAGNOZA: Plamenjača sa verovatnoćom 95.0%
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (95.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 13
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja) + T: 22-28°C (6 očitavanja)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
+        RH: 90.55035142377298% > 90% bez aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+TEST: Rizik kondenzacije (CEP-E2)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 8
+Događaji navodnjavanja: 0
+Događaji ventilacije: 3
+CEP-E2: KRITIČAN ALARM - Rizik kondenzacije!
+        RH > 90% (8 očitavanja) + ventilacija OFF (3 događaja)
+        Preporuka: HITNO: Aktivirati ventilaciju, smanjiti vlažnost, ukloniti zaražene biljke
+CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
+        RH: 93.6521295260502% > 90% bez aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+TEST: Rizik Botrytis nakon navodnjavanja (CEP-E3)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 2
+Događaji navodnjavanja: 1
+Događaji ventilacije: 0
+CEP-E3: ALARM - Rizik Botrytis nakon navodnjavanja!
+        Navodnjavanje + RH: 90.0% + CO2: 1300.0ppm
+        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 1
+Generisano alertova: 1
+
+============================================================
+TEST: Alarm ventilacije - nedostajući događaj (CEP-E4)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 1
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
+        RH: 95.0% > 90% bez aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 1
+Generisano alertova: 1
+
+============================================================
+TEST: Optimalni uslovi za pepelnicu (CEP-E5)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 8
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E5: UPOZORENJE - Optimalni uslovi za pepelnicu!
+        T: 20-25°C (4 očitavanja) + RH: 60-80% (4 očitavanja)
+        Preporuka: Preventivni tretman biološkim fungicidima, monitoring simptoma
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 1
+Generisano alertova: 1
+
+============================================================
+TEST: Rastući trend vlažnosti (CEP-E6)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 6
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E6: TREND ALARM - Rastući trend vlažnosti!
+        Kontinuirani rast vlažnosti u poslednjih 2h
+        Preporuka: Pripremiti ventilaciju, pratiti razvoj situacije
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 1
+Generisano alertova: 1
+
+============================================================
+TEST: BC-C1 - Da li je bolest sa visokom verovatnoćom dijagnostikovana?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-C1: Odgovor na upit 'Da li je Plamenjača verovatna?'
+       Rezultat: DA - Bolest Plamenjača je verovatna sa 75.0%
+       - Verovatnoća bolesti: 75.0%
+       - Prag za pozitivnu dijagnozu: 50%
+       - VISOKA verovatnoća - preporučuje se tretman
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 1
+Odgovor: DA - Bolest Plamenjača je verovatna sa 75.0%
+
+============================================================
+TEST: BC-C1 - Da li je bolest sa niskom verovatnoćom dijagnostikovana?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Pepelnica
+BC-C1: Odgovor na upit 'Da li je Pepelnica verovatna?'
+       Rezultat: NE - Bolest Pepelnica nije dovoljno verovatna (35.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 1
+Odgovor: NE - Bolest Pepelnica nije dovoljno verovatna (35.0%)
+
+============================================================
+TEST: BC-C2 - Da li je tretman dozvoljen u vegetativnoj fazi?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Bakarni preparat
+Fenofaza: Vegetativni rast
+BC-C2: Odgovor na upit 'Da li je tretman dozvoljen?'
+       Rezultat: DA - Tretman Bakarni preparat je dozvoljen u fenofazi Vegetativni rast
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 1
+Odgovor: DA - Tretman Bakarni preparat je dozvoljen u fenofazi Vegetativni rast
+
+============================================================
+TEST: BC-C2 - Da li je tretman blokiran u fazi plodonošenja?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Bakarni preparat
+Fenofaza: Plodonošenje
+BC-C2: Odgovor na upit 'Da li je tretman dozvoljen?'
+       Rezultat: NE - Tretman Bakarni preparat NIJE dozvoljen u fenofazi Plodonošenje
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 1
+Odgovor: NE - Tretman Bakarni preparat NIJE dozvoljen u fenofazi Plodonošenje
+
+============================================================
+TEST: BC-C3 - Koji uslovi su doveli do rizika plamenjače?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Koji uslovi su doveli do rizika?
+Bolest: Plamenjača
+Uslovi: T=25.0°C, RH=87.0%
+BC-C3: Odgovor na upit 'Koji uslovi su doveli do rizika?'
+       Bolest: Plamenjača
+       Rezultat: Identifikovani uzroci rizika za Plamenjača: Kritični uslovi: RH=87.0%, T=25.0°C
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 1
+Odgovor: Identifikovani uzroci rizika za Plamenjača: Kritični uslovi: RH=87.0%, T=25.0°C
+
+============================================================
+TEST: BC-C3 - Koji uslovi su doveli do rizika pepelnice?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Koji uslovi su doveli do rizika?
+Bolest: Pepelnica
+Uslovi: T=23.0°C, RH=70.0%
+BC-C3: Odgovor na upit 'Koji uslovi su doveli do rizika?'
+       Bolest: Pepelnica
+       Rezultat: Identifikovani uzroci rizika za Pepelnica: Umerena vlažnost: RH=70.0%
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 1
+Odgovor: Identifikovani uzroci rizika za Pepelnica: Umerena vlažnost: RH=70.0%
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 95.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+DIJAGNOZA: Plamenjača sa verovatnoćom 95.0%
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (95.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 12
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=24.0°C, RH=75.0%
+Kultura: Krastavac (Plodonošenje)
+Simptomi:
+  - Bele naslage
+
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Biološki fungicid
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Trichoderma
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 15
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=22.0°C, RH=95.0%
+Kultura: Paprika (Cvetanje)
+Simptomi:
+  - Siva prevlaka
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 50.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 60.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 70.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 80.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 90.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 64.28571428571429%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (64.28571428571429%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 29
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=28.0°C, RH=70.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Uvenuće
+  - Posmeđenje
+
+R07: Detektovano uvenuće i posmeđenje žila - fuzarijum
+     Povećana verovatnoća fuzarijuma na: 45.0%
+     PREPORUKA: Proveriti pH zemljišta
+R08: Preporučen Trichoderma tretman za fuzarijum
+     Doza: 5g/L
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Fuzarijum sa verovatnoćom 45.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Fuzarijum detektovan - Trichoderma efikasna
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 7
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=26.0°C, RH=65.0%
+Kultura: Duvanski list (Vegetativni rast)
+Simptomi:
+  - Mozaik
+
+R09: Detektovane mozaik šare bez gljivičnih prevlaka - virus mozaika
+     Povećana verovatnoća virusa mozaika na: 60.0%
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Uklanjanje zaraženih biljaka
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Dezinfekcija alata
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Dezinfekcija alata
+SUMNJA: Virus mozaika sa verovatnoćom 60.0%
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Dezinfekcija alata (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 70.37037037037037%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (70.37037037037037%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 13
+
+============================================================
+TEST: Više verovatnih bolesti - Bayes analiza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=24.0°C, RH=92.0%
+Kultura: Paradajz (Cvetanje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Siva prevlaka
+  - Uvenuće
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 92.0%, T: 24.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 65.51724137931035%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 92.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (65.51724137931035%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 28
+
+============================================================
+TEST: Ograničenja tretmana - karenca i fenofaza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Plodonošenje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 95.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+DIJAGNOZA: Plamenjača sa verovatnoćom 95.0%
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (95.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 13
