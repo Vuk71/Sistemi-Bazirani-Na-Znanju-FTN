@@ -10,6 +10,8 @@ Napredni ekspertski sistem koji implementira **tri kompleksna mehanizma** za dij
 
 - **Java 11** ili noviji
 - **Maven 3.6+** (ili koristi uključeni Maven wrapper)
+- **Node.js 16+** (za frontend aplikaciju)
+- **npm** ili **yarn** (za frontend dependencies)
 
 ### Instalacija Java-e na macOS
 
@@ -26,7 +28,7 @@ sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/Java
 
 ## 🚀 Pokretanje sistema
 
-### 1. Build projekta
+### 1. Build backend projekta
 
 ```bash
 # Pozicioniraj se u root direktorijum
@@ -36,12 +38,37 @@ cd sbnz_projekat
 ./mvnw clean install
 ```
 
-### 2. Pokretanje aplikacije
+### 2. Pokretanje backend aplikacije
 
 ```bash
 # Pokretanje Spring Boot aplikacije
 ./mvnw spring-boot:run -pl service
 ```
+
+Backend će biti dostupan na `http://localhost:8080`
+
+### 3. Pokretanje frontend aplikacije
+
+```bash
+# Pozicioniraj se u frontend direktorijum
+cd frontend
+
+# Instaliraj dependencies
+npm install
+
+# Pokreni React aplikaciju
+npm start
+```
+
+Frontend će biti dostupan na `http://localhost:3000`
+
+### 4. Kompletna demonstracija
+
+Za finalnu odbranu, pokrenite oba dela sistema:
+1. Backend na portu 8080
+2. Frontend na portu 3000
+3. Otvorite `http://localhost:3000` u browser-u
+4. Navigirajte kroz sekcije i testirajte funkcionalnosti
 
 ### 3. Testiranje sistema
 
@@ -130,6 +157,12 @@ sbnz_projekat/
 ├── model/          # Domenski model (entiteti, enumi)
 ├── kjar/           # Drools pravila i konfiguracija
 ├── service/        # Spring Boot aplikacija i servisi
+├── frontend/       # React klijentska aplikacija
+│   ├── src/
+│   │   ├── components/     # React komponente
+│   │   ├── services/       # API servisi
+│   │   └── ...
+│   └── package.json
 └── pom.xml         # Parent POM
 ```
 
@@ -138,6 +171,28 @@ sbnz_projekat/
 - **model**: Sadrži domenski model (Disease, Symptom, Treatment, itd.)
 - **kjar**: Sadrži Drools pravila organizovana po kategorijama
 - **service**: Spring Boot aplikacija sa REST API-jem i business logikom
+- **frontend**: React aplikacija sa kompletnim korisničkim interfejsom
+
+## 🖥️ Frontend aplikacija
+
+React aplikacija pruža kompletni korisnički interfejs za testiranje i demonstraciju svih funkcionalnosti sistema:
+
+### 📱 Dostupne stranice
+
+- **🏠 Dashboard** - Pregled statusa sistema i brza statistika
+- **🔄 Forward Chaining** - Testiranje dijagnostike sa 3+ nivoa ulančavanja
+- **🔍 Backward Chaining** - Rekurzivni upiti kroz stablo činjenica
+- **⚡ CEP** - Complex Event Processing sa temporalnim operatorima
+- **🧪 Testni podaci** - 5 kompletnih test scenarija
+
+### 🎯 Funkcionalnosti
+
+- **Interaktivni testovi** - Pokretanje svih backend testova kroz UI
+- **Real-time rezultati** - Trenutni prikaz rezultata sa detaljnim objašnjenjima
+- **Prilagođeni upiti** - Kreiranje custom Backward Chaining upita
+- **Strukturirani scenariji** - Kompletni test podaci za sve bolesti
+- **cURL komande** - Generisanje komandi za direktno API testiranje
+- **Responzivni dizajn** - Prilagođava se svim veličinama ekrana
 
 ## 🎯 Implementirani kompleksni mehanizmi
 
@@ -269,10 +324,17 @@ Korišćeni temporalni operatori: 8
 
 ## Tehnologije
 
+### Backend
 - **Java 11** - Programski jezik
 - **Spring Boot 2.7.9** - Application framework
 - **Drools 7.49.0.Final** - Rule engine
 - **Maven** - Build tool i dependency management
+
+### Frontend
+- **React 18.2.0** - UI framework
+- **React Router 6.3.0** - Client-side routing
+- **Axios 0.27.2** - HTTP klijent
+- **Responsive CSS** - Prilagodljiv dizajn
 
 ## 📁 Struktura pravila
 
@@ -332,3 +394,50 @@ lsof -ti:8080 | xargs kill -9
 # Direktno testiranje Drools pravila
 ./mvnw exec:java -Dexec.mainClass="com.ftn.sbnz.service.StandaloneDemo" -Dexec.classpathScope=test -pl service
 ```
+
+## 🎓 Finalna odbrana
+
+### 📋 Pripremljeno za odbranu
+
+- [x] **Klijentska aplikacija (UI)** - Kompletna React aplikacija
+- [x] **Testni podaci** - 5 strukturiranih test scenarija
+- [x] **Ažuriran predlog projekta** - Finalni dokument sa svim detaljima
+
+### 🚀 Demonstracija
+
+Za demonstraciju na odbrani:
+
+1. **Pokrenite backend**: `./mvnw spring-boot:run -pl service`
+2. **Pokrenite frontend**: `cd frontend && npm start`
+3. **Otvorite browser**: `http://localhost:3000`
+4. **Navigirajte kroz sekcije**:
+   - Dashboard → pregled sistema
+   - Forward Chaining → kompleksno ulančavanje
+   - Backward Chaining → rekurzivni upiti
+   - CEP → temporalni operatori
+   - Testni podaci → strukturirani scenariji
+
+### 📊 Ključni pokazatelji
+
+| Metrika | Vrednost |
+|---------|----------|
+| **Forward Chaining pravila** | 15 |
+| **Nivoi ulančavanja** | 4+ |
+| **Backward Chaining upita** | 8 |
+| **CEP obrazaca** | 6 |
+| **Temporalnih operatora** | 8 |
+| **Test scenarija** | 5 |
+| **Podržanih bolesti** | 5 |
+| **UI stranica** | 5 |
+
+### 🎯 Kompleksnost implementacije
+
+- ✅ **Forward Chaining**: 3+ nivoa ulančavanja (implementirano 4 nivoa)
+- ✅ **Backward Chaining**: Rekurzivni upiti kroz stablo činjenica
+- ✅ **CEP**: Pravi temporalni operatori (SLIDING, TUMBLING, AFTER, NOT)
+- ✅ **Kompletna UI**: Interaktivni interfejs za sve mehanizme
+- ✅ **Testni podaci**: Strukturirani scenariji za demonstraciju
+
+---
+
+**Sistem je spreman za finalnu odbranu sa svim zahtevnim komponentama implementiranim i testiranim.**
