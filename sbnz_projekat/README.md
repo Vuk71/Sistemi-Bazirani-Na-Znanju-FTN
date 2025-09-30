@@ -2,9 +2,9 @@
 
 Napredni ekspertski sistem koji implementira **tri kompleksna mehanizma** za dijagnostiku biljnih bolesti i preporuku tretmana:
 
-- 🔄 **Forward Chaining** - Operativne odluke i preporuke tretmana
-- 🔍 **Backward Chaining** - Dijagnostički upiti i objašnjavanje
-- ⚡ **Complex Event Processing (CEP)** - Rana detekcija rizika u realnom vremenu
+- **Forward Chaining** - Operativne odluke i preporuke tretmana
+- **Backward Chaining** - Dijagnostički upiti i objašnjavanje
+- **Complex Event Processing (CEP)** - Rana detekcija rizika u realnom vremenu
 
 ## Preduslovi
 
@@ -156,24 +156,26 @@ sbnz_projekat/
 | **R14** | Blokiranje tretmana (karenca) | Ograničenja |
 | **R15** | Bayes analiza (više bolesti) | Napredna logika |
 
-### 🔍 Backward Chaining - Dijagnostički upiti
+### 🔍 Backward Chaining - Stablo činjenica sa rekurzivnim upitima
 
-| Upit | Opis | Objašnjavanje |
-|------|------|---------------|
-| **C1** | Da li je bolest X verovatna? | ✅ Prag ≥50% |
-| **C2** | Da li je tretman Y dozvoljen u fenofazi Z? | ✅ Kontraindikacije |
-| **C3** | Koji uslovi su doveli do rizika bolesti X? | ✅ Uzročno-posledične veze |
+| Komponenta | Opis | Implementacija |
+|------------|------|----------------|
+| **Stablo činjenica** | Hijerarhijska struktura znanja | ✅ Fact klasa sa tipovima |
+| **Rekurzivni upiti** | Upiti koji koriste postojeće činjenice | ✅ Query → Fact → Query |
+| **C1** | Da li je bolest X verovatna? | ✅ Rekurzivno kroz DISEASE_PROBABLE |
+| **C2** | Da li je tretman Y dozvoljen? | ✅ Rekurzivno kroz TREATMENT_ALLOWED |
+| **C3** | Analiza uzroka kroz stablo | ✅ Kombinuje RISK_CAUSE + DISEASE_PROBABLE |
 
-### ⚡ Complex Event Processing (CEP) - Rana detekcija
+### ⚡ Complex Event Processing (CEP) - Pravi temporalni operatori
 
-| Obrazac | Opis | Tip |
-|---------|------|-----|
-| **E1** | Kritični uslovi za plamenjaču (6h) | Sliding Window |
-| **E2** | Rizik kondenzacije (24h) | Tumbling Window |
-| **E3** | Rizik Botrytis nakon navodnjavanja | Sekvencijalni |
-| **E4** | Alarm ventilacije | Nedostajući događaj |
-| **E5** | Optimalni uslovi za pepelnicu | Kombinovani uslovi |
-| **E6** | Rastući trend vlažnosti | Trend analiza |
+| Obrazac | Opis | Temporalni operator |
+|---------|------|---------------------|
+| **E1** | Kritični uslovi za plamenjaču | ✅ `over window:time(6h)` - SLIDING WINDOW |
+| **E2** | Rizik kondenzacije | ✅ `over window:time(24h)` - TUMBLING WINDOW |
+| **E3** | Rizik Botrytis sekvencijalno | ✅ `after[0s,2h]` - TEMPORALNI SEKVENCIJALNI |
+| **E4** | Alarm ventilacije | ✅ `not ... after[0s,30m]` - TEMPORALNI NOT |
+| **E5** | Stabilni uslovi za pepelnicu | ✅ `over window:time(4h)` - TEMPORALNI DURING |
+| **E6** | Rastući trend vlažnosti | ✅ `after[30m,2h]` - TEMPORALNI BEFORE |
 
 ### Podržane bolesti
 
@@ -189,7 +191,7 @@ sbnz_projekat/
 - **Biološki**: Biološki fungicidi, Trichoderma
 - **Sanitarni**: Uklanjanje biljaka, dezinfekcija alata
 
-## 🚀 Primeri rada sistema
+## Primeri rada sistema
 
 ### Forward Chaining - Kompleksno ulančavanje
 
@@ -216,41 +218,53 @@ Dijagnostikovane bolesti: 1 (Plamenjača: 75.0%)
 Preporučeni tretmani: 1 (Bakarni preparat)
 ```
 
-### Backward Chaining - Dijagnostički upit
+### Backward Chaining - Rekurzivni upit kroz stablo činjenica
 
 ```
-=== BACKWARD CHAINING UPIT ===
-Tip upita: Da li je bolest verovatna?
-Bolest: Plamenjača
+=== BACKWARD CHAINING - STABLO ČINJENICA ===
+Kreiranje činjenica:
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran složeni fakt - Bolest Plamenjača je OPASNA - visok rizik
+BC-FACT: Kreiran fakt uzroka - Identifikovan uzrok rizika za Plamenjača
 
-=== REZULTAT BC UPITA ===
-Aktivirano pravila: 1
-Odgovor: DA - Bolest Plamenjača je verovatna sa 75.0%
-Objašnjenje:
-  - Verovatnoća bolesti: 75.0%
-  - Prag za pozitivnu dijagnozu: 50%
-  - VISOKA verovatnoća - preporučuje se tretman
+Rekurzivni upit:
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== STABLO ČINJENICA ===
+1. DISEASE_PROBABLE: Bolest Plamenjača je verovatna (75.0%)
+   - Verovatnoća: 75.0%
+   - Prag: >= 50%
+2. RISK_CAUSE: Identifikovan uzrok rizika za Plamenjača
+   - Kritični uslovi: RH=87.0%, T=25.0°C
+   - Optimalni uslovi za Phytophthora infestans
 ```
 
-### CEP - Rana detekcija rizika
+### CEP - Pravi temporalni operatori
 
 ```
-=== CEP ANALIZA ===
+=== CEP ANALIZA SA TEMPORALNIM OPERATORIMA ===
 Senzorska očitavanja: 12
 Događaji navodnjavanja: 1
 Događaji ventilacije: 0
 
-CEP-E1: ALARM - Kritični uslovi za plamenjaču!
-        Prosečna RH > 85% uz temperaturu 22-28°C u poslednjih 6h
-        Preporuka: Povećati ventilaciju, smanjiti vlažnost
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (5 očitavanja u 6h)
+        T: 22-28°C (4 očitavanja u 6h)
+        Temporalni operator: over window:time(6h)
 
-CEP-E4: HITNI ALARM - Ventilacija nije aktivirana!
-        RH > 90% bez ventilacije u poslednjih 30 minuta
-        Preporuka: HITNO: Aktivirati ventilaciju
+CEP-E3: TEMPORALNI SEKVENCIJALNI ALARM - Botrytis!
+        Sekvenca: Navodnjavanje → RH: 89.0% → CO2: 1300ppm
+        Temporalni operatori: after[0s,2h] i after[0s,3h]
+
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 92.0% > 90%
+        Temporalni NOT: Nema ventilacije u poslednjih 30min
 
 === REZULTAT CEP ANALIZE ===
-Aktivirano pravila: 3
-Generisano alertova: 2
+Aktivirano pravila: 6
+Generisano alertova: 4
+Korišćeni temporalni operatori: 8
 ```
 
 ## Tehnologije
@@ -279,47 +293,13 @@ kjar/src/main/resources/rules/
 <kbase name="forwardBase" packages="forward">
     <ksession name="forwardKsession"/>
 </kbase>
-<kbase name="bwBase" packages="backward">
-    <ksession name="bwKsession"/>
+<kbase name="bwBase" packages="backward" equalsBehavior="equality">
+    <ksession name="bwKsession" type="stateful"/>
 </kbase>
 <kbase name="cepKbase" eventProcessingMode="stream" packages="cep">
     <ksession name="cepKsession" clockType="pseudo"/>
 </kbase>
 ```
-
-## 🔧 Adekvatna struktura pravila
-
-Sva pravila imaju logiku izdvojenu iz THEN dela:
-
-```drools
-// ❌ LOŠE - logika u THEN delu
-rule "Loš primer"
-    when
-        $disease: Disease(name == "Plamenjača")
-    then
-        $disease.probability = $disease.probability + 25.0;
-        if ($disease.probability > 100.0) $disease.probability = 100.0;
-end
-
-// ✅ DOBRO - logika u objektu
-rule "R02 - Plamenjača sa vodenastim lezijama"
-    when
-        $disease: Disease(name == "Plamenjača", probability >= 30.0, probability < 55.0)
-        $symptom: Symptom(type == SymptomType.WATERY_LESIONS, present == true)
-    then
-        $disease.increaseProbability(25.0);  // Metoda objekta
-        System.out.println("R02: Detektovane vodenaste lezije...");
-        update($disease);
-end
-```
-
-## 🚀 Buduća proširenja
-
-- **Web UI** - Grafički interfejs za lakše korišćenje
-- **Baza podataka** - Perzistentno čuvanje dijagnoza i tretmana
-- **Machine Learning** - Poboljšanje preciznosti dijagnoze
-- **IoT integracija** - Direktno povezivanje sa senzorima
-- **Mobile app** - Mobilna aplikacija za poljoprivrednike
 
 ## Troubleshooting
 
@@ -352,16 +332,3 @@ lsof -ti:8080 | xargs kill -9
 # Direktno testiranje Drools pravila
 ./mvnw exec:java -Dexec.mainClass="com.ftn.sbnz.service.StandaloneDemo" -Dexec.classpathScope=test -pl service
 ```
-
-## 📊 Rezultati testiranja
-
-Sistem uspešno demonstrira:
-
-- ✅ **Forward Chaining** - 3+ nivoa ulančavanja pravila
-- ✅ **Backward Chaining** - Dijagnostički upiti sa objašnjenjem  
-- ✅ **Complex Event Processing** - 6 različitih CEP obrazaca
-- ✅ **Adekvatna struktura pravila** - Logika izdvojena iz THEN dela
-- ✅ **HTTP aktivacija** - REST API endpoints za sve mehanizme
-- ✅ **Kompleksni scenariji** - Bayes analiza, ograničenja tretmana, prioritizacija
-
-**Status:** ✅ **Svi zahtevani mehanizmi uspešno implementirani i testirani**

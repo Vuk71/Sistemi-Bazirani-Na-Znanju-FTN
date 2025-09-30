@@ -148,8 +148,8 @@ public class CEPService {
         
         LocalDateTime now = LocalDateTime.now();
         
-        // Visoka vlažnost bez ventilacije
-        SensorReading humidityReading = new SensorReading(SensorType.HUMIDITY, 95.0, now.minusMinutes(35));
+        // Visoka vlažnost SADA (ne pre 35 minuta)
+        SensorReading humidityReading = new SensorReading(SensorType.HUMIDITY, 95.0, now);
         readings.add(humidityReading);
         
         // Nema događaja ventilacije - to će trigerovati "missing event" pravilo
@@ -185,14 +185,21 @@ public class CEPService {
         
         LocalDateTime now = LocalDateTime.now();
         
-        // Rastući trend vlažnosti u poslednjih 2 sata
-        double baseHumidity = 60.0;
-        for (int i = 5; i >= 0; i--) {
-            LocalDateTime timestamp = now.minusMinutes(i * 20);
-            double humidity = baseHumidity + (5 - i) * 5; // Rastući trend
-            SensorReading humidityReading = new SensorReading(SensorType.HUMIDITY, humidity, timestamp);
-            readings.add(humidityReading);
+        // Početno očitavanje
+        SensorReading startReading = new SensorReading(SensorType.HUMIDITY, 50.0, now.minusHours(3));
+        readings.add(startReading);
+        
+        // 4+ očitavanja sa rastom od 10%+ (50 + 10 = 60+)
+        for (int i = 0; i < 5; i++) {
+            LocalDateTime timestamp = now.minusHours(2).plusMinutes(i * 15);
+            double humidity = 62.0 + i * 2; // 62, 64, 66, 68, 70
+            SensorReading reading = new SensorReading(SensorType.HUMIDITY, humidity, timestamp);
+            readings.add(reading);
         }
+        
+        // Finalno očitavanje sa rastom od 20%+ (50 + 20 = 70+)
+        SensorReading finalReading = new SensorReading(SensorType.HUMIDITY, 75.0, now.minusHours(1));
+        readings.add(finalReading);
         
         return processEvents(readings, new ArrayList<>(), new ArrayList<>());
     }

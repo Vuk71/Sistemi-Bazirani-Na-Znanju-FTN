@@ -2,8 +2,8 @@
     <kbase name="forwardBase" packages="forward">
         <ksession name="forwardKsession"/>
     </kbase>
-    <kbase name="bwBase" packages="backward">
-        <ksession name="bwKsession"/>
+    <kbase name="bwBase" packages="backward" equalsBehavior="equality">
+        <ksession name="bwKsession" type="stateful"/>
     </kbase>
     <kbase name="cepKbase" eventProcessingMode="stream" packages="cep">
         <ksession name="cepKsession" clockType="pseudo"/>

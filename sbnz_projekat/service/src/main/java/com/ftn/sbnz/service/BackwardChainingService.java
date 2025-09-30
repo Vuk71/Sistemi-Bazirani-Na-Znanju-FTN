@@ -130,7 +130,7 @@ public class BackwardChainingService {
         diseases.add(plamenjaca);
         
         Disease pepelnica = new Disease("Pepelnica", "Erysiphe cichoracearum");
-        pepelnica.setProbability(35.0); // Niska verovatnoća
+        pepelnica.setProbability(55.0); // Povećana verovatnoća da se kreira fakt
         diseases.add(pepelnica);
         
         Disease sivaTrulez = new Disease("Siva trulež", "Botrytis cinerea");
