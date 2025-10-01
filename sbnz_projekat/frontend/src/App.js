@@ -7,6 +7,8 @@ import DiagnosisPage from './components/DiagnosisPage';
 import BackwardChainingPage from './components/BackwardChainingPage';
 import CEPPage from './components/CEPPage';
 import TestDataPage from './components/TestDataPage';
+import PresetTestsPage from './components/PresetTestsPage';
+import VegetationPage from './components/VegetationPage';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
             <Route path="/backward-chaining" element={<BackwardChainingPage />} />
             <Route path="/cep" element={<CEPPage />} />
             <Route path="/test-data" element={<TestDataPage />} />
+            <Route path="/preset-tests" element={<PresetTestsPage />} />
+            <Route path="/vegetation" element={<VegetationPage />} />
           </Routes>
         </div>
       </div>

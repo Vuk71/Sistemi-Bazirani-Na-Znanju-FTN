@@ -12,27 +12,37 @@ const Navigation = () => {
         <ul>
           <li>
             <Link to="/" className={isActive('/') ? 'active' : ''}>
-              📊 Dashboard
+               Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/vegetation" className={isActive('/vegetation') ? 'active' : ''}>
+               Vegetacija
             </Link>
           </li>
           <li>
             <Link to="/diagnosis" className={isActive('/diagnosis') ? 'active' : ''}>
-              🔄 Forward Chaining
+               Forward Chaining
             </Link>
           </li>
           <li>
             <Link to="/backward-chaining" className={isActive('/backward-chaining') ? 'active' : ''}>
-              🔍 Backward Chaining
+               Backward Chaining
             </Link>
           </li>
           <li>
             <Link to="/cep" className={isActive('/cep') ? 'active' : ''}>
-              ⚡ CEP Analiza
+               CEP Analiza
             </Link>
           </li>
           <li>
             <Link to="/test-data" className={isActive('/test-data') ? 'active' : ''}>
-              🧪 Testni podaci
+               Testni podaci
+            </Link>
+          </li>
+          <li>
+            <Link to="/preset-tests" className={isActive('/preset-tests') ? 'active' : ''}>
+               Presetovani testovi
             </Link>
           </li>
         </ul>

@@ -5,7 +5,7 @@ const TestDataPage = () => {
 
   const testScenarios = {
     plamenjaca: {
-      title: '🍅 Scenario: Plamenjača (Phytophthora infestans)',
+      title: ' Scenario: Plamenjača (Phytophthora infestans)',
       description: 'Kompletan test scenario za dijagnostiku i tretman plamenjače',
       environmentalConditions: {
         temperature: 25.0,
@@ -43,7 +43,7 @@ const TestDataPage = () => {
       ]
     },
     pepelnica: {
-      title: '🤍 Scenario: Pepelnica (Erysiphe cichoracearum)',
+      title: ' Scenario: Pepelnica (Erysiphe cichoracearum)',
       description: 'Test scenario za pepelnicu sa stabilnim uslovima',
       environmentalConditions: {
         temperature: 22.0,
@@ -80,7 +80,7 @@ const TestDataPage = () => {
       ]
     },
     sivaTrulez: {
-      title: '🫐 Scenario: Siva trulež (Botrytis cinerea)',
+      title: ' Scenario: Siva trulež (Botrytis cinerea)',
       description: 'Test scenario za sivu trulež sa visokom vlažnošću',
       environmentalConditions: {
         temperature: 18.0,
@@ -125,7 +125,7 @@ const TestDataPage = () => {
       ]
     },
     fuzarijum: {
-      title: '🍄 Scenario: Fuzarijum (Fusarium oxysporum)',
+      title: ' Scenario: Fuzarijum (Fusarium oxysporum)',
       description: 'Test scenario za fuzarijum sa uvenuće simptomima',
       environmentalConditions: {
         temperature: 28.0,
@@ -170,7 +170,7 @@ const TestDataPage = () => {
       ]
     },
     virus: {
-      title: '🦠 Scenario: Virus mozaika (TMV)',
+      title: ' Scenario: Virus mozaika (TMV)',
       description: 'Test scenario za virus mozaika',
       environmentalConditions: {
         temperature: 24.0,
@@ -254,7 +254,7 @@ const TestDataPage = () => {
   return (
     <div>
       <div className="card">
-        <h2>🧪 Testni podaci i scenariji</h2>
+        <h2> Testni podaci i scenariji</h2>
         <p>
           Strukturirani test scenariji za demonstraciju svih funkcionalnosti sistema.
           Svaki scenario sadrži kompletne podatke za testiranje Forward Chaining, Backward Chaining i CEP mehanizama.
@@ -263,18 +263,18 @@ const TestDataPage = () => {
 
       <div className="grid">
         <div className="card">
-          <h3>📋 Dostupni scenariji</h3>
+          <h3> Dostupni scenariji</h3>
           <div className="form-group">
             <label>Izaberite test scenario:</label>
             <select 
               value={selectedScenario}
               onChange={(e) => setSelectedScenario(e.target.value)}
             >
-              <option value="plamenjaca">🍅 Plamenjača</option>
-              <option value="pepelnica">🤍 Pepelnica</option>
-              <option value="sivaTrulez">🫐 Siva trulež</option>
-              <option value="fuzarijum">🍄 Fuzarijum</option>
-              <option value="virus">🦠 Virus mozaika</option>
+              <option value="plamenjaca"> Plamenjača</option>
+              <option value="pepelnica"> Pepelnica</option>
+              <option value="sivaTrulez"> Siva trulež</option>
+              <option value="fuzarijum"> Fuzarijum</option>
+              <option value="virus"> Virus mozaika</option>
             </select>
           </div>
 
@@ -287,7 +287,7 @@ const TestDataPage = () => {
         </div>
 
         <div className="card">
-          <h3>🌡️ Uslovi sredine</h3>
+          <h3> Uslovi sredine</h3>
           <div className="grid">
             {Object.entries(currentScenario.environmentalConditions).map(([key, value]) => (
               <div key={key} style={{ 
@@ -297,11 +297,11 @@ const TestDataPage = () => {
                 borderBottom: '1px solid #eee'
               }}>
                 <span style={{ fontWeight: 'bold' }}>
-                  {key === 'temperature' && '🌡️ Temperatura:'}
-                  {key === 'humidity' && '💧 Vlažnost:'}
-                  {key === 'co2Level' && '🌬️ CO₂:'}
-                  {key === 'ventilationActive' && '💨 Ventilacija:'}
-                  {key === 'soilPH' && '🧪 pH zemljišta:'}
+                  {key === 'temperature' && ' Temperatura:'}
+                  {key === 'humidity' && ' Vlažnost:'}
+                  {key === 'co2Level' && ' CO₂:'}
+                  {key === 'ventilationActive' && ' Ventilacija:'}
+                  {key === 'soilPH' && ' pH zemljišta:'}
                 </span>
                 <span>
                   {typeof value === 'boolean' ? (value ? 'Aktivna' : 'Neaktivna') : value}
@@ -317,7 +317,7 @@ const TestDataPage = () => {
 
       <div className="grid">
         <div className="card">
-          <h3>🔍 Simptomi</h3>
+          <h3> Simptomi</h3>
           <ul style={{ paddingLeft: '20px' }}>
             {currentScenario.symptoms.map((symptom, index) => (
               <li key={index} style={{ marginBottom: '8px' }}>
@@ -328,7 +328,7 @@ const TestDataPage = () => {
         </div>
 
         <div className="card">
-          <h3>🎯 Očekivana dijagnoza</h3>
+          <h3> Očekivana dijagnoza</h3>
           <div style={{ 
             backgroundColor: '#e8f5e8', 
             padding: '15px', 
@@ -349,7 +349,7 @@ const TestDataPage = () => {
       </div>
 
       <div className="card">
-        <h3>💊 Preporučeni tretmani</h3>
+        <h3> Preporučeni tretmani</h3>
         <div className="grid">
           {currentScenario.recommendedTreatments.map((treatment, index) => (
             <div key={index} style={{ 
@@ -372,7 +372,7 @@ const TestDataPage = () => {
 
       <div className="grid">
         <div className="card">
-          <h3>⚡ CEP Alertovi</h3>
+          <h3> CEP Alertovi</h3>
           <ul style={{ paddingLeft: '20px' }}>
             {currentScenario.cepAlerts.map((alert, index) => (
               <li key={index} style={{ 
@@ -389,7 +389,7 @@ const TestDataPage = () => {
         </div>
 
         <div className="card">
-          <h3>🔍 Backward Chaining upiti</h3>
+          <h3> Backward Chaining upiti</h3>
           <ul style={{ paddingLeft: '20px' }}>
             {currentScenario.backwardChainingQueries.map((query, index) => (
               <li key={index} style={{ 
@@ -407,32 +407,7 @@ const TestDataPage = () => {
       </div>
 
       <div className="card">
-        <h3>🖥️ cURL komande za testiranje</h3>
-        <p>Kopirajte i pokrenite ove komande u terminalu za testiranje backend API-ja:</p>
-        <div style={{ 
-          backgroundColor: '#f5f5f5', 
-          padding: '15px', 
-          borderRadius: '8px',
-          fontFamily: 'monospace',
-          fontSize: '12px',
-          whiteSpace: 'pre-wrap',
-          maxHeight: '300px',
-          overflowY: 'auto',
-          border: '1px solid #ddd'
-        }}>
-          {generateCurlCommands()}
-        </div>
-        <button 
-          className="btn" 
-          onClick={() => copyToClipboard(generateCurlCommands())}
-          style={{ marginTop: '10px' }}
-        >
-          📋 Kopiraj cURL komande
-        </button>
-      </div>
-
-      <div className="card">
-        <h3>📊 Statistike test podataka</h3>
+        <h3> Statistike test podataka</h3>
         <div className="grid">
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4CAF50' }}>5</div>

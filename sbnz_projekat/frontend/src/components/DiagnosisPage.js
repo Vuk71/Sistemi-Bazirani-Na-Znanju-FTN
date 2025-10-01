@@ -1,192 +1,300 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { diagnosisAPI } from '../services/api';
+import { getActivePlant, hasActivePlant, getPlantDisplayName } from '../utils/plantUtils';
 
 const DiagnosisPage = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [activeTest, setActiveTest] = useState(null);
+  const [activePlant, setActivePlant] = useState(null);
+  const [symptoms, setSymptoms] = useState({
+    vodenasteLezioni: false,
+    belePrevlake: false,
+    sivaPrevlaka: false,
+    zutilo: false,
+    uvenuće: false,
+    mozaikSare: false,
+    tamneMarlje: false,
+    posmeđenjeZila: false
+  });
 
-  const runTest = async (testName, testFunction) => {
+  // Učitaj aktivnu biljku pri pokretanju
+  useEffect(() => {
+    const plant = getActivePlant();
+    setActivePlant(plant);
+  }, []);
+
+  const runDiagnosis = async () => {
+    if (!activePlant) {
+      alert(' Molimo prvo definiši aktivnu biljku u sekciji "Vegetacija"');
+      return;
+    }
+
     setLoading(true);
-    setActiveTest(testName);
     
     try {
-      const response = await testFunction();
+      // Poziv API-ja sa podacima o aktivnoj biljci i simptomima
+      const response = await diagnosisAPI.testComplexChaining(); // Ovo ćemo zameniti sa pravim API pozivom
+      
       const result = {
-        testName,
         success: true,
         data: response.data,
-        timestamp: new Date().toLocaleString('sr-RS')
+        timestamp: new Date().toLocaleString('sr-RS'),
+        inputData: {
+          plant: activePlant,
+          symptoms: symptoms
+        }
       };
-      setResults(prev => [result, ...prev.slice(0, 9)]); // Keep last 10 results
+      setResults([result]);
     } catch (error) {
       const result = {
-        testName,
         success: false,
         error: error.response?.data || error.message,
-        timestamp: new Date().toLocaleString('sr-RS')
+        timestamp: new Date().toLocaleString('sr-RS'),
+        inputData: {
+          plant: activePlant,
+          symptoms: symptoms
+        }
       };
-      setResults(prev => [result, ...prev.slice(0, 9)]);
+      setResults([result]);
     } finally {
       setLoading(false);
-      setActiveTest(null);
     }
+  };
+
+  const handleSymptomChange = (symptom, value) => {
+    setSymptoms(prev => ({
+      ...prev,
+      [symptom]: value
+    }));
   };
 
   const clearResults = () => {
     setResults([]);
   };
 
-  const formatResult = (result) => {
-    if (typeof result === 'string') {
-      return result.split('\n').map((line, index) => (
-        <div key={index} style={{ marginBottom: '5px' }}>
-          {line}
+  const renderDiagnosisResult = (result) => {
+    if (!result.success) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Greška:</strong> {result.error}
         </div>
-      ));
+      );
     }
-    return JSON.stringify(result, null, 2);
-  };
 
-  const tests = [
-    {
-      category: 'Osnovni testovi dijagnoze',
-      items: [
-        { name: 'Test Plamenjača', key: 'plamenjaca', func: diagnosisAPI.testPlamenjaca },
-        { name: 'Test Pepelnica', key: 'pepelnica', func: diagnosisAPI.testPepelnica },
-        { name: 'Test Siva trulež', key: 'siva-trulez', func: diagnosisAPI.testSivaTrulez },
-        { name: 'Test Fuzarijum', key: 'fuzarijum', func: diagnosisAPI.testFuzarijum },
-        { name: 'Test Virus mozaika', key: 'virus', func: diagnosisAPI.testVirus },
-      ]
-    },
-    {
-      category: 'Napredni testovi',
-      items: [
-        { name: 'Kompleksno ulančavanje', key: 'complex', func: diagnosisAPI.testComplexChaining },
-        { name: 'Više bolesti istovremeno', key: 'multiple', func: diagnosisAPI.testMultipleDiseases },
-        { name: 'Ograničenja tretmana', key: 'restrictions', func: diagnosisAPI.testTreatmentRestrictions },
-      ]
-    },
-    {
-      category: 'Sveobuhvatni testovi',
-      items: [
-        { name: 'Svi Forward Chaining testovi', key: 'all', func: diagnosisAPI.testAll },
-        { name: 'Demo sistem', key: 'demo', func: diagnosisAPI.demo },
-      ]
-    }
-  ];
+    const { probableDiseases, recommendedTreatments, explanations } = result.data;
 
-  return (
-    <div>
-      <div className="card">
-        <h2>🔄 Forward Chaining - Dijagnostika i tretmani</h2>
-        <p>
-          Forward chaining implementira operativne odluke sa 3+ nivoa ulančavanja pravila.
-          Sistem analizira simptome, uslove sredine i istoriju tretmana da generiše dijagnoze i preporuke.
-        </p>
-      </div>
-
-      <div className="grid">
-        <div className="card">
-          <h3>🧪 Dostupni testovi</h3>
-          {tests.map((category, categoryIndex) => (
-            <div key={categoryIndex} style={{ marginBottom: '25px' }}>
-              <h4 style={{ 
-                color: '#4CAF50', 
-                marginBottom: '10px',
-                borderBottom: '2px solid #4CAF50',
-                paddingBottom: '5px'
-              }}>
-                {category.category}
-              </h4>
-              {category.items.map((test, testIndex) => (
-                <button
-                  key={testIndex}
-                  className="btn"
-                  onClick={() => runTest(test.name, test.func)}
-                  disabled={loading}
-                  style={{ 
-                    width: '100%', 
-                    marginBottom: '8px',
-                    opacity: loading && activeTest !== test.name ? 0.6 : 1
-                  }}
-                >
-                  {loading && activeTest === test.name ? '⏳ Izvršava...' : test.name}
-                </button>
+    return (
+      <div>
+        {/* Dijagnostikovane bolesti */}
+        <div className="card" style={{ marginBottom: '20px' }}>
+          <h4> Dijagnostikovane bolesti</h4>
+          {probableDiseases && probableDiseases.length > 0 ? (
+            <div className="grid">
+              {probableDiseases.map((disease, index) => (
+                <div key={index} style={{
+                  backgroundColor: disease.probability > 70 ? '#ffebee' : disease.probability > 50 ? '#fff3e0' : '#e8f5e8',
+                  padding: '15px',
+                  borderRadius: '8px',
+                  border: `2px solid ${disease.probability > 70 ? '#f44336' : disease.probability > 50 ? '#ff9800' : '#4CAF50'}`
+                }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '10px' }}>
+                    {disease.name}
+                  </div>
+                  <div><strong>Patogen:</strong> {disease.pathogen}</div>
+                  <div><strong>Verovatnoća:</strong> {disease.probability.toFixed(1)}%</div>
+                  <div className={`status-badge ${disease.probability > 70 ? 'status-high' : disease.probability > 50 ? 'status-medium' : 'status-low'}`}>
+                    {disease.probability > 70 ? 'VISOKA VEROVATNOĆA' : disease.probability > 50 ? 'SREDNJA VEROVATNOĆA' : 'NISKA VEROVATNOĆA'}
+                  </div>
+                </div>
               ))}
             </div>
-          ))}
-          
-          {results.length > 0 && (
-            <button 
-              className="btn btn-danger" 
-              onClick={clearResults}
-              style={{ width: '100%', marginTop: '15px' }}
-            >
-              🗑️ Obriši rezultate
-            </button>
+          ) : (
+            <div className="alert alert-warning">Nema dijagnostikovanih bolesti</div>
           )}
         </div>
 
-        <div className="card">
-          <h3>📋 Rezultati testova</h3>
-          {results.length === 0 ? (
-            <div className="loading">
-              Pokrenite test da vidite rezultate...
-            </div>
-          ) : (
-            <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
-              {results.map((result, index) => (
-                <div 
-                  key={index} 
-                  className={`alert ${result.success ? 'alert-success' : 'alert-danger'}`}
-                  style={{ marginBottom: '15px' }}
-                >
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    marginBottom: '10px'
-                  }}>
-                    <strong>{result.testName}</strong>
-                    <small>{result.timestamp}</small>
+        {/* Preporučeni tretmani */}
+        <div className="card" style={{ marginBottom: '20px' }}>
+          <h4> Preporučeni tretmani</h4>
+          {recommendedTreatments && recommendedTreatments.length > 0 ? (
+            <div className="grid">
+              {recommendedTreatments.map((treatment, index) => (
+                <div key={index} style={{
+                  backgroundColor: '#f0f8ff',
+                  padding: '15px',
+                  borderRadius: '8px',
+                  border: '1px solid #2196F3'
+                }}>
+                  <div style={{ fontWeight: 'bold', fontSize: '16px', marginBottom: '10px' }}>
+                    {treatment.name}
                   </div>
-                  
-                  {result.success ? (
-                    <div style={{ 
-                      backgroundColor: 'rgba(255,255,255,0.8)', 
-                      padding: '10px', 
-                      borderRadius: '4px',
-                      fontFamily: 'monospace',
-                      fontSize: '12px',
-                      whiteSpace: 'pre-wrap',
-                      maxHeight: '300px',
-                      overflowY: 'auto'
-                    }}>
-                      {formatResult(result.data)}
-                    </div>
-                  ) : (
-                    <div style={{ 
-                      backgroundColor: 'rgba(255,255,255,0.8)', 
-                      padding: '10px', 
-                      borderRadius: '4px',
-                      color: '#721c24'
-                    }}>
-                      <strong>Greška:</strong> {result.error}
+                  <div><strong>Tip:</strong> {treatment.type}</div>
+                  <div><strong>Doza:</strong> {treatment.dosage}</div>
+                  <div><strong>Karenca:</strong> {treatment.withdrawalDays} dana</div>
+                  <div><strong>Prioritet:</strong> {treatment.priority}</div>
+                  {treatment.recommendationReason && (
+                    <div style={{ marginTop: '10px', fontStyle: 'italic', color: '#666' }}>
+                      <strong>Razlog:</strong> {treatment.recommendationReason}
                     </div>
                   )}
                 </div>
               ))}
             </div>
+          ) : (
+            <div className="alert alert-warning">Nema preporučenih tretmana</div>
+          )}
+        </div>
+
+        {/* Objašnjenja */}
+        {explanations && explanations.length > 0 && (
+          <div className="card">
+            <h4>📝 Objašnjenja sistema</h4>
+            <ul style={{ paddingLeft: '20px' }}>
+              {explanations.map((explanation, index) => (
+                <li key={index} style={{ marginBottom: '8px' }}>
+                  {explanation}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const symptomLabels = {
+    vodenasteLezioni: 'Vodenaste lezije na listovima',
+    belePrevlake: 'Bele praškaste naslage',
+    sivaPrevlaka: 'Siva prevlaka na plodovima',
+    zutilo: 'Žutilo listova',
+    uvenuće: 'Uvenuće biljaka',
+    mozaikSare: 'Mozaik šare na listovima',
+    tamneMarlje: 'Tamne mrlje na plodovima',
+    posmeđenjeZila: 'Posmeđenje provodnih žila'
+  };
+
+  return (
+    <div>
+      <div className="card">
+        <h2> Forward Chaining - Dijagnostika i tretmani</h2>
+        <p>
+          Označite simptome na aktivnoj biljci da biste dobili dijagnozu i preporuke tretmana.
+        </p>
+        <br/>
+        
+        {!hasActivePlant() ? (
+          <div className="alert alert-warning">
+            <strong> Nema aktivne biljke!</strong> 
+            <br />Molimo idite u sekciju <strong>" Vegetacija"</strong> i definiši biljku pre dijagnostike.
+            <br />
+            <button 
+              className="btn" 
+              onClick={() => window.location.href = '/vegetation'}
+              style={{ marginTop: '10px' }}
+            >
+               Idi na Vegetaciju
+            </button>
+          </div>
+        ) : (
+          <div className="alert alert-success">
+            <strong> Aktivna biljka:</strong> {getPlantDisplayName()}
+            <br />
+            <small>Lokacija: {activePlant?.location} | Posađeno: {activePlant?.plantedDate}</small>
+          </div>
+        )}
+      </div>
+
+      <div className="grid">
+        {/* Pregled aktivne biljke */}
+        {activePlant && (
+          <div className="card">
+            <h3> Aktivna biljka</h3>
+            <div className="grid">
+              <div>
+                <h4> Osnovni podaci</h4>
+                <div><strong>Kultura:</strong> {activePlant.cropType}</div>
+                <div><strong>Sorta:</strong> {activePlant.variety}</div>
+                <div><strong>Fenofaza:</strong> {activePlant.phenophase}</div>
+                <div><strong>Lokacija:</strong> {activePlant.location}</div>
+              </div>
+              <div>
+                <h4> Trenutni uslovi</h4>
+                <div><strong>Temperatura:</strong> {activePlant.currentConditions.temperature}°C</div>
+                <div><strong>Vlažnost:</strong> {activePlant.currentConditions.humidity}%</div>
+                <div><strong>CO₂:</strong> {activePlant.currentConditions.co2Level} ppm</div>
+                <div><strong>Ventilacija:</strong> {activePlant.currentConditions.ventilationActive ? ' Aktivna' : ' Neaktivna'}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Forma za simptome */}
+        <div className="card">
+          <h3> Simptomi na biljci</h3>
+          <p>Označite simptome koje uočavate na aktivnoj biljci:</p>
+          
+          {Object.entries(symptomLabels).map(([key, label]) => (
+            <div key={key} className="form-group">
+              <label>
+                <input 
+                  type="checkbox"
+                  checked={symptoms[key]}
+                  onChange={(e) => handleSymptomChange(key, e.target.checked)}
+                  style={{ marginRight: '8px' }}
+                  disabled={!activePlant}
+                />
+                {label}
+              </label>
+            </div>
+          ))}
+
+          <button 
+            className="btn" 
+            onClick={runDiagnosis}
+            disabled={loading || !activePlant}
+            style={{ width: '100%', marginTop: '20px', fontSize: '16px', padding: '12px' }}
+          >
+            {loading ? ' Analiziram...' : ' Pokreni dijagnostiku'}
+          </button>
+          
+          {!activePlant && (
+            <div className="alert alert-warning" style={{ marginTop: '15px' }}>
+              Definiši aktivnu biljku u sekciji " Vegetacija" da bi mogao da pokreneš dijagnostiku.
+            </div>
+          )}
+        </div>
+
+        {/* Rezultati */}
+        <div className="card">
+          <h3> Rezultati dijagnostike</h3>
+          {results.length === 0 ? (
+            <div className="loading">
+              Unesite podatke i pokrenite dijagnostiku da vidite rezultate...
+            </div>
+          ) : (
+            <div>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                marginBottom: '15px'
+              }}>
+                <span><strong>Analiza završena:</strong> {results[0].timestamp}</span>
+                <button className="btn btn-danger" onClick={clearResults}>
+                   Obriši rezultate
+                </button>
+              </div>
+              
+              {renderDiagnosisResult(results[0])}
+            </div>
           )}
         </div>
       </div>
 
       <div className="card">
-        <h3>📖 Objašnjenje Forward Chaining mehanizma</h3>
+        <h3>Primer Forward Chaining mehanizma</h3>
         <div className="grid">
           <div>
-            <h4>🎯 Implementirana pravila</h4>
             <ul style={{ paddingLeft: '20px' }}>
               <li><strong>R01:</strong> Kritični uslovi za plamenjaču (RH&gt;85%, T∈[22,28]°C)</li>
               <li><strong>R02:</strong> Plamenjača + vodenaste lezije → +25%</li>
@@ -199,7 +307,7 @@ const DiagnosisPage = () => {
             </ul>
           </div>
           <div>
-            <h4>🔗 Nivoi ulančavanja</h4>
+            <h4>Nivoi ulančavanja</h4>
             <div className="status-badge status-high" style={{ margin: '5px', display: 'block' }}>
               Nivo 1: Detekcija osnovnih uslova
             </div>

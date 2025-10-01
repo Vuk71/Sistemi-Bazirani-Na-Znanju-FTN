@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { diagnosisAPI, backwardChainingAPI, cepAPI } from '../services/api';
+import { getActivePlant, hasActivePlant, getPlantDisplayName } from '../utils/plantUtils';
 
 const Dashboard = () => {
   const [systemStatus, setSystemStatus] = useState({
@@ -15,8 +16,11 @@ const Dashboard = () => {
     failedTests: 0
   });
 
+  const [activePlant, setActivePlant] = useState(null);
+
   useEffect(() => {
     checkSystemStatus();
+    setActivePlant(getActivePlant());
   }, []);
 
   const checkSystemStatus = async () => {
@@ -73,13 +77,12 @@ const Dashboard = () => {
   return (
     <div>
       <div className="card">
-        <h2>🏠 Pregled sistema</h2>
-        <p>Dobrodošli u Greenhouse Expert System - napredni ekspertski sistem za dijagnostiku biljnih bolesti.</p>
+        <h2>Pregled sistema</h2>
       </div>
 
       <div className="grid">
         <div className="card">
-          <h3>📊 Status sistema</h3>
+          <h3> Status sistema</h3>
           <div style={{ marginTop: '20px' }}>
             {Object.entries(systemStatus).map(([component, status]) => (
               <div key={component} style={{ 
@@ -90,10 +93,10 @@ const Dashboard = () => {
                 borderBottom: '1px solid #eee'
               }}>
                 <span style={{ fontWeight: 'bold' }}>
-                  {component === 'backend' && '🖥️ Backend'}
-                  {component === 'forwardChaining' && '🔄 Forward Chaining'}
-                  {component === 'backwardChaining' && '🔍 Backward Chaining'}
-                  {component === 'cep' && '⚡ CEP'}
+                  {component === 'backend' && ' Backend'}
+                  {component === 'forwardChaining' && ' Forward Chaining'}
+                  {component === 'backwardChaining' && ' Backward Chaining'}
+                  {component === 'cep' && ' CEP'}
                 </span>
                 <span style={{ 
                   color: getStatusColor(status),
@@ -109,97 +112,85 @@ const Dashboard = () => {
             onClick={checkSystemStatus}
             style={{ marginTop: '15px', width: '100%' }}
           >
-            🔄 Osvezi status
+             Osvezi status
           </button>
         </div>
 
         <div className="card">
-          <h3>📈 Brza statistika</h3>
-          <div style={{ marginTop: '20px' }}>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between',
-              padding: '10px 0',
-              borderBottom: '1px solid #eee'
-            }}>
-              <span>Ukupno testova:</span>
-              <span style={{ fontWeight: 'bold' }}>{quickStats.totalTests}</span>
+          <h3> Aktivna biljka</h3>
+          {!hasActivePlant() ? (
+            <div style={{ marginTop: '20px' }}>
+              <div className="alert alert-warning">
+                <strong> Nema aktivne biljke</strong>
+                <br />
+                Definiši biljku da bi mogao da koristiš Forward Chaining, Backward Chaining i CEP.
+              </div>
+              <button 
+                className="btn" 
+                onClick={() => window.location.href = '/vegetation'}
+                style={{ width: '100%', marginTop: '10px' }}
+              >
+                 Definiši biljku
+              </button>
             </div>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between',
-              padding: '10px 0',
-              borderBottom: '1px solid #eee'
-            }}>
-              <span>Uspešni:</span>
-              <span style={{ fontWeight: 'bold', color: '#4CAF50' }}>
-                {quickStats.successfulTests}
-              </span>
+          ) : (
+            <div style={{ marginTop: '20px' }}>
+              <div className="alert alert-success">
+                <strong> {getPlantDisplayName()}</strong>
+              </div>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                padding: '10px 0',
+                borderBottom: '1px solid #eee'
+              }}>
+                <span>Lokacija:</span>
+                <span style={{ fontWeight: 'bold' }}>{activePlant?.location}</span>
+              </div>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                padding: '10px 0',
+                borderBottom: '1px solid #eee'
+              }}>
+                <span>Temperatura:</span>
+                <span style={{ fontWeight: 'bold', color: '#ff9800' }}>
+                  {activePlant?.currentConditions.temperature}°C
+                </span>
+              </div>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                padding: '10px 0'
+              }}>
+                <span>Vlažnost:</span>
+                <span style={{ fontWeight: 'bold', color: '#2196F3' }}>
+                  {activePlant?.currentConditions.humidity}%
+                </span>
+              </div>
+              <button 
+                className="btn btn-secondary" 
+                onClick={() => window.location.href = '/vegetation'}
+                style={{ width: '100%', marginTop: '10px' }}
+              >
+                 Upravljaj biljkom
+              </button>
             </div>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between',
-              padding: '10px 0'
-            }}>
-              <span>Neuspešni:</span>
-              <span style={{ fontWeight: 'bold', color: '#f44336' }}>
-                {quickStats.failedTests}
-              </span>
-            </div>
-          </div>
+          )}
         </div>
 
         <div className="card">
-          <h3>🎯 Implementirani mehanizmi</h3>
-          <div style={{ marginTop: '20px' }}>
-            <div className="status-badge status-high" style={{ margin: '5px', display: 'block' }}>
-              🔄 Forward Chaining - 3+ nivoa ulančavanja
-            </div>
-            <div className="status-badge status-medium" style={{ margin: '5px', display: 'block' }}>
-              🔍 Backward Chaining - Rekurzivni upiti
-            </div>
-            <div className="status-badge status-low" style={{ margin: '5px', display: 'block' }}>
-              ⚡ CEP - Temporalni operatori
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <h3>🦠 Podržane bolesti</h3>
+          <h3> Podržane bolesti</h3>
           <ul style={{ marginTop: '15px', paddingLeft: '20px' }}>
-            <li>🍅 Plamenjača (Phytophthora infestans)</li>
-            <li>🤍 Pepelnica (Erysiphe cichoracearum)</li>
-            <li>🫐 Siva trulež (Botrytis cinerea)</li>
-            <li>🍄 Fuzarijum (Fusarium oxysporum)</li>
-            <li>🦠 Virus mozaika (TMV)</li>
+            <li> Plamenjača (Phytophthora infestans)</li>
+            <li> Pepelnica (Erysiphe cichoracearum)</li>
+            <li> Siva trulež (Botrytis cinerea)</li>
+            <li> Fuzarijum (Fusarium oxysporum)</li>
+            <li> Virus mozaika (TMV)</li>
           </ul>
         </div>
       </div>
 
-      <div className="card">
-        <h3>🚀 Brzi testovi</h3>
-        <p>Pokrenite osnovne testove sistema da proverite funkcionalnost:</p>
-        <div style={{ marginTop: '15px' }}>
-          <button 
-            className="btn"
-            onClick={() => window.location.href = '/diagnosis'}
-          >
-            🔄 Forward Chaining testovi
-          </button>
-          <button 
-            className="btn btn-secondary"
-            onClick={() => window.location.href = '/backward-chaining'}
-          >
-            🔍 Backward Chaining testovi
-          </button>
-          <button 
-            className="btn btn-danger"
-            onClick={() => window.location.href = '/cep'}
-          >
-            ⚡ CEP testovi
-          </button>
-        </div>
-      </div>
     </div>
   );
 };
