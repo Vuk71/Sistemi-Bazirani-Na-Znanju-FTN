@@ -120,6 +120,20 @@ public class CEPController {
         return sb.toString();
     }
 
+    @PostMapping("/analyze")
+    public List<RiskAlert> analyzeWithParameters(@RequestBody CEPAnalysisRequest request) {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("CEP ANALIZA SA PARAMETRIMA");
+        System.out.println("=".repeat(60));
+        System.out.println("Prozor: " + request.getAnalysisWindow());
+        System.out.println("Prag vlažnosti: " + request.getAlertThresholds().getHumidity() + "%");
+        System.out.println("Temperatura: " + request.getAlertThresholds().getTemperature().getMin() + 
+                         "-" + request.getAlertThresholds().getTemperature().getMax() + "°C");
+        System.out.println("Ventilacija timeout: " + request.getAlertThresholds().getVentilationTimeout() + " min");
+        
+        return cepService.analyzeWithParameters(request);
+    }
+
     @GetMapping("/demo")
     public String demonstrateCEP() {
         StringBuilder demo = new StringBuilder();
@@ -154,6 +168,7 @@ public class CEPController {
         demo.append("GET /api/cep/test-powdery-mildew\n");
         demo.append("GET /api/cep/test-humidity-trend\n");
         demo.append("GET /api/cep/test-all-cep\n");
+        demo.append("POST /api/cep/analyze (sa parametrima)\n");
         
         return demo.toString();
     }

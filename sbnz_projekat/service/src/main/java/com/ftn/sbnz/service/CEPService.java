@@ -203,4 +203,75 @@ public class CEPService {
         
         return processEvents(readings, new ArrayList<>(), new ArrayList<>());
     }
+
+    public List<RiskAlert> analyzeWithParameters(CEPAnalysisRequest request) {
+        List<SensorReading> readings = new ArrayList<>();
+        List<IrrigationEvent> irrigationEvents = new ArrayList<>();
+        List<VentilationEvent> ventilationEvents = new ArrayList<>();
+        
+        LocalDateTime now = LocalDateTime.now();
+        int windowHours = parseWindowHours(request.getAnalysisWindow());
+        
+        double humidityThreshold = request.getAlertThresholds().getHumidity();
+        double tempMin = request.getAlertThresholds().getTemperature().getMin();
+        double tempMax = request.getAlertThresholds().getTemperature().getMax();
+        int ventTimeout = request.getAlertThresholds().getVentilationTimeout();
+        
+        System.out.println("\n=== GENERISANJE TESTNIH PODATAKA ===");
+        System.out.println("Generišem podatke za prozor od " + windowHours + "h");
+        System.out.println("Sa pragom vlažnosti: " + humidityThreshold + "%");
+        System.out.println("Temperaturni opseg: " + tempMin + "-" + tempMax + "°C");
+        
+        // Generisanje senzorskih očitavanja na osnovu parametara
+        for (int i = 0; i < windowHours; i++) {
+            LocalDateTime timestamp = now.minusHours(i);
+            
+            // Temperatura u zadatom opsegu
+            double temp = tempMin + (Math.random() * (tempMax - tempMin));
+            SensorReading tempReading = new SensorReading(SensorType.TEMPERATURE, temp, timestamp);
+            readings.add(tempReading);
+            
+            // Vlažnost iznad praga
+            double humidity = humidityThreshold + (Math.random() * 10);
+            SensorReading humidityReading = new SensorReading(SensorType.HUMIDITY, humidity, timestamp);
+            readings.add(humidityReading);
+            
+            // CO2 za Botrytis scenario
+            if (humidityThreshold >= 88) {
+                SensorReading co2Reading = new SensorReading(SensorType.CO2, 1200.0 + (Math.random() * 200), timestamp);
+                readings.add(co2Reading);
+            }
+        }
+        
+        // Dodavanje događaja navodnjavanja za Botrytis scenario
+        if (humidityThreshold >= 88) {
+            IrrigationEvent irrigation = new IrrigationEvent(UUID.randomUUID(), 50.0, 30, now.minusHours(1));
+            irrigationEvents.add(irrigation);
+        }
+        
+        // Dodavanje događaja ventilacije (ili nedostatak istih)
+        if (ventTimeout > 20) {
+            // Ne dodajemo ventilaciju - simuliramo "missing event"
+            System.out.println("Simuliram nedostatak ventilacije (timeout: " + ventTimeout + " min)");
+        } else {
+            // Dodajemo normalne ventilacione događaje
+            for (int i = 0; i < windowHours / 2; i++) {
+                VentilationEvent ventEvent = new VentilationEvent(true, now.minusHours(i * 2));
+                ventilationEvents.add(ventEvent);
+            }
+        }
+        
+        System.out.println("Generisano " + readings.size() + " senzorskih očitavanja");
+        System.out.println("Generisano " + irrigationEvents.size() + " događaja navodnjavanja");
+        System.out.println("Generisano " + ventilationEvents.size() + " događaja ventilacije");
+        
+        return processEvents(readings, irrigationEvents, ventilationEvents);
+    }
+    
+    private int parseWindowHours(String window) {
+        if (window.endsWith("h")) {
+            return Integer.parseInt(window.substring(0, window.length() - 1));
+        }
+        return 6; // default
+    }
 }

@@ -120,7 +120,7 @@ rule "BC-QUERY: Rekurzivna analiza uzroka"
         $causeFact: Fact(type == "RISK_CAUSE", subject == $query.getDiseaseName())
         $probableFact: Fact(type == "DISEASE_PROBABLE", subject == $query.getDiseaseName())
     then
-        $query.setResult("REKURZIVNI ODGOVOR - " + $causeFact.getDescription());
+        $query.setResult($causeFact.getDescription());
         
         List<String> combinedEvidence = new ArrayList<>();
         combinedEvidence.add("=== STABLO ČINJENICA ===");

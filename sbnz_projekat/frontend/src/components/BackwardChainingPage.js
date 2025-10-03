@@ -26,7 +26,41 @@ const BackwardChainingPage = () => {
     }
   }, []);
 
-  // Uklonjena runTest funkcija - koristimo samo runQuery
+  // Brzi presetovi za test scenarije
+  const testScenarios = {
+    plamenjaca: {
+      c1: { type: 'disease', diseaseName: 'Plamenjača' },
+      c2: { type: 'treatment', treatmentName: 'Bakarni preparat' },
+      c3: { type: 'cause', diseaseName: 'Plamenjača' }
+    },
+    pepelnica: {
+      c1: { type: 'disease', diseaseName: 'Pepelnica' },
+      c2: { type: 'treatment', treatmentName: 'Biološki fungicid' },
+      c3: { type: 'cause', diseaseName: 'Pepelnica' }
+    },
+    sivaTrulez: {
+      c1: { type: 'disease', diseaseName: 'Siva trulež' },
+      c2: { type: 'treatment', treatmentName: 'Uklanjanje biljaka' }
+    },
+    fuzarijum: {
+      c1: { type: 'disease', diseaseName: 'Fuzarijum' },
+      c2: { type: 'treatment', treatmentName: 'Trichoderma' }
+    },
+    virus: {
+      c1: { type: 'disease', diseaseName: 'Virus mozaika' },
+      c2: { type: 'treatment', treatmentName: 'Uklanjanje biljaka' }
+    }
+  };
+
+  const loadScenarioPreset = (scenario, queryType) => {
+    const preset = testScenarios[scenario]?.[queryType];
+    if (preset) {
+      setQueryData(prev => ({
+        ...prev,
+        ...preset
+      }));
+    }
+  };
 
   const runQuery = async () => {
     if (!activePlant) {
@@ -40,6 +74,15 @@ const BackwardChainingPage = () => {
       let response;
       if (queryData.type === 'disease') {
         response = await backwardChainingAPI.queryDisease(queryData.diseaseName);
+      } else if (queryData.type === 'cause') {
+        // C3: Koji uslovi su doveli do rizika?
+        if (queryData.diseaseName === 'Plamenjača') {
+          response = await backwardChainingAPI.testWhatCausedPlamenjaca();
+        } else if (queryData.diseaseName === 'Pepelnica') {
+          response = await backwardChainingAPI.testWhatCausedPepelnica();
+        } else {
+          throw new Error('C3 upit nije implementiran za ovu bolest');
+        }
       } else {
         // Koristi fenofazu iz aktivne biljke
         response = await backwardChainingAPI.queryTreatment(queryData.treatmentName, activePlant.phenophase);
@@ -96,7 +139,7 @@ const BackwardChainingPage = () => {
     }
 
     // Poseban slučaj za neodgovorene upite
-    if (!queryResult.answered || !queryResult.result) {
+    if (queryResult.answered === false) {
       return (
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Rezultat upita</h4>
@@ -382,7 +425,7 @@ const BackwardChainingPage = () => {
                   │  │  ├─ Pronašao: HUMIDITY_THRESHOLD(plamenjaca) = 85%
                 </div>
                 <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Proveravam: 87.0 > 85 
+                  │  │  ├─ Proveravam: 87.0 &gt; 85 
                 </div>
                 <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
                   │  │  └─ REZULTAT: HIGH_HUMIDITY_RISK = TRUE
@@ -600,12 +643,27 @@ const BackwardChainingPage = () => {
               value={queryData.type}
               onChange={(e) => handleQueryChange('type', e.target.value)}
             >
-              <option value="disease">Da li je bolest verovatna?</option>
-              <option value="treatment">Da li je tretman dozvoljen?</option>
+              <option value="disease">C1: Da li je bolest verovatna?</option>
+              <option value="treatment">C2: Da li je tretman dozvoljen?</option>
+              <option value="cause">C3: Koji uslovi su doveli do rizika?</option>
             </select>
           </div>
 
-          {queryData.type === 'disease' ? (
+          {queryData.type === 'cause' ? (
+            <div className="form-group">
+              <label>Naziv bolesti:</label>
+              <select 
+                value={queryData.diseaseName}
+                onChange={(e) => handleQueryChange('diseaseName', e.target.value)}
+              >
+                <option value="Plamenjača">Plamenjača</option>
+                <option value="Pepelnica">Pepelnica</option>
+              </select>
+              <small style={{ display: 'block', marginTop: '5px', color: '#666' }}>
+                C3 analizira uzročno-posledične veze i identifikuje kritične faktore rizika
+              </small>
+            </div>
+          ) : queryData.type === 'disease' ? (
             <div className="form-group">
               <label>Naziv bolesti:</label>
               <select 

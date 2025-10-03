@@ -21,6 +21,11 @@ const DiagnosisPage = () => {
   useEffect(() => {
     const plant = getActivePlant();
     setActivePlant(plant);
+
+    // Učitaj simptome iz aktivne biljke
+    if (plant && plant.symptoms) {
+      setSymptoms(plant.symptoms);
+    }
   }, []);
 
   const runDiagnosis = async () => {
@@ -30,11 +35,27 @@ const DiagnosisPage = () => {
     }
 
     setLoading(true);
-    
+
     try {
-      // Poziv API-ja sa podacima o aktivnoj biljci i simptomima
-      const response = await diagnosisAPI.testComplexChaining(); // Ovo ćemo zameniti sa pravim API pozivom
-      
+      // Poziv API-ja na osnovu simptoma
+      let response;
+
+      // Logika za odabir odgovarajućeg testa na osnovu simptoma
+      if (symptoms.sivaPrevlaka && activePlant.currentConditions.humidity > 90) {
+        response = await diagnosisAPI.testSivaTrulez();
+      } else if (symptoms.vodenasteLezioni && symptoms.tamneMarlje) {
+        response = await diagnosisAPI.testPlamenjaca();
+      } else if (symptoms.belePrevlake) {
+        response = await diagnosisAPI.testPepelnica();
+      } else if (symptoms.uvenuće && symptoms.posmeđenjeZila) {
+        response = await diagnosisAPI.testFuzarijum();
+      } else if (symptoms.mozaikSare) {
+        response = await diagnosisAPI.testVirus();
+      } else {
+        // Fallback na kompleksni test
+        response = await diagnosisAPI.testComplexChaining();
+      }
+
       const result = {
         success: true,
         data: response.data,
@@ -148,7 +169,7 @@ const DiagnosisPage = () => {
         {/* Objašnjenja */}
         {explanations && explanations.length > 0 && (
           <div className="card">
-            <h4>📝 Objašnjenja sistema</h4>
+            <h4>Objašnjenja sistema</h4>
             <ul style={{ paddingLeft: '20px' }}>
               {explanations.map((explanation, index) => (
                 <li key={index} style={{ marginBottom: '8px' }}>
@@ -180,19 +201,19 @@ const DiagnosisPage = () => {
         <p>
           Označite simptome na aktivnoj biljci da biste dobili dijagnozu i preporuke tretmana.
         </p>
-        <br/>
-        
+        <br />
+
         {!hasActivePlant() ? (
           <div className="alert alert-warning">
-            <strong> Nema aktivne biljke!</strong> 
+            <strong> Nema aktivne biljke!</strong>
             <br />Molimo idite u sekciju <strong>" Vegetacija"</strong> i definiši biljku pre dijagnostike.
             <br />
-            <button 
-              className="btn" 
+            <button
+              className="btn"
               onClick={() => window.location.href = '/vegetation'}
               style={{ marginTop: '10px' }}
             >
-               Idi na Vegetaciju
+              Idi na Vegetaciju
             </button>
           </div>
         ) : (
@@ -231,15 +252,21 @@ const DiagnosisPage = () => {
         {/* Forma za simptome */}
         <div className="card">
           <h3> Simptomi na biljci</h3>
-          <p>Označite simptome koje uočavate na aktivnoj biljci:</p>
-          
+
+          <div className="alert alert-info" style={{ marginBottom: '15px' }}>
+            <strong>Napomena:</strong> Simptomi se učitavaju iz aktivne biljke definisane u sekciji "Vegetacija".
+            Za promenu simptoma, idite u sekciju Vegetacija i označite odgovarajuće simptome.
+          </div>
+
+          <p style={{ marginBottom: '16px' }}>Trenutni simptomi na aktivnoj biljci (samo za pregled):</p>
+
           {Object.entries(symptomLabels).map(([key, label]) => (
             <div key={key} className="form-group">
               <label>
-                <input 
+                <input
                   type="checkbox"
                   checked={symptoms[key]}
-                  onChange={(e) => handleSymptomChange(key, e.target.checked)}
+                  disabled={true}
                   style={{ marginRight: '8px' }}
                   disabled={!activePlant}
                 />
@@ -248,15 +275,15 @@ const DiagnosisPage = () => {
             </div>
           ))}
 
-          <button 
-            className="btn" 
+          <button
+            className="btn"
             onClick={runDiagnosis}
             disabled={loading || !activePlant}
             style={{ width: '100%', marginTop: '20px', fontSize: '16px', padding: '12px' }}
           >
             {loading ? ' Analiziram...' : ' Pokreni dijagnostiku'}
           </button>
-          
+
           {!activePlant && (
             <div className="alert alert-warning" style={{ marginTop: '15px' }}>
               Definiši aktivnu biljku u sekciji " Vegetacija" da bi mogao da pokreneš dijagnostiku.
@@ -273,18 +300,18 @@ const DiagnosisPage = () => {
             </div>
           ) : (
             <div>
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
                 alignItems: 'center',
                 marginBottom: '15px'
               }}>
                 <span><strong>Analiza završena:</strong> {results[0].timestamp}</span>
                 <button className="btn btn-danger" onClick={clearResults}>
-                   Obriši rezultate
+                  Obriši rezultate
                 </button>
               </div>
-              
+
               {renderDiagnosisResult(results[0])}
             </div>
           )}

@@ -27,6 +27,9 @@ export const diagnosisAPI = {
   // Svi testovi
   testAll: () => api.get('/diagnosis/test-all'),
   
+  // Stvarna dijagnoza sa podacima
+  diagnose: (data) => api.post('/diagnosis/diagnose', data),
+  
   // Demo
   demo: () => api.get('/demo'),
 };
@@ -58,6 +61,9 @@ export const backwardChainingAPI = {
 
 // CEP API
 export const cepAPI = {
+  // Analiza sa parametrima
+  analyzeWithParameters: (parameters) => api.post('/cep/analyze', parameters),
+  
   // E1: Kritični uslovi za plamenjaču
   testCriticalConditions: () => api.get('/cep/test-critical-conditions'),
   

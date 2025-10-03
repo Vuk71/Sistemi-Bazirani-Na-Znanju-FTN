@@ -437,6 +437,108 @@ Za demonstraciju na odbrani:
 - ✅ **CEP**: Pravi temporalni operatori (SLIDING, TUMBLING, AFTER, NOT)
 - ✅ **Kompletna UI**: Interaktivni interfejs za sve mehanizme
 - ✅ **Testni podaci**: Strukturirani scenariji za demonstraciju
+- ✅ **Funkcionalni CEP parametri**: Parametri stvarno utiču na ponašanje sistema
+
+## 📊 Kako rade CEP parametri
+
+### Interaktivno podešavanje parametara
+
+CEP sistem sada ima **funkcionalne parametre** koji stvarno utiču na ponašanje sistema:
+
+#### 1. Prozor analize (Analysis Window)
+- **1h** - Brza detekcija kratkoročnih promena
+- **6h** - SLIDING WINDOW za kontinuiranu analizu (Plamenjača)
+- **24h** - TUMBLING WINDOW za dnevne obrasce (Siva trulež)
+
+#### 2. Prag vlažnosti (Humidity Threshold)
+- Minimalna vlažnost za aktiviranje alarma
+- **≥ 85%** → Aktivira test za Plamenjaču (E1)
+- **≥ 90%** → Aktivira test za Sivu trulež (E2)
+- **60-80%** → Aktivira test za Pepelnicu (E5)
+- **≥ 88%** → Aktivira test za Botrytis (E3)
+
+#### 3. Temperaturni opseg
+- Optimalni opseg za razvoj bolesti
+- **22-28°C** → Plamenjača
+- **20-25°C** → Pepelnica
+- **15-25°C** → Siva trulež
+
+#### 4. Timeout ventilacije
+- Maksimalno vreme bez ventilacije
+- **> 20 min** → Aktivira alarm ventilacije (E4)
+- Koristi TEMPORALNI NOT operator za detekciju nedostajućih događaja
+
+### Automatski odabir testa
+
+Sistem **automatski bira odgovarajući CEP test** na osnovu podešenih parametara:
+
+```
+IF humidity ≥ 90% AND window = "24h"
+  → E2: Rizik kondenzacije (Siva trulež)
+
+ELSE IF humidity ≥ 85% AND temp ∈ [20,30]°C AND window = "6h"
+  → E1: Kritični uslovi (Plamenjača)
+
+ELSE IF humidity ∈ [60,80]% AND temp ∈ [18,26]°C
+  → E5: Optimalni uslovi (Pepelnica)
+
+ELSE IF humidity ≥ 88%
+  → E3: Rizik Botrytis
+
+ELSE IF ventilationTimeout > 20 min
+  → E4: Alarm ventilacije
+
+ELSE
+  → E6: Trend vlažnosti
+```
+
+### Generisanje testnih podataka
+
+Backend **generiše testne podatke na osnovu parametara**:
+
+1. **Senzorska očitavanja** - temperatura i vlažnost u zadatom opsegu
+2. **Događaji navodnjavanja** - za Botrytis scenario (RH ≥ 88%)
+3. **Događaji ventilacije** - ili nedostatak istih (timeout > 20 min)
+
+### Brzi presetovi
+
+UI nudi **brze presetove** za različite bolesti:
+
+- **Plamenjača preset**: RH > 85%, T: 22-28°C, 6h prozor
+- **Siva trulež preset**: RH > 90%, T: 15-25°C, 24h prozor
+- **Pepelnica preset**: RH: 60-80%, T: 20-25°C, 4h prozor
+
+### Vizuelni indikator
+
+Pre pokretanja analize, sistem prikazuje:
+- **Koji test će biti pokrenut** (E1-E6)
+- **Temporalni operator** koji će biti korišćen
+- **Uslove** koji će biti testirani
+
+### Testiranje
+
+```bash
+# Testiranje sa parametrima preko API-ja
+curl -X POST http://localhost:8080/api/cep/analyze \
+  -H "Content-Type: application/json" \
+  -d '{
+    "analysisWindow": "6h",
+    "alertThresholds": {
+      "humidity": 85,
+      "temperature": {"min": 22, "max": 28},
+      "ventilationTimeout": 30
+    }
+  }'
+```
+
+### Rezultat
+
+Parametri sada **stvarno rade**:
+- ✅ Menjaju ponašanje sistema
+- ✅ Biraju odgovarajući test
+- ✅ Generišu relevantne testne podatke
+- ✅ Aktiviraju različita CEP pravila
+- ✅ Prikazuju različite rezultate
 
 ---
 
