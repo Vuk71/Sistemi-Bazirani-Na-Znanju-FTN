@@ -56,70 +56,110 @@ public class BackwardChainingService {
     }
     
     private List<Disease> createDiseasesFromPlant(String diseaseName, PlantQueryRequest.PlantData plantData) {
-        // VAŽNO: Koristi IDENTIČNU logiku kao Forward Chaining pravila
-        // Kopirano direktno iz disease-detection.drl
+        // NOVA STRATEGIJA: Koristi Forward Chaining pravila direktno!
+        // Umesto ručnog računanja, pozivamo FC engine da izračuna verovatnoće
         
+        System.out.println("=== POZIVANJE FORWARD CHAINING PRAVILA ZA BC ===");
+        
+        // Kreiranje simptoma iz plant data
+        List<Symptom> symptoms = new ArrayList<>();
+        if (plantData.getSymptoms() != null) {
+            PlantQueryRequest.PlantSymptoms s = plantData.getSymptoms();
+            
+            if (s.isVodenasteLezioni()) {
+                Symptom symptom = new Symptom("Vodenaste lezije", SymptomType.WATERY_LESIONS);
+                symptom.setPresent(true);
+                symptoms.add(symptom);
+            }
+            if (s.isBelePrevlake()) {
+                Symptom symptom = new Symptom("Bele prevlake", SymptomType.WHITE_DEPOSITS);
+                symptom.setPresent(true);
+                symptoms.add(symptom);
+            }
+            if (s.isSivaPrevlaka()) {
+                Symptom symptom = new Symptom("Siva prevlaka", SymptomType.GRAY_COATING);
+                symptom.setPresent(true);
+                symptoms.add(symptom);
+            }
+            if (s.isZutilo()) {
+                Symptom symptom = new Symptom("Žutilo", SymptomType.YELLOWING);
+                symptom.setPresent(true);
+                symptoms.add(symptom);
+            }
+            if (s.isUvenuće()) {
+                Symptom symptom = new Symptom("Uvenuće", SymptomType.WILTING);
+                symptom.setPresent(true);
+                symptoms.add(symptom);
+            }
+            if (s.isPosmeđenjeZila()) {
+                Symptom symptom = new Symptom("Posmeđenje žila", SymptomType.BROWNING);
+                symptom.setPresent(true);
+                symptoms.add(symptom);
+            }
+            if (s.isMozaikSare()) {
+                Symptom symptom = new Symptom("Mozaik šare", SymptomType.MOSAIC);
+                symptom.setPresent(true);
+                symptoms.add(symptom);
+            }
+        }
+        
+        // Kreiranje EnvironmentalCondition
+        EnvironmentalCondition environment = new EnvironmentalCondition();
+        environment.setTemperature(plantData.getTemperature());
+        environment.setHumidity(plantData.getHumidity());
+        
+        // Kreiranje Crop
+        Crop crop = new Crop(plantData.getCropType(), plantData.getVariety(), 
+                            Phenophase.valueOf(plantData.getPhenophase()));
+        
+        // POZIVANJE FORWARD CHAINING ENGINE-A
+        DiagnosisResult fcResult = diagnosisService.diagnoseDisease(symptoms, environment, crop);
+        
+        System.out.println("FC engine vratio " + fcResult.getProbableDiseases().size() + " bolesti");
+        
+        // Vraćanje bolesti sa verovatnoćama izračunatim od FC pravila
         List<Disease> diseases = new ArrayList<>();
-        Disease disease = new Disease();
-        disease.setName(diseaseName);
         
-        double probability = 0.0;
-        PlantQueryRequest.PlantSymptoms symptoms = plantData.getSymptoms();
-        
-        // Plamenjača - TAČNA LOGIKA IZ FC PRAVILA
-        if (diseaseName.equals("Plamenjača")) {
-            // R01: RH>85% i T∈[22,28]°C → +30%
-            if (plantData.getHumidity() > 85 && plantData.getTemperature() >= 22 && plantData.getTemperature() <= 28) {
-                probability += 30.0;
-            }
-            // R02: Vodenaste lezije + probability >= 30% → +25%
-            if (symptoms != null && symptoms.isVodenasteLezioni() && probability >= 30.0) {
-                probability += 25.0;
-            }
-            // R11: RH > 80% → +10%
-            if (plantData.getHumidity() > 80 && probability < 90.0) {
-                probability += 10.0;
-            }
-        }
-        // Pepelnica - TAČNA LOGIKA IZ FC PRAVILA
-        else if (diseaseName.equals("Pepelnica")) {
-            // R04: Bele prevlake + RH < 90% → +40%
-            if (symptoms != null && symptoms.isBelePrevlake() && plantData.getHumidity() < 90) {
-                probability += 40.0;
-            }
-        }
-        // Siva trulež - TAČNA LOGIKA IZ FC PRAVILA
-        else if (diseaseName.equals("Siva trulež")) {
-            // R06: Siva prevlaka + RH > 90% → +50%
-            if (symptoms != null && symptoms.isSivaPrevlaka() && plantData.getHumidity() > 90) {
-                probability += 50.0;
-            }
-        }
-        // Fuzarijum - TAČNA LOGIKA IZ FC PRAVILA
-        else if (diseaseName.equals("Fuzarijum")) {
-            // R07: Uvenuće + Posmeđenje žila → +45%
-            if (symptoms != null && symptoms.isUvenuće() && symptoms.isPosmeđenjeZila()) {
-                probability += 45.0;
-            }
-        }
-        // Virus mozaika - TAČNA LOGIKA IZ FC PRAVILA
-        else if (diseaseName.equals("Virus mozaika")) {
-            // R09: Mozaik šare + nema gljivičnih prevlaka → +60%
-            if (symptoms != null && symptoms.isMozaikSare()) {
-                boolean hasGljivice = symptoms.isSivaPrevlaka() || symptoms.isBelePrevlake();
-                if (!hasGljivice) {
-                    probability += 60.0;
-                }
+        // Pronađi traženu bolest u FC rezultatima
+        Disease targetDisease = null;
+        for (Disease d : fcResult.getProbableDiseases()) {
+            if (d.getName().equals(diseaseName)) {
+                targetDisease = d;
+                System.out.println("Pronađena bolest " + diseaseName + " sa verovatnoćom " + d.getProbability() + "%");
+                break;
             }
         }
         
-        System.out.println("Izračunata verovatnoća za " + diseaseName + ": " + probability + "% (koristi FC logiku)");
+        // Ako bolest nije pronađena u FC rezultatima, kreiraj je sa 0% verovatnoćom
+        if (targetDisease == null) {
+            targetDisease = new Disease(diseaseName, getPathogenForDisease(diseaseName));
+            targetDisease.setProbability(0.0);
+            System.out.println("Bolest " + diseaseName + " nije pronađena u FC rezultatima - verovatnoća 0%");
+        }
         
-        disease.setProbability(Math.min(probability, 100.0));
-        diseases.add(disease);
+        diseases.add(targetDisease);
+        
+        // Dodaj i ostale bolesti iz FC rezultata (za R15 normalizaciju)
+        for (Disease d : fcResult.getProbableDiseases()) {
+            if (!d.getName().equals(diseaseName)) {
+                diseases.add(d);
+            }
+        }
         
         return diseases;
     }
+    
+    private String getPathogenForDisease(String diseaseName) {
+        switch (diseaseName) {
+            case "Plamenjača": return "Phytophthora infestans";
+            case "Pepelnica": return "Erysiphe cichoracearum";
+            case "Siva trulež": return "Botrytis cinerea";
+            case "Fuzarijum": return "Fusarium oxysporum";
+            case "Virus mozaika": return "Tobacco mosaic virus";
+            default: return "Unknown pathogen";
+        }
+    }
+    
 
 
     public DiagnosticQuery queryDiseaseProbability(String diseaseName, List<Disease> diseases) {

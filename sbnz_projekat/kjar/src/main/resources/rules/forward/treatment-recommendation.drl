@@ -22,6 +22,40 @@ rule "R03 - Preporučiti bakarni preparat za plamenjaču"
         update($treatment);
 end
 
+// R04A: Ako pepelnica u vegetativnoj fazi → biološki fungicidi
+rule "R04A - Biološki fungicidi za pepelnicu u vegetativnoj fazi"
+    when
+        $disease: Disease(name == "Pepelnica", probability >= 40.0)
+        $crop: Crop(phenophase == Phenophase.VEGETATIVE)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+    then
+        $treatment.setRecommended(true);
+        $treatment.setRecommendationReason("Pepelnica detektovana (" + $disease.getProbability() + "%) - biološki tretman");
+        
+        System.out.println("R04A: Preporučen biološki fungicid za pepelnicu u vegetativnoj fazi");
+        System.out.println("     Tretman: " + $treatment.getName());
+        System.out.println("     Verovatnoća: " + $disease.getProbability() + "%");
+        
+        update($treatment);
+end
+
+// R04B: Ako pepelnica u fazi cvetanja → biološki fungicidi
+rule "R04B - Biološki fungicidi za pepelnicu u fazi cvetanja"
+    when
+        $disease: Disease(name == "Pepelnica", probability >= 40.0)
+        $crop: Crop(phenophase == Phenophase.FLOWERING)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+    then
+        $treatment.setRecommended(true);
+        $treatment.setRecommendationReason("Pepelnica u fazi cvetanja (" + $disease.getProbability() + "%) - biološki tretman");
+        
+        System.out.println("R04B: Preporučen biološki fungicid za pepelnicu u fazi cvetanja");
+        System.out.println("     Tretman: " + $treatment.getName());
+        System.out.println("     Verovatnoća: " + $disease.getProbability() + "%");
+        
+        update($treatment);
+end
+
 // R05: Ako pepelnica i fenofaza plodonošenje → samo biološki fungicidi
 rule "R05 - Biološki fungicidi u plodonošenju za pepelnicu"
     when
@@ -73,7 +107,7 @@ end
 // Novo pravilo: Kombinovani tretman za sive truleži
 rule "R16 - Kombinovani tretman za sivu trulež"
     when
-        $disease: Disease(name == "Siva trulež", probability >= 50.0)
+        $disease: Disease(name == "Siva trulež", probability >= 30.0)
         $env: EnvironmentalCondition(humidity > 90)
         $treatment1: Treatment(name == "Uklanjanje zaraženih biljaka", recommended == false)
         $treatment2: Treatment(name == "Biološki fungicid", recommended == false)

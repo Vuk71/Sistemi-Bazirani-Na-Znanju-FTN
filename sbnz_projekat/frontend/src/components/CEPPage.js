@@ -172,6 +172,7 @@ const CEPPage = () => {
         {/* CEP Alertovi */}
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Generisani CEP alertovi</h4>
+          <br/>
           {alerts && alerts.length > 0 ? (
             <div>
               {alerts.map((alert, index) => (
@@ -481,6 +482,7 @@ const CEPPage = () => {
         {/* Rezultati */}
         <div className="card">
           <h3> Rezultati CEP analize</h3>
+          <br/>
           {results.length === 0 ? (
             <div className="loading">
               Unesite monitoring podatke i pokrenite CEP analizu da vidite rezultate...
@@ -495,11 +497,6 @@ const CEPPage = () => {
               }}>
                 <div>
                   <div><strong>Analiza završena:</strong> {results[0].timestamp}</div>
-                  {results[0].testName && (
-                    <div style={{ fontSize: '13px', color: '#666', marginTop: '5px' }}>
-                      <strong>Pokrenut test:</strong> {results[0].testName}
-                    </div>
-                  )}
                 </div>
                 <button className="btn btn-danger" onClick={clearResults}>
                   Obriši rezultate

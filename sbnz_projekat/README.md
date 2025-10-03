@@ -1,6 +1,6 @@
 # Pametni sistem za preporuku tretmana biljnih bolesti u plastenicima
 
-Napredni ekspertski sistem koji implementira **tri kompleksna mehanizma** za dijagnostiku biljnih bolesti i preporuku tretmana:
+Napredni ekspertski sistem koji implementira kompleksne mehanizme za dijagnostiku biljnih bolesti i preporuku tretmana:
 
 - **Forward Chaining** - Operativne odluke i preporuke tretmana
 - **Backward Chaining** - Dijagnostički upiti i objašnjavanje
@@ -26,7 +26,7 @@ echo 'export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"' >> ~/.zshrc
 sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
 ```
 
-## 🚀 Pokretanje sistema
+## Pokretanje sistema
 
 ### 1. Build backend projekta
 
@@ -72,7 +72,7 @@ Za finalnu odbranu, pokrenite oba dela sistema:
 
 ### 3. Testiranje sistema
 
-#### 🔄 Forward Chaining - Dijagnostika i tretmani
+#### Forward Chaining - Dijagnostika i tretmani
 
 ```bash
 # Osnovni testovi dijagnoze
@@ -91,7 +91,7 @@ curl http://localhost:8080/api/diagnosis/test-treatment-restrictions
 curl http://localhost:8080/api/diagnosis/test-all
 ```
 
-#### 🔍 Backward Chaining - Dijagnostički upiti
+#### Backward Chaining - Dijagnostički upiti
 
 ```bash
 # C1: Da li je bolest verovatna?
@@ -176,30 +176,9 @@ sbnz_projekat/
 - **service**: Spring Boot aplikacija sa REST API-jem i business logikom
 - **frontend**: React aplikacija sa kompletnim korisničkim interfejsom
 
-## 🖥️ Frontend aplikacija
+## Implementirani kompleksni mehanizmi
 
-React aplikacija pruža kompletni korisnički interfejs za testiranje i demonstraciju svih funkcionalnosti sistema:
-
-### 📱 Dostupne stranice
-
-- **🏠 Dashboard** - Pregled statusa sistema i brza statistika
-- **🔄 Forward Chaining** - Testiranje dijagnostike sa 3+ nivoa ulančavanja
-- **🔍 Backward Chaining** - Rekurzivni upiti kroz stablo činjenica
-- **⚡ CEP** - Complex Event Processing sa temporalnim operatorima
-- **🧪 Testni podaci** - 5 kompletnih test scenarija
-
-### 🎯 Funkcionalnosti
-
-- **Interaktivni testovi** - Pokretanje svih backend testova kroz UI
-- **Real-time rezultati** - Trenutni prikaz rezultata sa detaljnim objašnjenjima
-- **Prilagođeni upiti** - Kreiranje custom Backward Chaining upita
-- **Strukturirani scenariji** - Kompletni test podaci za sve bolesti
-- **cURL komande** - Generisanje komandi za direktno API testiranje
-- **Responzivni dizajn** - Prilagođava se svim veličinama ekrana
-
-## 🎯 Implementirani kompleksni mehanizmi
-
-### 🔄 Forward Chaining - Operativne odluke (3+ nivoa ulančavanja)
+### Forward Chaining - Operativne odluke (3+ nivoa ulančavanja)
 
 | Pravilo | Opis | Ulančavanje |
 |---------|------|-------------|
@@ -218,23 +197,23 @@ React aplikacija pruža kompletni korisnički interfejs za testiranje i demonstr
 
 | Komponenta | Opis | Implementacija |
 |------------|------|----------------|
-| **Stablo činjenica** | Hijerarhijska struktura znanja | ✅ Fact klasa sa tipovima |
-| **Rekurzivni upiti** | Upiti koji koriste postojeće činjenice | ✅ Query → Fact → Query |
-| **C1** | Da li je bolest X verovatna? | ✅ Rekurzivno kroz DISEASE_PROBABLE |
-| **C2** | Da li je tretman Y dozvoljen? | ✅ Rekurzivno kroz TREATMENT_ALLOWED |
-| **C3** | Analiza uzroka kroz stablo | ✅ Kombinuje RISK_CAUSE + DISEASE_PROBABLE |
-| **C3 - Sve bolesti** | Analiza uzroka za 5 bolesti | ✅ Plamenjača, Pepelnica, Siva trulež, Fuzarijum, Virus mozaika |
+| **Stablo činjenica** | Hijerarhijska struktura znanja | Fact klasa sa tipovima |
+| **Rekurzivni upiti** | Upiti koji koriste postojeće činjenice | Query → Fact → Query |
+| **C1** | Da li je bolest X verovatna? | Rekurzivno kroz DISEASE_PROBABLE |
+| **C2** | Da li je tretman Y dozvoljen? | Rekurzivno kroz TREATMENT_ALLOWED |
+| **C3** | Analiza uzroka kroz stablo | Kombinuje RISK_CAUSE + DISEASE_PROBABLE |
+| **C3 - Sve bolesti** | Analiza uzroka za 5 bolesti | Plamenjača, Pepelnica, Siva trulež, Fuzarijum, Virus mozaika |
 
-### ⚡ Complex Event Processing (CEP) - Pravi temporalni operatori
+### Complex Event Processing (CEP) - Pravi temporalni operatori
 
 | Obrazac | Opis | Temporalni operator |
 |---------|------|---------------------|
-| **E1** | Kritični uslovi za plamenjaču | ✅ `over window:time(6h)` - SLIDING WINDOW |
-| **E2** | Rizik kondenzacije | ✅ `over window:time(24h)` - TUMBLING WINDOW |
-| **E3** | Rizik Botrytis sekvencijalno | ✅ `after[0s,2h]` - TEMPORALNI SEKVENCIJALNI |
-| **E4** | Alarm ventilacije | ✅ `not ... after[0s,30m]` - TEMPORALNI NOT |
-| **E5** | Stabilni uslovi za pepelnicu | ✅ `over window:time(4h)` - TEMPORALNI DURING |
-| **E6** | Rastući trend vlažnosti | ✅ `after[30m,2h]` - TEMPORALNI BEFORE |
+| **E1** | Kritični uslovi za plamenjaču | `over window:time(6h)` - SLIDING WINDOW |
+| **E2** | Rizik kondenzacije | `over window:time(24h)` - TUMBLING WINDOW |
+| **E3** | Rizik Botrytis sekvencijalno | `after[0s,2h]` - TEMPORALNI SEKVENCIJALNI |
+| **E4** | Alarm ventilacije | `not ... after[0s,30m]` - TEMPORALNI NOT |
+| **E5** | Stabilni uslovi za pepelnicu | `over window:time(4h)` - TEMPORALNI DURING |
+| **E6** | Rastući trend vlažnosti | `after[30m,2h]` - TEMPORALNI BEFORE |
 
 ### Podržane bolesti
 
@@ -326,21 +305,7 @@ Generisano alertova: 4
 Korišćeni temporalni operatori: 8
 ```
 
-## Tehnologije
-
-### Backend
-- **Java 11** - Programski jezik
-- **Spring Boot 2.7.9** - Application framework
-- **Drools 7.49.0.Final** - Rule engine
-- **Maven** - Build tool i dependency management
-
-### Frontend
-- **React 18.2.0** - UI framework
-- **React Router 6.3.0** - Client-side routing
-- **Axios 0.27.2** - HTTP klijent
-- **Responsive CSS** - Prilagodljiv dizajn
-
-## 📁 Struktura pravila
+## Struktura pravila
 
 ```
 kjar/src/main/resources/rules/
@@ -367,87 +332,11 @@ kjar/src/main/resources/rules/
 </kbase>
 ```
 
-## Troubleshooting
-
-### Java nije instalirana
-```bash
-# Proverite instalaciju
-java -version
-
-# Ako nije instalirana, sledite instrukcije za instalaciju iznad
-```
-
-### Maven build greške
-```bash
-# Očistite cache i rebuild
-./mvnw clean
-./mvnw install
-```
-
-### Port 8080 je zauzet
-```bash
-# Promenite port u application.properties ili zaustavite proces na portu 8080
-lsof -ti:8080 | xargs kill -9
-
-# Alternativno, pokrenite na drugom portu
-./mvnw spring-boot:run -pl service -Dspring-boot.run.arguments=--server.port=8081
-```
-
-### Standalone testiranje (bez Spring Boot-a)
-```bash
-# Direktno testiranje Drools pravila
-./mvnw exec:java -Dexec.mainClass="com.ftn.sbnz.service.StandaloneDemo" -Dexec.classpathScope=test -pl service
-```
-
-## 🎓 Finalna odbrana
-
-### 📋 Pripremljeno za odbranu
-
-- [x] **Klijentska aplikacija (UI)** - Kompletna React aplikacija
-- [x] **Testni podaci** - 5 strukturiranih test scenarija
-- [x] **Ažuriran predlog projekta** - Finalni dokument sa svim detaljima
-
-### 🚀 Demonstracija
-
-Za demonstraciju na odbrani:
-
-1. **Pokrenite backend**: `./mvnw spring-boot:run -pl service`
-2. **Pokrenite frontend**: `cd frontend && npm start`
-3. **Otvorite browser**: `http://localhost:3000`
-4. **Navigirajte kroz sekcije**:
-   - Dashboard → pregled sistema
-   - Forward Chaining → kompleksno ulančavanje
-   - Backward Chaining → rekurzivni upiti
-   - CEP → temporalni operatori
-   - Testni podaci → strukturirani scenariji
-
-### 📊 Ključni pokazatelji
-
-| Metrika | Vrednost |
-|---------|----------|
-| **Forward Chaining pravila** | 15 |
-| **Nivoi ulančavanja** | 4+ |
-| **Backward Chaining upita** | 8 |
-| **CEP obrazaca** | 6 |
-| **Temporalnih operatora** | 8 |
-| **Test scenarija** | 5 |
-| **Podržanih bolesti** | 5 |
-| **UI stranica** | 5 |
-
-### 🎯 Kompleksnost implementacije
-
-- ✅ **Forward Chaining**: 3+ nivoa ulančavanja (implementirano 4 nivoa)
-- ✅ **Backward Chaining**: Rekurzivni upiti kroz stablo činjenica
-- ✅ **CEP**: Pravi temporalni operatori (SLIDING, TUMBLING, AFTER, NOT)
-- ✅ **Kompletna UI**: Interaktivni interfejs za sve mehanizme
-- ✅ **Testni podaci**: Strukturirani scenariji za demonstraciju
-- ✅ **Funkcionalni CEP parametri**: Parametri stvarno utiču na ponašanje sistema
-
-## 📊 Kako rade CEP parametri
+## Kako rade CEP parametri
 
 ### Interaktivno podešavanje parametara
 
-CEP sistem sada ima **funkcionalne parametre** koji stvarno utiču na ponašanje sistema:
+CEP sistem ima **funkcionalne parametre** koji stvarno utiču na ponašanje sistema:
 
 #### 1. Prozor analize (Analysis Window)
 - **1h** - Brza detekcija kratkoročnih promena
@@ -471,79 +360,3 @@ CEP sistem sada ima **funkcionalne parametre** koji stvarno utiču na ponašanje
 - Maksimalno vreme bez ventilacije
 - **> 20 min** → Aktivira alarm ventilacije (E4)
 - Koristi TEMPORALNI NOT operator za detekciju nedostajućih događaja
-
-### Automatski odabir testa
-
-Sistem **automatski bira odgovarajući CEP test** na osnovu podešenih parametara:
-
-```
-IF humidity ≥ 90% AND window = "24h"
-  → E2: Rizik kondenzacije (Siva trulež)
-
-ELSE IF humidity ≥ 85% AND temp ∈ [20,30]°C AND window = "6h"
-  → E1: Kritični uslovi (Plamenjača)
-
-ELSE IF humidity ∈ [60,80]% AND temp ∈ [18,26]°C
-  → E5: Optimalni uslovi (Pepelnica)
-
-ELSE IF humidity ≥ 88%
-  → E3: Rizik Botrytis
-
-ELSE IF ventilationTimeout > 20 min
-  → E4: Alarm ventilacije
-
-ELSE
-  → E6: Trend vlažnosti
-```
-
-### Generisanje testnih podataka
-
-Backend **generiše testne podatke na osnovu parametara**:
-
-1. **Senzorska očitavanja** - temperatura i vlažnost u zadatom opsegu
-2. **Događaji navodnjavanja** - za Botrytis scenario (RH ≥ 88%)
-3. **Događaji ventilacije** - ili nedostatak istih (timeout > 20 min)
-
-### Brzi presetovi
-
-UI nudi **brze presetove** za različite bolesti:
-
-- **Plamenjača preset**: RH > 85%, T: 22-28°C, 6h prozor
-- **Siva trulež preset**: RH > 90%, T: 15-25°C, 24h prozor
-- **Pepelnica preset**: RH: 60-80%, T: 20-25°C, 4h prozor
-
-### Vizuelni indikator
-
-Pre pokretanja analize, sistem prikazuje:
-- **Koji test će biti pokrenut** (E1-E6)
-- **Temporalni operator** koji će biti korišćen
-- **Uslove** koji će biti testirani
-
-### Testiranje
-
-```bash
-# Testiranje sa parametrima preko API-ja
-curl -X POST http://localhost:8080/api/cep/analyze \
-  -H "Content-Type: application/json" \
-  -d '{
-    "analysisWindow": "6h",
-    "alertThresholds": {
-      "humidity": 85,
-      "temperature": {"min": 22, "max": 28},
-      "ventilationTimeout": 30
-    }
-  }'
-```
-
-### Rezultat
-
-Parametri sada **stvarno rade**:
-- ✅ Menjaju ponašanje sistema
-- ✅ Biraju odgovarajući test
-- ✅ Generišu relevantne testne podatke
-- ✅ Aktiviraju različita CEP pravila
-- ✅ Prikazuju različite rezultate
-
----
-
-**Sistem je spreman za finalnu odbranu sa svim zahtevnim komponentama implementiranim i testiranim.**

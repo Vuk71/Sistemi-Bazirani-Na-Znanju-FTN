@@ -37,24 +37,36 @@ const DiagnosisPage = () => {
     setLoading(true);
 
     try {
-      // Poziv API-ja na osnovu simptoma
-      let response;
+      console.log(' Koristim aktivnu biljku za Forward Chaining:', {
+        cropType: activePlant.cropType,
+        variety: activePlant.variety,
+        temperature: activePlant.currentConditions?.temperature,
+        humidity: activePlant.currentConditions?.humidity,
+        symptoms: symptoms
+      });
 
-      // Logika za odabir odgovarajućeg testa na osnovu simptoma
-      if (symptoms.sivaPrevlaka && activePlant.currentConditions.humidity > 90) {
-        response = await diagnosisAPI.testSivaTrulez();
-      } else if (symptoms.vodenasteLezioni && symptoms.tamneMarlje) {
-        response = await diagnosisAPI.testPlamenjaca();
-      } else if (symptoms.belePrevlake) {
-        response = await diagnosisAPI.testPepelnica();
-      } else if (symptoms.uvenuće && symptoms.posmeđenjeZila) {
-        response = await diagnosisAPI.testFuzarijum();
-      } else if (symptoms.mozaikSare) {
-        response = await diagnosisAPI.testVirus();
-      } else {
-        // Fallback na kompleksni test
-        response = await diagnosisAPI.testComplexChaining();
-      }
+      // VAŽNO: Koristi aktivnu biljku, ne hardkodovane testove!
+      const diagnosisRequest = {
+        cropType: activePlant.cropType,
+        variety: activePlant.variety,
+        phenophase: activePlant.phenophase,
+        temperature: activePlant.currentConditions?.temperature || 20,
+        humidity: activePlant.currentConditions?.humidity || 60,
+        co2Level: activePlant.currentConditions?.co2Level || 800,
+        ventilationActive: activePlant.currentConditions?.ventilationActive || false,
+        // Koristi simptome iz state-a (mogu biti ažurirani)
+        vodenasteLezioni: symptoms.vodenasteLezioni,
+        tamneMarlje: symptoms.tamneMarlje,
+        belePrevlake: symptoms.belePrevlake,
+        sivaPrevlaka: symptoms.sivaPrevlaka,
+        zutilo: symptoms.zutilo,
+        uvenuće: symptoms.uvenuće,
+        posmeđenjeZila: symptoms.posmeđenjeZila,
+        mozaikSare: symptoms.mozaikSare
+      };
+
+      // Pozovi dijagnostiku sa aktivnom biljkom
+      const response = await diagnosisAPI.diagnose(diagnosisRequest);
 
       const result = {
         success: true,
