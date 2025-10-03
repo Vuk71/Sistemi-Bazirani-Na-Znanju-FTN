@@ -47,12 +47,38 @@ export const backwardChainingAPI = {
   // C3: Koji uslovi su doveli do rizika?
   testWhatCausedPlamenjaca: () => api.get('/backward-chaining/test-what-caused-plamenjaca'),
   testWhatCausedPepelnica: () => api.get('/backward-chaining/test-what-caused-pepelnica'),
+  queryWhatCausedWithPlant: (diseaseName, plant) => api.post('/backward-chaining/query-what-caused-with-plant', {
+    diseaseName: diseaseName,
+    plant: {
+      cropType: plant.cropType,
+      variety: plant.variety,
+      phenophase: plant.phenophase,
+      temperature: plant.currentConditions?.temperature || 20,
+      humidity: plant.currentConditions?.humidity || 70,
+      co2Level: plant.currentConditions?.co2Level || 800,
+      ventilationActive: plant.currentConditions?.ventilationActive || false,
+      symptoms: plant.symptoms || {}
+    }
+  }),
   
   // Svi testovi
   testAllBackward: () => api.get('/backward-chaining/test-all-backward'),
   
   // Prilagođeni upiti
   queryDisease: (diseaseName) => api.get(`/backward-chaining/query-disease/${encodeURIComponent(diseaseName)}`),
+  queryDiseaseWithPlant: (diseaseName, plant) => api.post('/backward-chaining/query-disease-with-plant', {
+    diseaseName: diseaseName,
+    plant: {
+      cropType: plant.cropType,
+      variety: plant.variety,
+      phenophase: plant.phenophase,
+      temperature: plant.currentConditions?.temperature || 20,
+      humidity: plant.currentConditions?.humidity || 70,
+      co2Level: plant.currentConditions?.co2Level || 800,
+      ventilationActive: plant.currentConditions?.ventilationActive || false,
+      symptoms: plant.symptoms || {}
+    }
+  }),
   queryTreatment: (treatmentName, phenophase) => api.get(`/backward-chaining/query-treatment/${encodeURIComponent(treatmentName)}/${phenophase}`),
   
   // Demo

@@ -105,6 +105,9 @@ curl http://localhost:8080/api/backward-chaining/test-treatment-blocked-fruiting
 # C3: Koji uslovi su doveli do rizika?
 curl http://localhost:8080/api/backward-chaining/test-what-caused-plamenjaca
 curl http://localhost:8080/api/backward-chaining/test-what-caused-pepelnica
+curl http://localhost:8080/api/backward-chaining/test-what-caused-siva-trulez
+curl http://localhost:8080/api/backward-chaining/test-what-caused-fuzarijum
+curl http://localhost:8080/api/backward-chaining/test-what-caused-virus-mozaika
 
 # Svi Backward Chaining testovi
 curl http://localhost:8080/api/backward-chaining/test-all-backward
@@ -220,6 +223,7 @@ React aplikacija pruža kompletni korisnički interfejs za testiranje i demonstr
 | **C1** | Da li je bolest X verovatna? | ✅ Rekurzivno kroz DISEASE_PROBABLE |
 | **C2** | Da li je tretman Y dozvoljen? | ✅ Rekurzivno kroz TREATMENT_ALLOWED |
 | **C3** | Analiza uzroka kroz stablo | ✅ Kombinuje RISK_CAUSE + DISEASE_PROBABLE |
+| **C3 - Sve bolesti** | Analiza uzroka za 5 bolesti | ✅ Plamenjača, Pepelnica, Siva trulež, Fuzarijum, Virus mozaika |
 
 ### ⚡ Complex Event Processing (CEP) - Pravi temporalni operatori
 

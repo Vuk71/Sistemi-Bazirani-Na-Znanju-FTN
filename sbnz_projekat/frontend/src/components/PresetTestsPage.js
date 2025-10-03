@@ -418,6 +418,8 @@ const PresetTestsPage = () => {
 
         <div className="card">
           <h3> Rezultati testova</h3>
+          <br/>
+
           {results.length === 0 ? (
             <div className="loading">
               Pokrenite test da vidite rezultate...

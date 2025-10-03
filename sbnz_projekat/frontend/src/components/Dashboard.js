@@ -182,10 +182,10 @@ const Dashboard = () => {
         <div className="card">
           <h3> Podržane bolesti</h3>
           <ul style={{ marginTop: '15px', paddingLeft: '20px' }}>
-            <li> Plamenjača (Phytophthora infestans)</li>
-            <li> Pepelnica (Erysiphe cichoracearum)</li>
-            <li> Siva trulež (Botrytis cinerea)</li>
-            <li> Fuzarijum (Fusarium oxysporum)</li>
+            <li> Plamenjača (Phytophthora infestans)</li><br/>
+            <li> Pepelnica (Erysiphe cichoracearum)</li><br/>
+            <li> Siva trulež (Botrytis cinerea)</li><br/>
+            <li> Fuzarijum (Fusarium oxysporum)</li><br/>
             <li> Virus mozaika (TMV)</li>
           </ul>
         </div>

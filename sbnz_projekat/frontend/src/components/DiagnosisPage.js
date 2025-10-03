@@ -109,6 +109,7 @@ const DiagnosisPage = () => {
         {/* Dijagnostikovane bolesti */}
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Dijagnostikovane bolesti</h4>
+          <br />
           {probableDiseases && probableDiseases.length > 0 ? (
             <div className="grid">
               {probableDiseases.map((disease, index) => (
@@ -137,6 +138,7 @@ const DiagnosisPage = () => {
         {/* Preporučeni tretmani */}
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Preporučeni tretmani</h4>
+          <br />
           {recommendedTreatments && recommendedTreatments.length > 0 ? (
             <div className="grid">
               {recommendedTreatments.map((treatment, index) => (
@@ -170,6 +172,7 @@ const DiagnosisPage = () => {
         {explanations && explanations.length > 0 && (
           <div className="card">
             <h4>Objašnjenja sistema</h4>
+            <br />
             <ul style={{ paddingLeft: '20px' }}>
               {explanations.map((explanation, index) => (
                 <li key={index} style={{ marginBottom: '8px' }}>
@@ -230,6 +233,7 @@ const DiagnosisPage = () => {
         {activePlant && (
           <div className="card">
             <h3> Aktivna biljka</h3>
+            <br />
             <div className="grid">
               <div>
                 <h4> Osnovni podaci</h4>
@@ -266,7 +270,7 @@ const DiagnosisPage = () => {
                 <input
                   type="checkbox"
                   checked={symptoms[key]}
-                  disabled={true}
+                  // disabled={true}
                   style={{ marginRight: '8px' }}
                   disabled={!activePlant}
                 />
@@ -318,38 +322,6 @@ const DiagnosisPage = () => {
         </div>
       </div>
 
-      <div className="card">
-        <h3>Primer Forward Chaining mehanizma</h3>
-        <div className="grid">
-          <div>
-            <ul style={{ paddingLeft: '20px' }}>
-              <li><strong>R01:</strong> Kritični uslovi za plamenjaču (RH&gt;85%, T∈[22,28]°C)</li>
-              <li><strong>R02:</strong> Plamenjača + vodenaste lezije → +25%</li>
-              <li><strong>R11:</strong> Visoka vlažnost → dodatni rizik</li>
-              <li><strong>R03:</strong> Preporuka tretmana (≥70%)</li>
-              <li><strong>R04:</strong> Pepelnica sa belim naslagama</li>
-              <li><strong>R06:</strong> Siva trulež + visoka vlažnost</li>
-              <li><strong>R07:</strong> Fuzarijum (uvenuće + posmeđenje)</li>
-              <li><strong>R09:</strong> Virus mozaika (mozaik bez gljivica)</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Nivoi ulančavanja</h4>
-            <div className="status-badge status-high" style={{ margin: '5px', display: 'block' }}>
-              Nivo 1: Detekcija osnovnih uslova
-            </div>
-            <div className="status-badge status-medium" style={{ margin: '5px', display: 'block' }}>
-              Nivo 2: Kombinovanje sa simptomima
-            </div>
-            <div className="status-badge status-low" style={{ margin: '5px', display: 'block' }}>
-              Nivo 3: Dodatni faktori rizika
-            </div>
-            <div className="status-badge status-high" style={{ margin: '5px', display: 'block' }}>
-              Nivo 4: Generisanje preporuka
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

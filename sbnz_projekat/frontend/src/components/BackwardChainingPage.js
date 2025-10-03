@@ -16,7 +16,7 @@ const BackwardChainingPage = () => {
   useEffect(() => {
     const plant = getActivePlant();
     setActivePlant(plant);
-    
+
     // Postavi fenofazu iz aktivne biljke
     if (plant) {
       setQueryData(prev => ({
@@ -26,68 +26,41 @@ const BackwardChainingPage = () => {
     }
   }, []);
 
-  // Brzi presetovi za test scenarije
-  const testScenarios = {
-    plamenjaca: {
-      c1: { type: 'disease', diseaseName: 'Plamenjača' },
-      c2: { type: 'treatment', treatmentName: 'Bakarni preparat' },
-      c3: { type: 'cause', diseaseName: 'Plamenjača' }
-    },
-    pepelnica: {
-      c1: { type: 'disease', diseaseName: 'Pepelnica' },
-      c2: { type: 'treatment', treatmentName: 'Biološki fungicid' },
-      c3: { type: 'cause', diseaseName: 'Pepelnica' }
-    },
-    sivaTrulez: {
-      c1: { type: 'disease', diseaseName: 'Siva trulež' },
-      c2: { type: 'treatment', treatmentName: 'Uklanjanje biljaka' }
-    },
-    fuzarijum: {
-      c1: { type: 'disease', diseaseName: 'Fuzarijum' },
-      c2: { type: 'treatment', treatmentName: 'Trichoderma' }
-    },
-    virus: {
-      c1: { type: 'disease', diseaseName: 'Virus mozaika' },
-      c2: { type: 'treatment', treatmentName: 'Uklanjanje biljaka' }
-    }
-  };
 
-  const loadScenarioPreset = (scenario, queryType) => {
-    const preset = testScenarios[scenario]?.[queryType];
-    if (preset) {
-      setQueryData(prev => ({
-        ...prev,
-        ...preset
-      }));
-    }
-  };
 
   const runQuery = async () => {
     if (!activePlant) {
-      alert('Molimo prvo definiši aktivnu biljku u sekciji "Vegetacija"');
+      alert('⚠️ Molimo prvo definiši aktivnu biljku u sekciji "Vegetacija"');
       return;
     }
 
     setLoading(true);
-    
+
     try {
       let response;
+
+      console.log('🌱 Koristim aktivnu biljku:', {
+        cropType: activePlant.cropType,
+        variety: activePlant.variety,
+        phenophase: activePlant.phenophase,
+        temperature: activePlant.currentConditions?.temperature,
+        humidity: activePlant.currentConditions?.humidity,
+        symptoms: activePlant.symptoms
+      });
+
       if (queryData.type === 'disease') {
-        response = await backwardChainingAPI.queryDisease(queryData.diseaseName);
+        // Koristi aktivnu biljku za C1 upite!
+        response = await backwardChainingAPI.queryDiseaseWithPlant(queryData.diseaseName, activePlant);
       } else if (queryData.type === 'cause') {
-        // C3: Koji uslovi su doveli do rizika?
-        if (queryData.diseaseName === 'Plamenjača') {
-          response = await backwardChainingAPI.testWhatCausedPlamenjaca();
-        } else if (queryData.diseaseName === 'Pepelnica') {
-          response = await backwardChainingAPI.testWhatCausedPepelnica();
-        } else {
-          throw new Error('C3 upit nije implementiran za ovu bolest');
-        }
+        // C3: Koji uslovi su doveli do rizika? - Koristi aktivnu biljku!
+        console.log('🔍 C3 upit sa aktivnom biljkom');
+        response = await backwardChainingAPI.queryWhatCausedWithPlant(queryData.diseaseName, activePlant);
       } else {
-        // Koristi fenofazu iz aktivne biljke
+        // VAŽNO: Koristi fenofazu iz aktivne biljke!
+        console.log('🔍 Proveravam tretman za fenofazu:', activePlant.phenophase);
         response = await backwardChainingAPI.queryTreatment(queryData.treatmentName, activePlant.phenophase);
       }
-      
+
       const result = {
         success: true,
         data: response.data,
@@ -119,6 +92,34 @@ const BackwardChainingPage = () => {
     setResults([]);
   };
 
+  // Helper funkcija za izvlačenje verovatnoće iz rezultata
+  const extractProbability = (result) => {
+    // Prvo pokušaj iz result teksta
+    const resultText = result.data?.result || '';
+    let match = resultText.match(/(\d+\.?\d*)%/);
+    if (match) return parseFloat(match[1]);
+
+    // Ako nema u result, pokušaj iz explanation
+    const explanations = result.data?.explanation || [];
+    for (const exp of explanations) {
+      match = exp.match(/Verovatnoća:\s*(\d+\.?\d*)%/);
+      if (match) return parseFloat(match[1]);
+    }
+
+    // Ako ni tamo nema, pokušaj bilo koji procenat u explanation
+    for (const exp of explanations) {
+      match = exp.match(/(\d+\.?\d*)%/);
+      if (match) return parseFloat(match[1]);
+    }
+
+    return null;
+  };
+
+  // Helper funkcija za izvlačenje podataka iz aktivne biljke
+  const getPlantData = (result) => {
+    return result.queryData?.plant || {};
+  };
+
   const renderQueryResult = (result) => {
     if (!result.success) {
       return (
@@ -129,7 +130,9 @@ const BackwardChainingPage = () => {
     }
 
     const queryResult = result.data;
-    
+    const probability = extractProbability(result);
+    const plantData = getPlantData(result);
+
     if (!queryResult) {
       return (
         <div className="alert alert-warning">
@@ -143,6 +146,7 @@ const BackwardChainingPage = () => {
       return (
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Rezultat upita</h4>
+          <br />
           <div style={{
             backgroundColor: '#fff3cd',
             padding: '15px',
@@ -170,15 +174,7 @@ const BackwardChainingPage = () => {
               <div><strong>Fenofaza:</strong> {queryResult.phenophase}</div>
             )}
           </div>
-          
-          <div className="alert alert-info" style={{ marginTop: '15px' }}>
-            <strong> Preporučujemo:</strong>
-            <ul style={{ marginTop: '10px', paddingLeft: '20px' }}>
-              <li>Pokušajte sa drugom bolešću (npr. Plamenjača, Pepelnica)</li>
-              <li>Proverite da li je bolest podržana u sistemu</li>
-              <li>Koristite presetovane testove za validaciju</li>
-            </ul>
-          </div>
+
         </div>
       );
     }
@@ -188,6 +184,7 @@ const BackwardChainingPage = () => {
         {/* Osnovni rezultat upita */}
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Rezultat upita</h4>
+          <br />
           <div style={{
             backgroundColor: queryResult.result && queryResult.result.includes('DA') ? '#e8f5e8' : '#ffebee',
             padding: '15px',
@@ -209,7 +206,7 @@ const BackwardChainingPage = () => {
               <div><strong>Tretman:</strong> {queryResult.treatmentName}</div>
             )}
             {queryResult.phenophase && (
-              <div><strong>Fenofaza:</strong> {queryResult.phenophase}</div>
+              <div><strong>Fenofaza (iz aktivne biljke):</strong> {queryResult.phenophase}</div>
             )}
           </div>
         </div>
@@ -217,7 +214,8 @@ const BackwardChainingPage = () => {
         {/* Detaljno objašnjenje Backward Chaining trace-a */}
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Backward Chaining - Trace rekurzivnog zaključivanja</h4>
-          
+          <br />
+
           {/* Simulacija pravog BC trace-a */}
           <div style={{
             backgroundColor: '#f8f9fa',
@@ -230,254 +228,321 @@ const BackwardChainingPage = () => {
             <div style={{ color: '#28a745', fontWeight: 'bold', marginBottom: '10px' }}>
               === BACKWARD CHAINING TRACE ===
             </div>
-            
+
             {queryResult.queryType === 'IS_DISEASE_PROBABLE' && (
               <div>
-                <div style={{ color: '#007bff', marginBottom: '5px' }}>
-                   GOAL: IS_DISEASE_PROBABLE({queryResult.diseaseName})
+                <div style={{ color: '#007bff', marginBottom: '5px', fontWeight: 'bold' }}>
+                  GOAL: IS_DISEASE_PROBABLE({queryResult.diseaseName})
                 </div>
                 <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: FIND_DISEASE_IN_KNOWLEDGE_BASE
+                  ├─ PRAVILO: "BC-FACT: Bolest je verovatna"
+                </div>
+                <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+                  │  WHEN: Disease(name == "{queryResult.diseaseName}", probability ≥ 50.0)
                 </div>
                 <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ Tražim: DISEASE({queryResult.diseaseName})
+                  │  ├─ REKURZIVNI PODCILJ: Pronađi Disease({queryResult.diseaseName})
                 </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ Pronašao: DISEASE({queryResult.diseaseName}) 
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  └─ REZULTAT: DISEASE_EXISTS = TRUE
-                </div>
-                <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: CHECK_DISEASE_PROBABILITY
+                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                  │  │  ├─ Pretraga Working Memory...
                 </div>
                 <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
                   │  ├─ Čitam: DISEASE_PROBABILITY({queryResult.diseaseName})
                 </div>
+                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                  │  │  ├─ Biljka: {plantData.cropType} - {plantData.variety}
+                </div>
+                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                  │  │  ├─ Uslovi: T={plantData.currentConditions?.temperature}°C, RH={plantData.currentConditions?.humidity}%
+                </div>
                 {queryResult.result && queryResult.result.includes('DA') ? (
                   <>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Pronašao: PROBABILITY = 75.0% (Plamenjača/Pepelnica)
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Pronađen: Disease({queryResult.diseaseName}, probability={probability !== null ? probability.toFixed(1) : '?'}%)
                     </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Proveravam: 75.0 ≥ 50.0 
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Uslov zadovoljen: {probability !== null ? probability.toFixed(1) : '?'}% ≥ 50.0%
                     </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  └─ REZULTAT: PROBABILITY_CHECK = TRUE
-                    </div>
-                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                      ├─ SUB-GOAL: CREATE_DISEASE_PROBABLE_FACT
-                    </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Kreiram: FACT(DISEASE_PROBABLE, {queryResult.diseaseName})
-                    </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Evidence: Verovatnoća 75.0%, Prag ≥ 50%
-                    </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  └─ REZULTAT: FACT_CREATED = TRUE
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#28a745' }}>
+                      │  └─ SVI USLOVI ZADOVOLJENI → Aktiviram THEN deo pravila
                     </div>
                     <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                      ├─ SUB-GOAL: ANSWER_QUERY_FROM_FACT
+                      ├─ AKCIJA: insert(new Fact("DISEASE_PROBABLE", "{queryResult.diseaseName}"))
                     </div>
                     <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Tražim: FACT(DISEASE_PROBABLE, {queryResult.diseaseName})
+                      │  └─ Kreiran novi fakt u Working Memory
+                    </div>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ PRAVILO: "BC-QUERY: Da li je bolest verovatna?"
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+                      │  WHEN: DiagnosticQuery + Fact(DISEASE_PROBABLE, "{queryResult.diseaseName}")
                     </div>
                     <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Pronašao: FACT 
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi DiagnosticQuery
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen query objekat
                     </div>
                     <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  └─ REZULTAT: QUERY_ANSWERED = TRUE
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi Fact(DISEASE_PROBABLE)
                     </div>
-                    <div style={{ color: '#28a745', marginLeft: '20px' }}>
-                      └─ FINALNI ZAKLJUČAK: DA - Bolest {queryResult.diseaseName} je verovatna (75.0%)
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen fakt (kreiran u prethodnom pravilu)
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ AKCIJA: Postavljam result i explanation na query
+                    </div>
+                    <div style={{ color: '#28a745', marginLeft: '20px', fontWeight: 'bold' }}>
+                      └─ FINALNI ZAKLJUČAK: DA - Bolest {queryResult.diseaseName} je verovatna ({probability !== null ? probability.toFixed(1) : '?'}%)
                     </div>
                   </>
                 ) : (
                   <>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Pronašao: PROBABILITY = 20.0% (Fuzarijum/Siva trulež)
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Pronađen: Disease({queryResult.diseaseName}, probability={probability !== null ? probability.toFixed(1) : '?'}%)
                     </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Proveravam: 20.0 ≥ 50.0 
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Uslov NIJE zadovoljen: {probability !== null ? probability.toFixed(1) : '?'}% &lt; 50.0%
                     </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  └─ REZULTAT: PROBABILITY_CHECK = FALSE
-                    </div>
-                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                      ├─ SUB-GOAL: NO_DISEASE_PROBABLE_FACT_CREATED
-                    </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Razlog: Verovatnoća ispod praga (20.0% &lt; 50.0%)
-                    </div>
-                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  └─ REZULTAT: NO_FACT_CREATED = TRUE
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#dc3545' }}>
+                      │  └─ Pravilo se NE aktivira
                     </div>
                     <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                      ├─ SUB-GOAL: FALLBACK_RULE_ACTIVATION
+                      ├─ PRAVILO: "BC-QUERY: Nema dovoljno činjenica" (FALLBACK)
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+                      │  WHEN: DiagnosticQuery + Disease(probability &lt; 50) + not Fact(DISEASE_PROBABLE)
                     </div>
                     <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Aktiviram: "BC-QUERY: Nema dovoljno činjenica za bolest"
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi DiagnosticQuery
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen query objekat
                     </div>
                     <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  ├─ Uslov: probability &lt; 50.0 AND no DISEASE_PROBABLE fact
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi Disease(probability &lt; 50%)
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen: Disease({probability !== null ? probability.toFixed(1) : '?'}%)
                     </div>
                     <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                      │  └─ REZULTAT: FALLBACK_ACTIVATED = TRUE
+                      │  ├─ REKURZIVNI PODCILJ: not Fact(DISEASE_PROBABLE)
                     </div>
-                    <div style={{ color: '#dc3545', marginLeft: '20px' }}>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Fakt ne postoji
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ AKCIJA: Postavljam negativan rezultat
+                    </div>
+                    <div style={{ color: '#dc3545', marginLeft: '20px', fontWeight: 'bold' }}>
                       └─ FINALNI ZAKLJUČAK: NE - Nedovoljno činjenica za potvrdu bolesti {queryResult.diseaseName}
                     </div>
                   </>
                 )}
               </div>
             )}
-            
+
             {queryResult.queryType === 'IS_TREATMENT_ALLOWED' && (
               <div>
-                <div style={{ color: '#007bff', marginBottom: '5px' }}>
-                   GOAL: IS_TREATMENT_ALLOWED({queryResult.treatmentName}, {queryResult.phenophase})
+                <div style={{ color: '#007bff', marginBottom: '5px', fontWeight: 'bold' }}>
+                  GOAL: IS_TREATMENT_ALLOWED({queryResult.treatmentName}, {queryResult.phenophase})
                 </div>
-                <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: TREATMENT_EXISTS({queryResult.treatmentName})
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ Tražim u bazi: REGISTERED_TREATMENTS
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ Pronašao: {queryResult.treatmentName} 
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  └─ REZULTAT: TREATMENT_EXISTS = TRUE
-                </div>
-                <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: NO_CONTRAINDICATIONS({queryResult.treatmentName}, {queryResult.phenophase})
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ SUB-SUB-GOAL: CHECK_PHENOPHASE_RESTRICTIONS
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Tražim: BLOCKED_PHENOPHASES({queryResult.treatmentName})
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Pronašao: BLOCKED_PHENOPHASES = [FRUITING]
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Proveravam: {queryResult.phenophase} ∈ [FRUITING]?
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  └─ REZULTAT: {queryResult.phenophase === 'FRUITING' ? ' FALSE' : ' TRUE'}
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ SUB-SUB-GOAL: CHECK_WITHDRAWAL_PERIOD
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Tražim: WITHDRAWAL_DAYS({queryResult.treatmentName})
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Pronašao: WITHDRAWAL_DAYS = 14
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Proveravam: HARVEST_DATE - TODAY ≥ 14
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  └─ REZULTAT:  TRUE (dovoljno vremena)
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  └─ REZULTAT: NO_CONTRAINDICATIONS = TRUE
-                </div>
-                <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: COMBINE_RESULTS(TRUE, TRUE)
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ TREATMENT_EXISTS = TRUE
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ NO_CONTRAINDICATIONS = TRUE
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  └─ REZULTAT: TRUE ∧ TRUE = TRUE
-                </div>
-                <div style={{ color: '#28a745', marginLeft: '20px' }}>
-                  └─ FINALNI ZAKLJUČAK: DA - Tretman {queryResult.treatmentName} je dozvoljen u {queryResult.phenophase}
-                </div>
+
+                {queryResult.result && queryResult.result.includes('NE') ? (
+                  <>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ PRAVILO: "BC-QUERY: Tretman nije dozvoljen"
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+                      │  WHEN: DiagnosticQuery + Contraindication(treatmentName, phenophase)
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi DiagnosticQuery
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen query objekat
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi Contraindication({queryResult.treatmentName}, {queryResult.phenophase})
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Pretraga Working Memory...
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Pronađen: Contraindication(treatmentName="{queryResult.treatmentName}", phenophase={queryResult.phenophase})
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Uslov zadovoljen
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ AKCIJA: Postavljam negativan rezultat
+                    </div>
+                    <div style={{ color: '#dc3545', marginLeft: '20px', fontWeight: 'bold' }}>
+                      └─ FINALNI ZAKLJUČAK: NE - Tretman {queryResult.treatmentName} je blokiran u {queryResult.phenophase}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ PRAVILO: "BC-FACT: Tretman je dozvoljen"
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+                      │  WHEN: Treatment + Crop + not Contraindication
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi Treatment({queryResult.treatmentName})
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Pretraga Working Memory...
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen: Treatment("{queryResult.treatmentName}")
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi Crop(phenophase={queryResult.phenophase})
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Pretraga Working Memory...
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen: Crop(phenophase={queryResult.phenophase})
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ REKURZIVNI PODCILJ: not Contraindication({queryResult.treatmentName}, {queryResult.phenophase})
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Pretraga Working Memory...
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Kontraindikacija ne postoji (tretman dozvoljen)
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#28a745' }}>
+                      │  └─ SVI USLOVI ZADOVOLJENI → Aktiviram THEN deo pravila
+                    </div>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ AKCIJA: insert(new Fact("TREATMENT_ALLOWED", "{queryResult.treatmentName}_{queryResult.phenophase}"))
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ Kreiran novi fakt u Working Memory
+                    </div>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ PRAVILO: "BC-QUERY: Da li je tretman dozvoljen?"
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+                      │  WHEN: DiagnosticQuery + Fact(TREATMENT_ALLOWED)
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ REKURZIVNI PODCILJ: Pronađi Fact(TREATMENT_ALLOWED)
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ Pronađen fakt (kreiran u prethodnom pravilu)
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ AKCIJA: Postavljam result i explanation na query
+                    </div>
+                    <div style={{ color: '#28a745', marginLeft: '20px', fontWeight: 'bold' }}>
+                      └─ FINALNI ZAKLJUČAK: DA - Tretman {queryResult.treatmentName} je dozvoljen u {queryResult.phenophase}
+                    </div>
+                  </>
+                )}
               </div>
             )}
-            
+
             {queryResult.queryType === 'WHAT_CAUSED_RISK' && (
               <div>
                 <div style={{ color: '#007bff', marginBottom: '5px' }}>
-                   GOAL: WHAT_CAUSED_RISK({queryResult.diseaseName})
+                  GOAL: WHAT_CAUSED_RISK({queryResult.diseaseName})
                 </div>
                 <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: IDENTIFY_ENVIRONMENTAL_FACTORS
+                  ├─ SUB-GOAL: CHECK_DISEASE_PROBABILITY
                 </div>
                 <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ SUB-SUB-GOAL: CHECK_HUMIDITY_RISK
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Čitam: CURRENT_HUMIDITY = 87.0%
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Tražim: HUMIDITY_THRESHOLD({queryResult.diseaseName})
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Pronašao: HUMIDITY_THRESHOLD(plamenjaca) = 85%
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Proveravam: 87.0 &gt; 85 
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  └─ REZULTAT: HIGH_HUMIDITY_RISK = TRUE
+                  │  ├─ Biljka: {plantData.cropType} - {plantData.variety}
                 </div>
                 <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ SUB-SUB-GOAL: CHECK_TEMPERATURE_RISK
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Čitam: CURRENT_TEMPERATURE = 25.0°C
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Tražim: OPTIMAL_TEMP_RANGE({queryResult.diseaseName})
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Pronašao: OPTIMAL_TEMP_RANGE(plamenjaca) = [22, 28]
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  ├─ Proveravam: 22 ≤ 25.0 ≤ 28 
-                </div>
-                <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
-                  │  │  └─ REZULTAT: OPTIMAL_TEMPERATURE_RISK = TRUE
+                  │  ├─ Verovatnoća: {probability !== null ? probability.toFixed(1) : '?'}%
                 </div>
                 <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  └─ REZULTAT: ENVIRONMENTAL_FACTORS = [high_humidity, optimal_temperature]
+                  │  └─ REZULTAT: {probability !== null && probability >= 50 ? 'PROBABILITY_CHECK = TRUE (≥ 50%)' : 'PROBABILITY_CHECK = FALSE (< 50%)'}
                 </div>
-                <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: IDENTIFY_BIOLOGICAL_FACTORS
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ Tražim: PATHOGEN_ACTIVITY({queryResult.diseaseName})
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ Pronašao: PATHOGEN_ACTIVITY(phytophthora_infestans) = HIGH
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  └─ REZULTAT: BIOLOGICAL_FACTORS = [active_pathogen]
-                </div>
-                <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                  ├─ SUB-GOAL: COMBINE_ALL_FACTORS
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ ENVIRONMENTAL: [high_humidity, optimal_temperature]
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  ├─ BIOLOGICAL: [active_pathogen]
-                </div>
-                <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                  │  └─ REZULTAT: ALL_FACTORS = kombinacija svih faktora
-                </div>
-                <div style={{ color: '#28a745', marginLeft: '20px' }}>
-                  └─ FINALNI ZAKLJUČAK: Uzroci - Visoka vlažnost (87%) + Optimalna temperatura (25°C) + Aktivan patogen
-                </div>
+
+                {queryResult.result && !queryResult.result.includes('nije dovoljno verovatna') ? (
+                  <>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ SUB-GOAL: IDENTIFY_ENVIRONMENTAL_FACTORS
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ SUB-SUB-GOAL: CHECK_HUMIDITY_RISK
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Čitam: CURRENT_HUMIDITY = {plantData.currentConditions?.humidity}%
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Tražim: HUMIDITY_THRESHOLD({queryResult.diseaseName})
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ REZULTAT: {plantData.currentConditions?.humidity > 85 ? 'HIGH_HUMIDITY_RISK = TRUE' : 'HUMIDITY_RISK = FALSE'}
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ SUB-SUB-GOAL: CHECK_TEMPERATURE_RISK
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Čitam: CURRENT_TEMPERATURE = {plantData.currentConditions?.temperature}°C
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  ├─ Tražim: OPTIMAL_TEMP_RANGE({queryResult.diseaseName})
+                    </div>
+                    <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+                      │  │  └─ REZULTAT: TEMPERATURE_IN_RANGE = {plantData.currentConditions?.temperature >= 20 && plantData.currentConditions?.temperature <= 28 ? 'TRUE' : 'FALSE'}
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ REZULTAT: ENVIRONMENTAL_FACTORS = [T={plantData.currentConditions?.temperature}°C, RH={plantData.currentConditions?.humidity}%]
+                    </div>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ SUB-GOAL: IDENTIFY_BIOLOGICAL_FACTORS
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ Tražim: PATHOGEN_ACTIVITY({queryResult.diseaseName})
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ REZULTAT: BIOLOGICAL_FACTORS = [pathogen_conditions_met]
+                    </div>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ SUB-GOAL: COMBINE_ALL_FACTORS
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ ENVIRONMENTAL: T={plantData.currentConditions?.temperature}°C, RH={plantData.currentConditions?.humidity}%
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ BIOLOGICAL: Patogen aktivan
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ REZULTAT: ALL_FACTORS = kombinacija svih faktora
+                    </div>
+                    <div style={{ color: '#28a745', marginLeft: '20px' }}>
+                      └─ FINALNI ZAKLJUČAK: Identifikovani uzroci rizika za {queryResult.diseaseName}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                      ├─ SUB-GOAL: CHECK_IF_ANALYSIS_POSSIBLE
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ Uslov: Verovatnoća ≥ 50% za analizu uzroka
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  ├─ Trenutna verovatnoća: {probability !== null ? probability.toFixed(1) : '?'}%
+                    </div>
+                    <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                      │  └─ REZULTAT: ANALYSIS_NOT_POSSIBLE = TRUE
+                    </div>
+                    <div style={{ color: '#dc3545', marginLeft: '20px' }}>
+                      └─ FINALNI ZAKLJUČAK: NE - Bolest nije dovoljno verovatna za analizu uzroka
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -486,6 +551,7 @@ const BackwardChainingPage = () => {
         {/* Stablo činjenica */}
         <div className="card" style={{ marginBottom: '20px' }}>
           <h4> Stablo činjenica (Fact Tree)</h4>
+          <br />
           <div style={{
             backgroundColor: '#fff3e0',
             padding: '15px',
@@ -495,108 +561,145 @@ const BackwardChainingPage = () => {
             <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>
               Hijerarhijska struktura znanja:
             </div>
-            
+
             <div style={{ fontFamily: 'monospace', fontSize: '13px' }}>
               <div style={{ marginBottom: '5px' }}>
-                 ROOT_FACTS
+                ROOT_FACTS (Aktivna biljka: {plantData.cropType} - {plantData.variety})
               </div>
               <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                ├─  DISEASE_FACTS
+                ├─  PLANT_FACTS
               </div>
               <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  ├─ DISEASE_PROBABILITY({queryResult.diseaseName || 'X'}, 75.0)
+                │  ├─ CROP_TYPE({plantData.cropType})
               </div>
               <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  ├─ DISEASE_SYMPTOMS({queryResult.diseaseName || 'X'}, [vodenaste_lezije, tamne_mrlje])
+                │  ├─ VARIETY({plantData.variety})
               </div>
               <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  └─ DISEASE_PATHOGEN({queryResult.diseaseName || 'X'}, phytophthora_infestans)
+                │  └─ PHENOPHASE({plantData.phenophase})
               </div>
-              <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
-                ├─  TREATMENT_FACTS
-              </div>
-              <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  ├─ TREATMENT_EXISTS({queryResult.treatmentName || 'bakarni_preparat'})
-              </div>
-              <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  ├─ TREATMENT_PHENOPHASE({queryResult.treatmentName || 'bakarni_preparat'}, [VEGETATIVE, FLOWERING])
-              </div>
-              <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  └─ TREATMENT_WITHDRAWAL({queryResult.treatmentName || 'bakarni_preparat'}, 14_days)
-              </div>
+              {queryResult.diseaseName && (
+                <>
+                  <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                    ├─  DISEASE_FACTS
+                  </div>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    │  ├─ DISEASE_PROBABILITY({queryResult.diseaseName}, {probability !== null ? probability.toFixed(1) : '0.0'}%)
+                  </div>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    │  ├─ DISEASE_SYMPTOMS({queryResult.diseaseName}, [{
+                      Object.entries(plantData.symptoms || {})
+                        .filter(([_, value]) => value)
+                        .map(([key]) => key)
+                        .join(', ') || 'nema_simptoma'
+                    }])
+                  </div>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    │  └─ DISEASE_STATUS({queryResult.diseaseName}, {probability !== null && probability >= 50 ? 'PROBABLE' : 'NOT_PROBABLE'})
+                  </div>
+                </>
+              )}
+              {queryResult.queryType === 'IS_TREATMENT_ALLOWED' && queryResult.treatmentName && (
+                <>
+                  <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+                    ├─  TREATMENT_FACTS
+                  </div>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    │  ├─ TREATMENT_EXISTS({queryResult.treatmentName})
+                  </div>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    │  ├─ TREATMENT_PHENOPHASE({queryResult.treatmentName}, {plantData.phenophase})
+                  </div>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    │  └─ TREATMENT_STATUS({queryResult.treatmentName}, {queryResult.result?.includes('DA') ? 'ALLOWED' : 'BLOCKED'})
+                  </div>
+                </>
+              )}
               <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
                 ├─  ENVIRONMENTAL_FACTS
               </div>
               <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  ├─ CURRENT_HUMIDITY(87.0)
+                │  ├─ CURRENT_HUMIDITY({plantData.currentConditions?.humidity}%)
               </div>
               <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  ├─ CURRENT_TEMPERATURE(25.0)
+                │  ├─ CURRENT_TEMPERATURE({plantData.currentConditions?.temperature}°C)
               </div>
               <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                │  └─ VENTILATION_STATUS(false)
+                │  ├─ CO2_LEVEL({plantData.currentConditions?.co2Level} ppm)
+              </div>
+              <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                │  └─ VENTILATION({plantData.currentConditions?.ventilationActive ? 'ACTIVE' : 'INACTIVE'})
               </div>
               <div style={{ marginLeft: '20px' }}>
                 └─  RISK_FACTS
               </div>
-              <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
-                   ├─ RISK_FACTOR({queryResult.diseaseName || 'plamenjaca'}, high_humidity)
-              </div>
+              {queryResult.diseaseName && (
+                <>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    ├─ RISK_FACTOR({queryResult.diseaseName}, {
+                      plantData.currentConditions?.humidity > 85 ? 'high_humidity' :
+                        plantData.currentConditions?.humidity >= 60 && plantData.currentConditions?.humidity <= 80 ? 'moderate_humidity' :
+                          'low_humidity'
+                    })
+                  </div>
+                  <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+                    ├─ RISK_FACTOR({queryResult.diseaseName}, {
+                      plantData.currentConditions?.temperature >= 20 && plantData.currentConditions?.temperature <= 28 ? 'optimal_temperature' : 'suboptimal_temperature'
+                    })
+                  </div>
+                </>
+              )}
               <div style={{ marginLeft: '40px' }}>
-                   └─ RISK_FACTOR({queryResult.diseaseName || 'plamenjaca'}, optimal_temperature)
+                └─ RISK_STATUS({queryResult.diseaseName || queryResult.treatmentName}, {
+                  (() => {
+                    if (queryResult.queryType === 'WHAT_CAUSED_RISK') {
+                      return queryResult.result?.includes('Identifikovan') ? 'RISK_IDENTIFIED' : 'NO_RISK';
+                    } else if (queryResult.queryType === 'IS_DISEASE_PROBABLE') {
+                      return probability !== null && probability >= 50 ? 'HIGH_RISK' : 'LOW_RISK';
+                    } else if (queryResult.queryType === 'IS_TREATMENT_ALLOWED') {
+                      return queryResult.result?.includes('DA') ? 'SAFE_TO_TREAT' : 'TREATMENT_RESTRICTED';
+                    }
+                    return 'UNKNOWN';
+                  })()
+                })
               </div>
             </div>
           </div>
         </div>
 
-        {/* Originalno objašnjenje iz API-ja */}
+        {/* Backend detalji - sirovi podaci iz Drools pravila */}
         {queryResult.explanation && queryResult.explanation.length > 0 && (
-          <div className="card" style={{ marginBottom: '20px' }}>
-            <h4> Dodatne informacije</h4>
-            <div style={{
-              backgroundColor: '#f0f8ff',
+          <details style={{ marginBottom: '20px' }}>
+            <summary style={{
+              cursor: 'pointer',
               padding: '15px',
+              backgroundColor: '#f8f9fa',
               borderRadius: '8px',
-              border: '1px solid #2196F3'
+              border: '1px solid #dee2e6',
+              fontWeight: 'bold',
+              userSelect: 'none'
             }}>
-              <ul style={{ paddingLeft: '20px', margin: 0 }}>
+              Detalji (klikni za prikaz)
+            </summary>
+            <div className="card" style={{ marginTop: '10px' }}>
+              <div style={{
+                backgroundColor: '#f0f8ff',
+                padding: '15px',
+                borderRadius: '8px',
+                border: '1px solid #2196F3',
+                fontFamily: 'monospace',
+                fontSize: '13px'
+              }}>
                 {queryResult.explanation.map((explanation, index) => (
-                  <li key={index} style={{ marginBottom: '8px' }}>
+                  <div key={index} style={{ marginBottom: '5px', lineHeight: '1.6' }}>
                     {explanation}
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
-          </div>
+          </details>
         )}
 
-        {/* Metapodaci o upitu */}
-        <div className="card">
-          <h4> Metapodaci upita</h4>
-          <div style={{
-            backgroundColor: '#f8f9fa',
-            padding: '15px',
-            borderRadius: '8px',
-            border: '1px solid #dee2e6'
-          }}>
-            <div className="grid">
-              <div>
-                <div><strong>Tip upita:</strong> {queryResult.queryType}</div>
-                <div><strong>Status:</strong> {queryResult.answered ? ' Odgovoren' : ' U obradi'}</div>
-                <div><strong>Kreiran:</strong> {new Date(queryResult.createdAt).toLocaleString('sr-RS')}</div>
-                {queryResult.answeredAt && (
-                  <div><strong>Odgovoren:</strong> {new Date(queryResult.answeredAt).toLocaleString('sr-RS')}</div>
-                )}
-              </div>
-              <div>
-                <div><strong>Metod:</strong> Backward Chaining</div>
-                <div><strong>Strategija:</strong> Goal-driven reasoning</div>
-                <div><strong>Dubina pretrage:</strong> 3 nivoa</div>
-                <div><strong>Broj činjenica:</strong> {queryResult.explanation?.length || 0}</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     );
   };
@@ -610,19 +713,19 @@ const BackwardChainingPage = () => {
         <p>
           Kreiraj specifične upite o aktivnoj biljci.
         </p>
-        <br/>
-        
+        <br />
+
         {!hasActivePlant() ? (
           <div className="alert alert-warning">
-            <strong> Nema aktivne biljke!</strong> 
+            <strong> Nema aktivne biljke!</strong>
             <br />Molimo idite u sekciju <strong>" Vegetacija"</strong> i definiši biljku pre kreiranja upita.
             <br />
-            <button 
-              className="btn" 
+            <button
+              className="btn"
               onClick={() => window.location.href = '/vegetation'}
               style={{ marginTop: '10px' }}
             >
-               Idi na Vegetaciju
+              Idi na Vegetaciju
             </button>
           </div>
         ) : (
@@ -637,9 +740,10 @@ const BackwardChainingPage = () => {
       <div className="grid">
         <div className="card">
           <h3> Kreiranje upita</h3>
+          <br />
           <div className="form-group">
             <label>Tip upita:</label>
-            <select 
+            <select
               value={queryData.type}
               onChange={(e) => handleQueryChange('type', e.target.value)}
             >
@@ -652,51 +756,60 @@ const BackwardChainingPage = () => {
           {queryData.type === 'cause' ? (
             <div className="form-group">
               <label>Naziv bolesti:</label>
-              <select 
+              <select
                 value={queryData.diseaseName}
                 onChange={(e) => handleQueryChange('diseaseName', e.target.value)}
               >
                 <option value="Plamenjača">Plamenjača</option>
                 <option value="Pepelnica">Pepelnica</option>
+                <option value="Siva trulež">Siva trulež</option>
+                <option value="Fuzarijum">Fuzarijum</option>
+                <option value="Virus mozaika">Virus mozaika</option>
               </select>
               <small style={{ display: 'block', marginTop: '5px', color: '#666' }}>
-                C3 analizira uzročno-posledične veze i identifikuje kritične faktore rizika
+                C3 analizira uzročno-posledične veze za bolesti na osnovu aktivne biljke
               </small>
             </div>
           ) : queryData.type === 'disease' ? (
             <div className="form-group">
               <label>Naziv bolesti:</label>
-              <select 
+              <select
                 value={queryData.diseaseName}
                 onChange={(e) => handleQueryChange('diseaseName', e.target.value)}
               >
-                <option value="Plamenjača">Plamenjača </option>
-                <option value="Pepelnica">Pepelnica </option>
-                <option value="Siva trulež">Siva trulež </option>
-                <option value="Fuzarijum">Fuzarijum </option>
-                <option value="Virus mozaika">Virus mozaika </option>
+                <option value="Plamenjača">Plamenjača</option>
+                <option value="Pepelnica">Pepelnica</option>
+                <option value="Siva trulež">Siva trulež</option>
+                <option value="Fuzarijum">Fuzarijum</option>
+                <option value="Virus mozaika">Virus mozaika</option>
               </select>
+              <small style={{ display: 'block', marginTop: '5px', color: '#666' }}>
+                Verovatnoća zavisi od simptoma i uslova aktivne biljke
+              </small>
             </div>
           ) : (
             <>
               <div className="form-group">
                 <label>Naziv tretmana:</label>
-                <select 
+                <select
                   value={queryData.treatmentName}
                   onChange={(e) => handleQueryChange('treatmentName', e.target.value)}
                 >
-                  <option value="Bakarni preparat">Bakarni preparat</option>
-                  <option value="Biološki fungicid">Biološki fungicid</option>
-                  <option value="Trichoderma">Trichoderma</option>
-                  <option value="Uklanjanje biljaka">Uklanjanje biljaka</option>
+                  <option value="Bakarni preparat">Bakarni preparat (hemijski)</option>
+                  <option value="Biološki fungicid">Biološki fungicid (biološki)</option>
+                  <option value="Trichoderma">Trichoderma (biološki)</option>
+                  <option value="Uklanjanje zaraženih biljaka">Uklanjanje biljaka (sanitarni)</option>
                 </select>
+                <small style={{ display: 'block', marginTop: '5px', color: '#666' }}>
+                  Fenofaza iz aktivne biljke: {activePlant?.phenophase || 'N/A'}
+                </small>
               </div>
-              
+
             </>
           )}
 
-          <button 
-            className="btn btn-secondary" 
+          <button
+            className="btn btn-secondary"
             onClick={runQuery}
             disabled={loading}
             style={{ width: '100%', fontSize: '16px', padding: '12px', marginTop: '15px' }}
@@ -714,24 +827,24 @@ const BackwardChainingPage = () => {
             </div>
           ) : (
             <div>
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
                 alignItems: 'center',
                 marginBottom: '15px'
               }}>
                 <span><strong>Upit izvršen:</strong> {results[0].timestamp}</span>
                 <button className="btn btn-danger" onClick={clearResults}>
-                   Obriši rezultate
+                  Obriši rezultate
                 </button>
               </div>
-              
+
               {renderQueryResult(results[0])}
             </div>
           )}
         </div>
       </div>
-      
+
     </div>
   );
 };

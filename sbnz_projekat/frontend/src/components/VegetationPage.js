@@ -38,32 +38,32 @@ const SavedPlantsManager = ({ getAllPlants, loadPlant, deletePlant, deleteAllPla
 
   return (
     <div>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '15px'
       }}>
         <span><strong>Ukupno sačuvanih biljaka:</strong> {plants.length}</span>
         <div style={{ display: 'flex', gap: '5px' }}>
-          <button 
-            className="btn btn-secondary" 
+          <button
+            className="btn btn-secondary"
             onClick={exportPlants}
             style={{ fontSize: '12px', padding: '5px 10px' }}
           >
             Export
           </button>
-          <label className="btn btn-secondary" style={{ fontSize: '12px', padding: '5px 10px'}}>
+          <label className="btn btn-secondary" style={{ fontSize: '12px', padding: '5px 10px' }}>
             Import
-            <input 
-              type="file" 
+            <input
+              type="file"
               accept=".json"
               onChange={importPlants}
               style={{ display: 'none' }}
             />
           </label>
-          <button 
-            className="btn btn-danger" 
+          <button
+            className="btn btn-danger"
             onClick={handleDeleteAll}
             style={{ fontSize: '12px', padding: '5px 10px' }}
           >
@@ -74,9 +74,9 @@ const SavedPlantsManager = ({ getAllPlants, loadPlant, deletePlant, deleteAllPla
 
       <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
         {plants.map((plant, index) => (
-          <div 
-            key={plant.id} 
-            style={{ 
+          <div
+            key={plant.id}
+            style={{
               backgroundColor: selectedPlant && selectedPlant.id === plant.id ? '#e8f5e8' : '#f8f9fa',
               border: selectedPlant && selectedPlant.id === plant.id ? '2px solid #4CAF50' : '1px solid #dee2e6',
               borderRadius: '6px',
@@ -89,9 +89,9 @@ const SavedPlantsManager = ({ getAllPlants, loadPlant, deletePlant, deleteAllPla
                 <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
                   {plant.cropType} ({plant.variety})
                   {selectedPlant && selectedPlant.id === plant.id && (
-                    <span style={{ 
-                      color: '#4CAF50', 
-                      fontSize: '12px', 
+                    <span style={{
+                      color: '#4CAF50',
+                      fontSize: '12px',
                       marginLeft: '8px',
                       fontWeight: 'normal'
                     }}>
@@ -106,9 +106,9 @@ const SavedPlantsManager = ({ getAllPlants, loadPlant, deletePlant, deleteAllPla
                   <div>Uslovi: {plant.currentConditions.temperature}°C, {plant.currentConditions.humidity}%</div>
                 </div>
               </div>
-              
+
               <div style={{ display: 'flex', gap: '5px', flexDirection: 'column' }}>
-                <button 
+                <button
                   className="btn btn-secondary"
                   onClick={() => handleLoad(plant)}
                   disabled={selectedPlant && selectedPlant.id === plant.id}
@@ -116,7 +116,7 @@ const SavedPlantsManager = ({ getAllPlants, loadPlant, deletePlant, deleteAllPla
                 >
                   {selectedPlant && selectedPlant.id === plant.id ? 'Aktivna' : 'Učitaj'}
                 </button>
-                <button 
+                <button
                   className="btn btn-danger"
                   onClick={() => handleDelete(plant.id)}
                   style={{ fontSize: '11px', padding: '4px 8px' }}
@@ -173,7 +173,7 @@ const VegetationPage = () => {
     const saved = localStorage.getItem('selectedPlant');
     if (saved) {
       const parsedPlant = JSON.parse(saved);
-      
+
       // Dodaj simptome ako ne postoje (za kompatibilnost sa starim podacima)
       if (!parsedPlant.symptoms) {
         parsedPlant.symptoms = {
@@ -187,7 +187,7 @@ const VegetationPage = () => {
           posmeđenjeZila: false
         };
       }
-      
+
       setSelectedPlant(parsedPlant);
       setPlantData(parsedPlant);
     }
@@ -227,22 +227,22 @@ const VegetationPage = () => {
       id: Date.now(),
       createdAt: new Date().toISOString()
     };
-    
+
     setSelectedPlant(plantWithId);
     localStorage.setItem('selectedPlant', JSON.stringify(plantWithId));
-    
+
     // Takođe sačuvaj u listu svih biljaka
     const allPlants = JSON.parse(localStorage.getItem('allPlants') || '[]');
     const existingIndex = allPlants.findIndex(p => p.id === plantWithId.id);
-    
+
     if (existingIndex >= 0) {
       allPlants[existingIndex] = plantWithId;
     } else {
       allPlants.push(plantWithId);
     }
-    
+
     localStorage.setItem('allPlants', JSON.stringify(allPlants));
-    
+
     alert(' Biljka je sačuvana i aktivna za sve analize!');
   };
 
@@ -260,7 +260,7 @@ const VegetationPage = () => {
         posmeđenjeZila: false
       };
     }
-    
+
     setSelectedPlant(plant);
     setPlantData(plant);
     localStorage.setItem('selectedPlant', JSON.stringify(plant));
@@ -280,12 +280,12 @@ const VegetationPage = () => {
     const allPlants = getAllPlants();
     const updatedPlants = allPlants.filter(p => p.id !== plantId);
     localStorage.setItem('allPlants', JSON.stringify(updatedPlants));
-    
+
     // Ako je obrisana aktivna biljka, ukloni je iz aktivnih
     if (selectedPlant && selectedPlant.id === plantId) {
       clearPlant();
     }
-    
+
     return updatedPlants;
   };
 
@@ -303,23 +303,23 @@ const VegetationPage = () => {
       alert('Nema biljaka za export');
       return;
     }
-    
+
     const dataStr = JSON.stringify(allPlants, null, 2);
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
-    
+
     const link = document.createElement('a');
     link.href = url;
     link.download = `biljke_${new Date().toISOString().split('T')[0]}.json`;
     link.click();
-    
+
     URL.revokeObjectURL(url);
   };
 
   const importPlants = (event) => {
     const file = event.target.files[0];
     if (!file) return;
-    
+
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
@@ -327,13 +327,13 @@ const VegetationPage = () => {
         if (!Array.isArray(importedPlants)) {
           throw new Error('Nevaljan format fajla');
         }
-        
+
         const existingPlants = getAllPlants();
         const mergedPlants = [...existingPlants, ...importedPlants];
-        
+
         localStorage.setItem('allPlants', JSON.stringify(mergedPlants));
         alert(`Uspešno importovano ${importedPlants.length} biljaka`);
-        
+
         // Reset file input
         event.target.value = '';
       } catch (error) {
@@ -365,17 +365,17 @@ const VegetationPage = () => {
           Definiši biljku koja će se koristiti za sve analize u sistemu (Forward Chaining, Backward Chaining, CEP).
           Ova biljka će biti aktivna za sve dijagnostike i upite.
         </p>
-        <br/>
-        
+        <br />
+
         {selectedPlant && (
           <div className="alert alert-success">
             <strong> Aktivna biljka:</strong> {selectedPlant.cropType} ({selectedPlant.variety}) - {selectedPlant.phenophase}
-            <button 
-              className="btn btn-danger" 
+            <button
+              className="btn btn-danger"
               onClick={clearPlant}
               style={{ marginLeft: '10px', padding: '5px 10px', fontSize: '12px' }}
             >
-               Ukloni
+              Ukloni
             </button>
           </div>
         )}
@@ -385,10 +385,11 @@ const VegetationPage = () => {
         {/* Forma za unos biljke */}
         <div className="card">
           <h3>Podaci o biljci</h3>
-          
+          <br />
+
           <div className="form-group">
             <label>Tip kulture:</label>
-            <select 
+            <select
               value={plantData.cropType}
               onChange={(e) => handleInputChange('cropType', e.target.value)}
             >
@@ -402,7 +403,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>Sorta:</label>
-            <input 
+            <input
               type="text"
               value={plantData.variety}
               onChange={(e) => handleInputChange('variety', e.target.value)}
@@ -412,7 +413,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>Fenofaza:</label>
-            <select 
+            <select
               value={plantData.phenophase}
               onChange={(e) => handleInputChange('phenophase', e.target.value)}
             >
@@ -429,7 +430,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>Datum sadnje:</label>
-            <input 
+            <input
               type="date"
               value={plantData.plantedDate}
               onChange={(e) => handleInputChange('plantedDate', e.target.value)}
@@ -438,7 +439,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>Lokacija:</label>
-            <input 
+            <input
               type="text"
               value={plantData.location}
               onChange={(e) => handleInputChange('location', e.target.value)}
@@ -448,7 +449,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>Površina (m²):</label>
-            <input 
+            <input
               type="number"
               value={plantData.area}
               onChange={(e) => handleInputChange('area', parseFloat(e.target.value))}
@@ -459,10 +460,11 @@ const VegetationPage = () => {
         {/* Trenutni uslovi */}
         <div className="card">
           <h3> Trenutni uslovi sredine</h3>
-          
+          <br />
+
           <div className="form-group">
             <label>Temperatura (°C):</label>
-            <input 
+            <input
               type="number"
               step="0.1"
               value={plantData.currentConditions.temperature}
@@ -472,7 +474,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>Vlažnost (%):</label>
-            <input 
+            <input
               type="number"
               step="0.1"
               value={plantData.currentConditions.humidity}
@@ -482,7 +484,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>CO₂ nivo (ppm):</label>
-            <input 
+            <input
               type="number"
               value={plantData.currentConditions.co2Level}
               onChange={(e) => handleInputChange('currentConditions.co2Level', parseInt(e.target.value))}
@@ -491,7 +493,7 @@ const VegetationPage = () => {
 
           <div className="form-group">
             <label>
-              <input 
+              <input
                 type="checkbox"
                 checked={plantData.currentConditions.ventilationActive}
                 onChange={(e) => handleInputChange('currentConditions.ventilationActive', e.target.checked)}
@@ -512,7 +514,7 @@ const VegetationPage = () => {
           <p style={{ fontSize: '14px', color: '#666', marginBottom: '15px' }}>
             Označite simptome koje uočavate na biljci. Ovi simptomi će se koristiti u svim analizama.
           </p>
-          
+
           <div className="grid">
             {Object.entries({
               vodenasteLezioni: 'Vodenaste lezije na listovima',
@@ -526,7 +528,7 @@ const VegetationPage = () => {
             }).map(([key, label]) => (
               <div key={key} style={{ marginBottom: '10px' }}>
                 <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                  <input 
+                  <input
                     type="checkbox"
                     checked={plantData.symptoms && plantData.symptoms[key]}
                     onChange={(e) => handleInputChange(`symptoms.${key}`, e.target.checked)}
@@ -537,41 +539,39 @@ const VegetationPage = () => {
               </div>
             ))}
           </div>
-          
-          <div style={{ marginTop: '15px', fontSize: '12px', color: '#666' }}>
-            Označeni simptomi će biti automatski korišćeni u Forward Chaining, Backward Chaining i CEP analizama.
-          </div>
+
         </div>
       </div>
 
       {/* Akcije */}
       <div className="card">
         <h3>Akcije</h3>
+        <br />
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-          <button 
-            className="btn" 
+          <button
+            className="btn"
             onClick={savePlant}
             style={{ fontSize: '16px', padding: '12px 20px' }}
           >
             Sačuvaj i aktiviraj biljku
           </button>
-          
-          <button 
-            className="btn btn-secondary" 
+
+          <button
+            className="btn btn-secondary"
             onClick={() => {
               const allPlants = getAllPlants();
               if (allPlants.length === 0) {
                 alert('Nema sačuvanih biljaka');
                 return;
               }
-              
-              const plantList = allPlants.map((p, i) => 
+
+              const plantList = allPlants.map((p, i) =>
                 `${i + 1}. ${p.cropType} (${p.variety}) - ${p.phenophase}`
               ).join('\n');
-              
+
               const choice = prompt(`Izaberite biljku (unesite broj):\n${plantList}`);
               const index = parseInt(choice) - 1;
-              
+
               if (index >= 0 && index < allPlants.length) {
                 loadPlant(allPlants[index]);
                 alert('Biljka je učitana!');
@@ -586,7 +586,7 @@ const VegetationPage = () => {
       {/* Upravljanje sačuvanim biljkama */}
       <div className="card">
         <h3>Sačuvane biljke</h3>
-        <SavedPlantsManager 
+        <SavedPlantsManager
           getAllPlants={getAllPlants}
           loadPlant={loadPlant}
           deletePlant={deletePlant}
@@ -601,6 +601,7 @@ const VegetationPage = () => {
       {selectedPlant && (
         <div className="card">
           <h3> Pregled aktivne biljke</h3>
+          <br />
           <div className="grid">
             <div>
               <h4> Osnovni podaci</h4>
@@ -611,7 +612,7 @@ const VegetationPage = () => {
               <div><strong>Lokacija:</strong> {selectedPlant.location}</div>
               <div><strong>Površina:</strong> {selectedPlant.area} m²</div>
             </div>
-            
+
             <div>
               <h4> Trenutni uslovi</h4>
               <div><strong>Temperatura:</strong> {selectedPlant.currentConditions.temperature}°C</div>
@@ -619,7 +620,7 @@ const VegetationPage = () => {
               <div><strong>CO₂:</strong> {selectedPlant.currentConditions.co2Level} ppm</div>
               <div><strong>Ventilacija:</strong> {selectedPlant.currentConditions.ventilationActive ? ' Aktivna' : ' Neaktivna'}</div>
             </div>
-            
+
             <div>
               <h4> Trenutni simptomi</h4>
               {selectedPlant.symptoms && Object.entries(selectedPlant.symptoms).some(([key, value]) => value) ? (
@@ -633,7 +634,7 @@ const VegetationPage = () => {
                     mozaikSare: 'Mozaik šare na listovima',
                     tamneMarlje: 'Tamne mrlje na plodovima',
                     posmeđenjeZila: 'Posmeđenje provodnih žila'
-                  }).map(([key, label]) => 
+                  }).map(([key, label]) =>
                     selectedPlant.symptoms && selectedPlant.symptoms[key] && (
                       <div key={key} style={{ fontSize: '13px', marginBottom: '3px' }}>
                         • {label}
@@ -648,10 +649,7 @@ const VegetationPage = () => {
               )}
             </div>
           </div>
-          
-          <div className="alert alert-info" style={{ marginTop: '15px' }}>
-            <strong> Napomena:</strong> Ova biljka će se koristiti za sve analize u Forward Chaining, Backward Chaining i CEP sekcijama.
-          </div>
+
         </div>
       )}
 

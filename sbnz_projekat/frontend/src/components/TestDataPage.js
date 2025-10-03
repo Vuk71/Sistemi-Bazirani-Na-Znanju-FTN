@@ -89,8 +89,8 @@ const TestDataPage = () => {
       },
       expectedDiagnosis: {
         disease: 'Pepelnica',
-        probability: 40.0,
-        confidence: 'Niska'
+        probability: 55.0,
+        confidence: 'Umerena'
       },
       recommendedTreatments: [
         {
@@ -190,8 +190,10 @@ const TestDataPage = () => {
         'E6: Rastući trend vlažnosti (TEMPORALNI BEFORE)'
       ],
       backwardChainingQueries: [
-        'C1: Da li je Siva trulež verovatna? → DA (verovatnoća ≥ 50%)',
-        'C2: Da li su sanitarne mere dozvoljene? → DA'
+        'C1: Da li je Siva trulež verovatna? → NE (verovatnoća 35.7% < 50%)',
+        'C1: Da li je Plamenjača verovatna? → DA (verovatnoća 64.3% ≥ 50%)',
+        'C2: Da li su sanitarne mere dozvoljene? → DA',
+        'C2: Da li je Bakarni preparat dozvoljen u FRUITING? → NE (blokiran)'
       ]
     },
     fuzarijum: {
@@ -243,7 +245,7 @@ const TestDataPage = () => {
         'Nema CEP alertova - dijagnoza na osnovu simptoma'
       ],
       backwardChainingQueries: [
-        'C1: Da li je Fuzarijum veroatan? → DA (verovatnoća ≥ 50%)',
+        'C1: Da li je Fuzarijum veroatan? → NE (verovatnoća 45% < 50%)',
         'C2: Da li je Trichoderma dozvoljena? → DA'
       ]
     },
@@ -438,6 +440,7 @@ const TestDataPage = () => {
 
         <div className="card">
           <h3> Potrebna vegetacija</h3>
+          <br/>
           <div style={{
             backgroundColor: '#e8f5e8',
             padding: '15px',
@@ -469,6 +472,7 @@ const TestDataPage = () => {
           </div>
 
           <h4> Uslovi sredine</h4>
+          <br/>
           <div className="grid">
             {Object.entries(currentScenario.environmentalConditions).map(([key, value]) => (
               <div key={key} style={{
@@ -499,6 +503,7 @@ const TestDataPage = () => {
       <div className="grid">
         <div className="card">
           <h3> Simptomi biljke</h3>
+          <br/>
 
           <div style={{ marginBottom: '15px' }}>
             <ul style={{ paddingLeft: '20px' }}>
@@ -528,6 +533,7 @@ const TestDataPage = () => {
 
         <div className="card">
           <h3> Očekivana dijagnoza</h3>
+          <br/>
           
           {/* Prikaz za jednu dijagnozu */}
           {currentScenario.expectedDiagnosis && (
@@ -596,6 +602,8 @@ const TestDataPage = () => {
 
       <div className="card">
         <h3> Preporučeni tretmani</h3>
+        <br/>
+
         <div className="grid">
           {currentScenario.recommendedTreatments.map((treatment, index) => (
             <div key={index} style={{
@@ -617,24 +625,7 @@ const TestDataPage = () => {
       </div>
 
       <div className="grid">
-        
-
-        <div className="card">
-          <h3> Backward Chaining upiti</h3>
-          <ul style={{ paddingLeft: '20px' }}>
-            {currentScenario.backwardChainingQueries.map((query, index) => (
-              <li key={index} style={{
-                marginBottom: '8px',
-                padding: '8px',
-                backgroundColor: '#e3f2fd',
-                borderRadius: '4px',
-                border: '1px solid #bbdefb'
-              }}>
-                {query}
-              </li>
-            ))}
-          </ul>
-        </div>
+      
       </div>
 
     </div>

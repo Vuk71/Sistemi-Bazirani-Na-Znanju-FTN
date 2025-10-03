@@ -258,6 +258,7 @@ const CEPPage = () => {
         {activePlant && (
           <div className="card">
             <h3> Aktivna biljka</h3>
+            <br/>
             <div className="grid">
               <div>
                 <h4> Osnovni podaci</h4>
