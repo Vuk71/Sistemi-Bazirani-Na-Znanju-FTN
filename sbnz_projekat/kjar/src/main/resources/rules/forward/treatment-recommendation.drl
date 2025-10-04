@@ -8,7 +8,7 @@ import java.util.List;
 rule "R03 - Preporučiti bakarni preparat za plamenjaču"
     when
         $disease: Disease(name == "Plamenjača", probability >= 70.0)
-        $treatment: Treatment(name == "Bakarni preparat", recommended == false)
+        $treatment: Treatment(name == "Bakarni preparat", recommended == false, blocked == false)
         $crop: Crop()
     then
         $treatment.setRecommended(true);
@@ -27,7 +27,7 @@ rule "R04A - Biološki fungicidi za pepelnicu u vegetativnoj fazi"
     when
         $disease: Disease(name == "Pepelnica", probability >= 40.0)
         $crop: Crop(phenophase == Phenophase.VEGETATIVE)
-        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false, blocked == false)
     then
         $treatment.setRecommended(true);
         $treatment.setRecommendationReason("Pepelnica detektovana (" + $disease.getProbability() + "%) - biološki tretman");
@@ -44,7 +44,7 @@ rule "R04B - Biološki fungicidi za pepelnicu u fazi cvetanja"
     when
         $disease: Disease(name == "Pepelnica", probability >= 40.0)
         $crop: Crop(phenophase == Phenophase.FLOWERING)
-        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false, blocked == false)
     then
         $treatment.setRecommended(true);
         $treatment.setRecommendationReason("Pepelnica u fazi cvetanja (" + $disease.getProbability() + "%) - biološki tretman");
@@ -61,7 +61,7 @@ rule "R05 - Biološki fungicidi u plodonošenju za pepelnicu"
     when
         $disease: Disease(name == "Pepelnica", probability >= 40.0)
         $crop: Crop(phenophase == Phenophase.FRUITING)
-        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false, blocked == false)
     then
         $treatment.setRecommended(true);
         $treatment.setRecommendationReason("Pepelnica u fazi plodonošenja - samo biološki tretmani");
@@ -77,7 +77,7 @@ end
 rule "R08 - Trichoderma za fuzarijum"
     when
         $disease: Disease(name == "Fuzarijum", probability >= 45.0)
-        $treatment: Treatment(name == "Trichoderma", recommended == false)
+        $treatment: Treatment(name == "Trichoderma", recommended == false, blocked == false)
     then
         $treatment.setRecommended(true);
         $treatment.setRecommendationReason("Fuzarijum detektovan - Trichoderma efikasna");
@@ -92,7 +92,7 @@ end
 rule "R10 - Sanitarne mere za virus"
     when
         $disease: Disease(name == "Virus mozaika", probability >= 60.0)
-        $treatment: Treatment(type == TreatmentType.SANITARY, recommended == false)
+        $treatment: Treatment(type == TreatmentType.SANITARY, recommended == false, blocked == false)
     then
         $treatment.setRecommended(true);
         $treatment.setRecommendationReason("Virus mozaika - potrebne hitne sanitarne mere");
@@ -109,8 +109,8 @@ rule "R16 - Kombinovani tretman za sivu trulež"
     when
         $disease: Disease(name == "Siva trulež", probability >= 30.0)
         $env: EnvironmentalCondition(humidity > 90)
-        $treatment1: Treatment(name == "Uklanjanje zaraženih biljaka", recommended == false)
-        $treatment2: Treatment(name == "Biološki fungicid", recommended == false)
+        $treatment1: Treatment(name == "Uklanjanje zaraženih biljaka", recommended == false, blocked == false)
+        $treatment2: Treatment(name == "Biološki fungicid", recommended == false, blocked == false)
     then
         $treatment1.setRecommended(true);
         $treatment1.setRecommendationReason("Siva trulež + visoka vlažnost - hitno uklanjanje");
@@ -131,7 +131,7 @@ end
 rule "R17 - Preventivni tretman na osnovu CEP alarma"
     when
         $alert: RiskAlert(riskLevel == RiskLevel.HIGH, diseaseName != null)
-        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false)
+        $treatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false, blocked == false)
         $disease: Disease(name == $alert.diseaseName, probability < 50.0)
     then
         $treatment.setRecommended(true);
@@ -197,11 +197,104 @@ rule "Dodavanje preporučenih tretmana"
         update($result);
 end
 
+// PRAVILA ZA BLOKIRANJE TRETMANA
+
+// R18: Blokiranje hemijskih tretmana u fazi plodonošenja ako karenca nije zadovoljena
+rule "R18 - Blokiranje hemijskih tretmana zbog karencije"
+    salience 200  // Visok prioritet - mora se proveriti pre preporuke
+    when
+        $treatment: Treatment(
+            type == TreatmentType.CHEMICAL, 
+            recommended == true,
+            withdrawalPeriod > 0
+        )
+        $crop: Crop(
+            phenophase == Phenophase.FRUITING,
+            plannedHarvestDate != null
+        )
+        eval(java.time.temporal.ChronoUnit.DAYS.between(
+            java.time.LocalDate.now(), 
+            $crop.getPlannedHarvestDate()
+        ) < $treatment.getWithdrawalPeriod())
+    then
+        $treatment.setRecommended(false);
+        $treatment.setBlocked(true);
+        $treatment.setBlockReason("BLOKIRANO: Karenca (" + $treatment.getWithdrawalPeriod() + 
+            " dana) nije zadovoljena. Berba planirana za " + 
+            java.time.temporal.ChronoUnit.DAYS.between(java.time.LocalDate.now(), $crop.getPlannedHarvestDate()) + 
+            " dana.");
+        
+        System.out.println("R18: BLOKIRAN TRETMAN - " + $treatment.getName());
+        System.out.println("     Razlog: Karenca nije zadovoljena");
+        System.out.println("     Potrebno: " + $treatment.getWithdrawalPeriod() + " dana");
+        System.out.println("     Dostupno: " + java.time.temporal.ChronoUnit.DAYS.between(
+            java.time.LocalDate.now(), $crop.getPlannedHarvestDate()) + " dana");
+        
+        update($treatment);
+end
+
+// R19: Blokiranje hemijskih tretmana u fazi plodonošenja (opšte pravilo)
+rule "R19 - Blokiranje hemijskih tretmana u plodonošenju"
+    salience 190
+    when
+        $treatment: Treatment(
+            type == TreatmentType.CHEMICAL, 
+            recommended == true,
+            blocked == false
+        )
+        $crop: Crop(phenophase == Phenophase.FRUITING)
+    then
+        $treatment.setRecommended(false);
+        $treatment.setBlocked(true);
+        $treatment.setBlockReason("BLOKIRANO: Hemijski tretmani nisu dozvoljeni u fazi plodonošenja. Koristite biološke alternative.");
+        
+        System.out.println("R19: BLOKIRAN HEMIJSKI TRETMAN u plodonošenju - " + $treatment.getName());
+        System.out.println("     Preporuka: Koristite biološke fungicide");
+        
+        update($treatment);
+end
+
+// R20: Dodavanje blokiranih tretmana u rezultat (za informaciju)
+rule "R20 - Dodavanje blokiranih tretmana u rezultat"
+    salience 50
+    when
+        $treatment: Treatment(blocked == true)
+        $result: DiagnosisResult()
+    then
+        String blockMessage = "⚠️ BLOKIRANO: " + $treatment.getName() + " - " + $treatment.getBlockReason();
+        
+        // Proveri da li objašnjenje već postoji
+        if (!$result.getExplanations().contains(blockMessage)) {
+            $result.addExplanation(blockMessage);
+            System.out.println("INFO: Blokiran tretman dodat u rezultat - " + $treatment.getName());
+        }
+        
+        // NE koristimo update() da izbegnemo rekurziju
+end
+
+// R21: Preporučiti biološke alternative kada je hemijski tretman blokiran
+rule "R21 - Biološke alternative za blokirane hemijske tretmane"
+    salience 40
+    when
+        $blockedTreatment: Treatment(type == TreatmentType.CHEMICAL, blocked == true)
+        $disease: Disease(probability >= 70.0)
+        $bioTreatment: Treatment(type == TreatmentType.BIOLOGICAL, recommended == false, blocked == false)
+    then
+        $bioTreatment.setRecommended(true);
+        $bioTreatment.setRecommendationReason("Alternativa za blokirani hemijski tretman (" + 
+            $blockedTreatment.getName() + ") - bezbedno u fazi plodonošenja");
+        
+        System.out.println("R21: Preporučena biološka alternativa - " + $bioTreatment.getName());
+        System.out.println("     Razlog: " + $blockedTreatment.getName() + " je blokiran");
+        
+        update($bioTreatment);
+end
+
 // Pravilo za prioritizaciju tretmana
 rule "Prioritizacija tretmana po hitnosti"
     salience 100
     when
-        $treatment: Treatment(recommended == true, type == TreatmentType.SANITARY)
+        $treatment: Treatment(recommended == true, type == TreatmentType.SANITARY, priority == 0)
         $result: DiagnosisResult()
     then
         $treatment.setPriority(1); // Najviši prioritet za sanitarne mere
@@ -212,7 +305,7 @@ end
 rule "Prioritizacija bioloških tretmana"
     salience 90
     when
-        $treatment: Treatment(recommended == true, type == TreatmentType.BIOLOGICAL)
+        $treatment: Treatment(recommended == true, type == TreatmentType.BIOLOGICAL, priority == 0)
         $result: DiagnosisResult()
     then
         $treatment.setPriority(2);
@@ -223,7 +316,7 @@ end
 rule "Prioritizacija hemijskih tretmana"
     salience 80
     when
-        $treatment: Treatment(recommended == true, type == TreatmentType.CHEMICAL)
+        $treatment: Treatment(recommended == true, type == TreatmentType.CHEMICAL, priority == 0)
         $result: DiagnosisResult()
     then
         $treatment.setPriority(3);

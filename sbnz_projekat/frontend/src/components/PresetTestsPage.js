@@ -9,7 +9,7 @@ const PresetTestsPage = () => {
   const runTest = async (testName, testFunction) => {
     setLoading(true);
     setActiveTest(testName);
-    
+
     try {
       const response = await testFunction();
       const result = {
@@ -49,7 +49,7 @@ const PresetTestsPage = () => {
 
     // Ako je objekat, formatuj na osnovu tipa testa
     if (typeof result === 'object' && result !== null) {
-      
+
       // Forward Chaining rezultati
       if (result.probableDiseases || result.recommendedTreatments) {
         return (
@@ -80,7 +80,7 @@ const PresetTestsPage = () => {
                       <strong>{treatment.name}</strong> ({treatment.type})
                       <br />
                       <small style={{ color: '#666' }}>
-                        Doza: {treatment.dosage} | Karenco: {treatment.withdrawalPeriod} dana
+                        Doza: {treatment.dosage} | Karenca: {treatment.withdrawalPeriod} dana
                       </small>
                     </li>
                   ))}
@@ -114,8 +114,8 @@ const PresetTestsPage = () => {
               <strong>Tip upita:</strong> {result.queryType}
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Rezultat:</strong> 
-              <span style={{ 
+              <strong>Rezultat:</strong>
+              <span style={{
                 color: result.result && result.result.includes('DA') ? '#4CAF50' : '#f44336',
                 fontWeight: 'bold',
                 marginLeft: '8px'
@@ -164,23 +164,23 @@ const PresetTestsPage = () => {
                 CEP Alertovi ({result.length} detektovano):
               </h5>
               {result.map((alert, index) => {
-                const levelColor = alert.level === 'CRITICAL' ? '#f44336' : 
-                                 alert.level === 'HIGH' ? '#ff9800' : 
-                                 alert.level === 'MEDIUM' ? '#2196f3' : '#4caf50';
-                const levelBg = alert.level === 'CRITICAL' ? '#ffebee' : 
-                               alert.level === 'HIGH' ? '#fff3e0' : 
-                               alert.level === 'MEDIUM' ? '#e3f2fd' : '#e8f5e8';
-                
+                const levelColor = alert.level === 'CRITICAL' ? '#f44336' :
+                  alert.level === 'HIGH' ? '#ff9800' :
+                    alert.level === 'MEDIUM' ? '#2196f3' : '#4caf50';
+                const levelBg = alert.level === 'CRITICAL' ? '#ffebee' :
+                  alert.level === 'HIGH' ? '#fff3e0' :
+                    alert.level === 'MEDIUM' ? '#e3f2fd' : '#e8f5e8';
+
                 return (
-                  <div key={index} style={{ 
-                    backgroundColor: levelBg, 
-                    padding: '12px', 
+                  <div key={index} style={{
+                    backgroundColor: levelBg,
+                    padding: '12px',
                     borderRadius: '6px',
                     marginBottom: '10px',
                     border: `2px solid ${levelColor}`
                   }}>
-                    <div style={{ 
-                      fontWeight: 'bold', 
+                    <div style={{
+                      fontWeight: 'bold',
                       marginBottom: '8px',
                       color: levelColor,
                       display: 'flex',
@@ -188,9 +188,9 @@ const PresetTestsPage = () => {
                       alignItems: 'center'
                     }}>
                       <span>
-                        {alert.level === 'CRITICAL' && 'KRITIČNO'} 
-                        {alert.level === 'HIGH' && 'VISOK RIZIK'} 
-                        {alert.level === 'MEDIUM' && 'UMEREN RIZIK'} 
+                        {alert.level === 'CRITICAL' && 'KRITIČNO'}
+                        {alert.level === 'HIGH' && 'VISOK RIZIK'}
+                        {alert.level === 'MEDIUM' && 'UMEREN RIZIK'}
                         {alert.level === 'LOW' && 'NIZAK RIZIK'}
                         {alert.diseaseName && ` - ${alert.diseaseName}`}
                       </span>
@@ -198,14 +198,14 @@ const PresetTestsPage = () => {
                         {new Date(alert.timestamp || alert.triggeredAt).toLocaleTimeString('sr-RS')}
                       </small>
                     </div>
-                    
+
                     <div style={{ marginBottom: '8px', fontSize: '14px' }}>
                       <strong>Opis:</strong> {alert.message || alert.description}
                     </div>
-                    
+
                     {alert.recommendation && (
-                      <div style={{ 
-                        fontSize: '13px', 
+                      <div style={{
+                        fontSize: '13px',
                         color: '#333',
                         backgroundColor: 'rgba(255,255,255,0.7)',
                         padding: '8px',
@@ -215,7 +215,7 @@ const PresetTestsPage = () => {
                         <strong>Preporuka:</strong> {alert.recommendation || alert.recommendedAction}
                       </div>
                     )}
-                    
+
                     {alert.status && (
                       <div style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
                         Status: {alert.status}
@@ -225,10 +225,10 @@ const PresetTestsPage = () => {
                 );
               })}
             </div>
-            
-            <div style={{ 
-              backgroundColor: '#f5f5f5', 
-              padding: '10px', 
+
+            <div style={{
+              backgroundColor: '#f5f5f5',
+              padding: '10px',
               borderRadius: '4px',
               fontSize: '13px'
             }}>
@@ -252,9 +252,9 @@ const PresetTestsPage = () => {
               <div style={{ marginBottom: '15px' }}>
                 <h5 style={{ color: '#f44336', marginBottom: '8px' }}>CEP Alertovi:</h5>
                 {result.alerts.map((alert, index) => (
-                  <div key={index} style={{ 
-                    backgroundColor: '#ffebee', 
-                    padding: '10px', 
+                  <div key={index} style={{
+                    backgroundColor: '#ffebee',
+                    padding: '10px',
                     borderRadius: '4px',
                     marginBottom: '8px',
                     border: '1px solid #f44336'
@@ -284,12 +284,12 @@ const PresetTestsPage = () => {
               </div>
             )}
 
-            {(!result.alerts || result.alerts.length === 0) && 
-             (!result.events || result.events.length === 0) && (
-              <div style={{ color: '#666', fontStyle: 'italic' }}>
-                Nema detektovanih alertova ili događaja
-              </div>
-            )}
+            {(!result.alerts || result.alerts.length === 0) &&
+              (!result.events || result.events.length === 0) && (
+                <div style={{ color: '#666', fontStyle: 'italic' }}>
+                  Nema detektovanih alertova ili događaja
+                </div>
+              )}
           </div>
         );
       }
@@ -297,9 +297,9 @@ const PresetTestsPage = () => {
 
     // Fallback - prikaži kao JSON
     return (
-      <pre style={{ 
-        fontSize: '12px', 
-        whiteSpace: 'pre-wrap', 
+      <pre style={{
+        fontSize: '12px',
+        whiteSpace: 'pre-wrap',
         wordBreak: 'break-word',
         maxHeight: '200px',
         overflowY: 'auto'
@@ -313,49 +313,164 @@ const PresetTestsPage = () => {
     {
       category: 'Forward Chaining - Osnovni testovi',
       items: [
-        { name: 'Test Plamenjača', key: 'plamenjaca', func: diagnosisAPI.testPlamenjaca },
-        { name: 'Test Pepelnica', key: 'pepelnica', func: diagnosisAPI.testPepelnica },
-        { name: 'Test Siva trulež', key: 'siva-trulez', func: diagnosisAPI.testSivaTrulez },
-        { name: 'Test Fuzarijum', key: 'fuzarijum', func: diagnosisAPI.testFuzarijum },
-        { name: 'Test Virus mozaika', key: 'virus', func: diagnosisAPI.testVirus },
+        {
+          name: 'Test Plamenjača',
+          key: 'plamenjaca',
+          func: diagnosisAPI.testPlamenjaca,
+          description: 'Biljka: Paradajz (San Marzano), Fenofaza: Vegetativna\nSimptomi: Vodenaste lezije\nUslovi: T=25°C, RH=87%\nOčekivani rezultat: Dijagnoza plamenjače (Phytophthora infestans)'
+        },
+        {
+          name: 'Test Pepelnica',
+          key: 'pepelnica',
+          func: diagnosisAPI.testPepelnica,
+          description: 'Biljka: Krastavac (Marketmore), Fenofaza: Plodonošenje\nSimptomi: Bele naslage\nUslovi: T=24°C, RH=75%\nOčekivani rezultat: Dijagnoza pepelnice (Erysiphe spp.)'
+        },
+        {
+          name: 'Test Siva trulež',
+          key: 'siva-trulez',
+          func: diagnosisAPI.testSivaTrulez,
+          description: 'Biljka: Paprika (California Wonder), Fenofaza: Cvetanje\nSimptomi: Siva prevlaka\nUslovi: T=22°C, RH=95%\nOčekivani rezultat: Dijagnoza sive truleži (Botrytis cinerea)'
+        },
+        {
+          name: 'Test Fuzarijum',
+          key: 'fuzarijum',
+          func: diagnosisAPI.testFuzarijum,
+          description: 'Biljka: Paradajz (Cherokee Purple), Fenofaza: Vegetativna\nSimptomi: Uvenuće, Posmeđenje žila\nUslovi: T=28°C, RH=70%\nOčekivani rezultat: Dijagnoza fuzarijumskog venenja (Fusarium oxysporum)'
+        },
+        {
+          name: 'Test Virus mozaika',
+          key: 'virus',
+          func: diagnosisAPI.testVirus,
+          description: 'Biljka: Duvanski list (Burley), Fenofaza: Vegetativna\nSimptomi: Mozaik šare\nUslovi: T=26°C, RH=65%\nOčekivani rezultat: Dijagnoza virusa mozaika (TMV/ToMV), bez hemijskog tretmana'
+        },
       ]
     },
     {
       category: 'Forward Chaining - Napredni testovi',
       items: [
-        { name: 'Kompleksno ulančavanje', key: 'complex', func: diagnosisAPI.testComplexChaining },
-        { name: 'Više bolesti istovremeno', key: 'multiple', func: diagnosisAPI.testMultipleDiseases },
-        { name: 'Ograničenja tretmana', key: 'restrictions', func: diagnosisAPI.testTreatmentRestrictions },
+        {
+          name: 'Kompleksno ulančavanje',
+          key: 'complex',
+          func: diagnosisAPI.testComplexChaining,
+          description: 'Biljka: Paradajz (San Marzano), Fenofaza: Vegetativna\nSimptomi: Vodenaste lezije + Bele naslage\nUslovi: T=25°C, RH=87%, CO₂=1100ppm, Ventilacija: OFF\n'
+        },
+        {
+          name: 'Više bolesti istovremeno',
+          key: 'multiple',
+          func: diagnosisAPI.testMultipleDiseases,
+          description: 'Biljka: Paradajz (Cherokee Purple), Fenofaza: Cvetanje\nSimptomi: Vodenaste lezije + Siva prevlaka + Uvenuće\nUslovi: T=24°C, RH=92%\nDemonstrira: Bayes analizu za više verovatnih bolesti, prioritizaciju tretmana'
+        },
+        {
+          name: 'Ograničenja tretmana',
+          key: 'restrictions',
+          func: diagnosisAPI.testTreatmentRestrictions,
+          description: 'Biljka: Paradajz (San Marzano), Fenofaza: Plodonošenje\nSimptomi: Vodenaste lezije\nUslovi: T=25°C, RH=87%\nPlanirana berba: Za 7 dana\nDemonstrira: Proveru karencije, blokiranje tretmana neodgovarajućih za fenofazu'
+        },
       ]
     },
     {
       category: 'Backward Chaining - Upiti',
       items: [
-        { name: 'Visoka verovatnoća bolesti', key: 'high-prob', func: backwardChainingAPI.testHighProbabilityDisease },
-        { name: 'Niska verovatnoća bolesti', key: 'low-prob', func: backwardChainingAPI.testLowProbabilityDisease },
-        { name: 'Tretman dozvoljen (vegetativni)', key: 'allowed-veg', func: backwardChainingAPI.testTreatmentAllowedVegetative },
-        { name: 'Tretman blokiran (plodonošenje)', key: 'blocked-fruit', func: backwardChainingAPI.testTreatmentBlockedFruiting },
-        { name: 'Uzroci rizika - Plamenjača', key: 'cause-plam', func: backwardChainingAPI.testWhatCausedPlamenjaca },
-        { name: 'Uzroci rizika - Pepelnica', key: 'cause-pep', func: backwardChainingAPI.testWhatCausedPepelnica },
+        {
+          name: 'Visoka verovatnoća bolesti',
+          key: 'high-prob',
+          func: backwardChainingAPI.testHighProbabilityDisease,
+          description: 'Upit: "Da li je plamenjača verovatna?"\nBiljka: Paradajz, Fenofaza: Vegetativna\nSimptomi: Vodenaste lezije, Bela prevlaka, Trulež plodova\nUslovi: T=25°C, RH=90%\nOčekivani odgovor: DA (>70% verovatnoća)'
+        },
+        {
+          name: 'Niska verovatnoća bolesti',
+          key: 'low-prob',
+          func: backwardChainingAPI.testLowProbabilityDisease,
+          description: 'Upit: "Da li je pepelnica verovatna?"\nBiljka: Paradajz, Fenofaza: Vegetativna\nSimptomi: Samo žućenje listova (nedostaju ključni simptomi)\nUslovi: T=30°C, RH=50% (van optimalnog opsega)\nOčekivani odgovor: NE (<30% verovatnoća)'
+        },
+        {
+          name: 'Tretman dozvoljen (vegetativni)',
+          key: 'allowed-veg',
+          func: backwardChainingAPI.testTreatmentAllowedVegetative,
+          description: 'Upit: "Da li je Mancozeb dozvoljen u vegetativnoj fazi?"\nBiljka: Paradajz, Fenofaza: Vegetativna\nTretman: Mancozeb (karenca: 14 dana)\nPlanirana berba: Za 30 dana\nOčekivani odgovor: DA (karenca zadovoljena, fenofaza odgovarajuća)'
+        },
+        {
+          name: 'Tretman blokiran (plodonošenje)',
+          key: 'blocked-fruit',
+          func: backwardChainingAPI.testTreatmentBlockedFruiting,
+          description: 'Upit: "Da li je Mancozeb dozvoljen u plodonošenju?"\nBiljka: Paradajz, Fenofaza: Plodonošenje\nTretman: Mancozeb (karenca: 14 dana)\nPlanirana berba: Za 7 dana\nOčekivani odgovor: NE (karenca nije zadovoljena)'
+        },
+        {
+          name: 'Uzroci rizika - Plamenjača',
+          key: 'cause-plam',
+          func: backwardChainingAPI.testWhatCausedPlamenjaca,
+          description: 'Upit: "Koji uslovi su doveli do rizika plamenjače?"\nBiljka: Paradajz, Fenofaza: Vegetativna\nUslovi: T=25°C, RH=90%, Ventilacija: OFF\nOčekivani odgovor: Visoka vlažnost (>85%), temperatura u opsegu (22-28°C), nedovoljna ventilacija'
+        },
+        {
+          name: 'Uzroci rizika - Pepelnica',
+          key: 'cause-pep',
+          func: backwardChainingAPI.testWhatCausedPepelnica,
+          description: 'Upit: "Koji uslovi su doveli do rizika pepelnice?"\nBiljka: Krastavac, Fenofaza: Cvetanje\nUslovi: T=23°C, RH=70%, Ventilacija: OFF\nOčekivani odgovor: Umerena vlažnost (60-80%), temperatura u opsegu (20-25°C), loša cirkulacija vazduha'
+        },
       ]
     },
     {
       category: 'CEP - Temporalni operatori',
       items: [
-        { name: 'E1: Kritični uslovi (Sliding Window)', key: 'critical', func: cepAPI.testCriticalConditions },
-        { name: 'E2: Rizik kondenzacije (Tumbling Window)', key: 'condensation', func: cepAPI.testCondensationRisk },
-        { name: 'E3: Rizik Botrytis (Sekvencijalni)', key: 'botrytis', func: cepAPI.testBotrytisRisk },
-        { name: 'E4: Alarm ventilacije (Temporalni NOT)', key: 'ventilation', func: cepAPI.testVentilationAlarm },
-        { name: 'E5: Stabilni uslovi pepelnica (During)', key: 'powdery', func: cepAPI.testPowderyMildew },
-        { name: 'E6: Rastući trend vlažnosti (Before)', key: 'humidity', func: cepAPI.testHumidityTrend },
+        {
+          name: 'E1: Kritični uslovi (Sliding Window)',
+          key: 'critical',
+          func: cepAPI.testCriticalConditions,
+          description: 'CEP Operator: Sliding Window (6h)\nPodaci: 6 očitavanja u poslednjih 6h\n  • Temperatura: 25±3°C (22-28°C)\n  • Vlažnost: 87-95%\nOčekivani rezultat: Alert za plamenjaču (RH > 85% + T ∈ [22,28]°C)'
+        },
+        {
+          name: 'E2: Rizik kondenzacije (Tumbling Window)',
+          key: 'condensation',
+          func: cepAPI.testCondensationRisk,
+          description: 'CEP Operator: Tumbling Window (24h)\nPodaci: 8 očitavanja u poslednjih 24h\n  • Vlažnost: 92-97% (>90%)\n  • Ventilacija: 3 događaja OFF\nOčekivani rezultat: Kritičan alert za kondenzaciju i Botrytis'
+        },
+        {
+          name: 'E3: Rizik Botrytis (Sekvencijalni)',
+          key: 'botrytis',
+          func: cepAPI.testBotrytisRisk,
+          description: 'CEP Operator: Sekvencijalni obrazac (after)\nPodaci:\n  1. Navodnjavanje (50L, 30min) - pre 1h\n  2. Vlažnost: 90% - nakon 30min\n  3. CO₂: 1300ppm - nakon 20min\nOčekivani rezultat: Alert za Botrytis (sekvenca: navodnjavanje → RH → CO₂)'
+        },
+        {
+          name: 'E4: Alarm ventilacije (Temporalni NOT)',
+          key: 'ventilation',
+          func: cepAPI.testVentilationAlarm,
+          description: 'CEP Operator: Temporalni NOT (missing event)\nPodaci:\n  • Vlažnost: 95% (SADA)\n  • Ventilacija: Nema događaja (NOT)\nOčekivani rezultat: Kritičan alert - ventilacija nije aktivirana uprkos visokoj vlažnosti'
+        },
+        {
+          name: 'E5: Stabilni uslovi pepelnica (During)',
+          key: 'powdery',
+          func: cepAPI.testPowderyMildew,
+          description: 'CEP Operator: DURING (stabilni uslovi)\nPodaci: 4 očitavanja u poslednjih 4h\n  • Temperatura: 22-25°C (stabilno)\n  • Vlažnost: 65-80% (stabilno)\nOčekivani rezultat: Alert za pepelnicu (stabilni optimalni uslovi tokom 4h)'
+        },
+        {
+          name: 'E6: Rastući trend vlažnosti (Before)',
+          key: 'humidity',
+          func: cepAPI.testHumidityTrend,
+          description: 'CEP Operator: BEFORE (trend analiza)\nPodaci:\n  • Početna vlažnost: 50% (pre 3h)\n  • 5 očitavanja: 62%, 64%, 66%, 68%, 70%\n  • Finalna vlažnost: 75% (pre 1h)\nOčekivani rezultat: Alert za rastući trend (+25% rast)'
+        },
       ]
     },
     {
       category: 'Sveobuhvatni testovi',
       items: [
-        { name: 'Svi Forward Chaining testovi', key: 'all-fc', func: diagnosisAPI.testAll },
-        { name: 'Svi Backward Chaining testovi', key: 'all-bc', func: backwardChainingAPI.testAllBackward },
-        { name: 'Svi CEP testovi', key: 'all-cep', func: cepAPI.testAllCEP },
+        {
+          name: 'Svi Forward Chaining testovi',
+          key: 'all-fc',
+          func: diagnosisAPI.testAll,
+          description: 'Izvršava sve Forward Chaining testove redom:\n  1. Plamenjača\n  2. Pepelnica\n  3. Siva trulež\n  4. Fuzarijum\n  5. Virus mozaika\n  6. Kompleksno ulančavanje\n  7. Više bolesti\n  8. Ograničenja tretmana\nKoristi se za brzu validaciju celokupnog FC sistema.'
+        },
+        {
+          name: 'Svi Backward Chaining testovi',
+          key: 'all-bc',
+          func: backwardChainingAPI.testAllBackward,
+          description: 'Izvršava sve Backward Chaining testove redom:\n  1. Visoka verovatnoća bolesti\n  2. Niska verovatnoća bolesti\n  3. Tretman dozvoljen\n  4. Tretman blokiran\n  5. Uzroci rizika - Plamenjača\n  6. Uzroci rizika - Pepelnica\nKoristi se za brzu validaciju celokupnog BC sistema.'
+        },
+        {
+          name: 'Svi CEP testovi',
+          key: 'all-cep',
+          func: cepAPI.testAllCEP,
+          description: 'Izvršava sve CEP testove redom:\n  E1: Sliding Window\n  E2: Tumbling Window\n  E3: Sekvencijalni obrazac\n  E4: Temporalni NOT\n  E5: DURING operator\n  E6: BEFORE operator\nKoristi se za brzu validaciju celokupnog CEP sistema.'
+        },
       ]
     }
   ];
@@ -368,9 +483,9 @@ const PresetTestsPage = () => {
           Ova sekcija sadrži predefinirane testove za demonstraciju svih funkcionalnosti sistema.
           Testovi koriste unapred pripremljene podatke za brzu validaciju implementiranih mehanizama.
         </p>
-        <br/>
+        <br />
         <div className="alert alert-warning">
-          <strong>Napomena:</strong> Ovi testovi koriste fiksne podatke za demonstraciju. 
+          <strong>Napomena:</strong> Ovi testovi koriste fiksne podatke za demonstraciju.
           Za unos vlastitih podataka koristite glavne sekcije (Forward Chaining, Backward Chaining, CEP).
         </div>
       </div>
@@ -379,8 +494,8 @@ const PresetTestsPage = () => {
         <div className="card">
           {tests.map((category, categoryIndex) => (
             <div key={categoryIndex} style={{ marginBottom: '25px' }}>
-              <h4 style={{ 
-                color: '#4CAF50', 
+              <h4 style={{
+                color: '#4CAF50',
                 marginBottom: '10px',
                 borderBottom: '2px solid #4CAF50',
                 paddingBottom: '5px'
@@ -393,10 +508,13 @@ const PresetTestsPage = () => {
                   className="btn"
                   onClick={() => runTest(test.name, test.func)}
                   disabled={loading}
-                  style={{ 
-                    width: '100%', 
+                  title={test.description}
+                  style={{
+                    width: '100%',
                     marginBottom: '8px',
-                    opacity: loading && activeTest !== test.name ? 0.6 : 1
+                    opacity: loading && activeTest !== test.name ? 0.6 : 1,
+                    cursor: 'pointer',
+                    textAlign: 'left'
                   }}
                 >
                   {loading && activeTest === test.name ? ' Izvršava...' : test.name}
@@ -404,21 +522,21 @@ const PresetTestsPage = () => {
               ))}
             </div>
           ))}
-          
+
           {results.length > 0 && (
-            <button 
-              className="btn btn-danger" 
+            <button
+              className="btn btn-danger"
               onClick={clearResults}
               style={{ width: '100%', marginTop: '15px' }}
             >
-               Obriši rezultate
+              Obriši rezultate
             </button>
           )}
         </div>
 
         <div className="card">
           <h3> Rezultati testova</h3>
-          <br/>
+          <br />
 
           {results.length === 0 ? (
             <div className="loading">
@@ -427,25 +545,25 @@ const PresetTestsPage = () => {
           ) : (
             <div style={{ maxHeight: '1461px', overflowY: 'auto' }}>
               {results.map((result, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className={`alert ${result.success ? 'alert-success' : 'alert-danger'}`}
                   style={{ marginBottom: '15px' }}
                 >
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
                     alignItems: 'center',
                     marginBottom: '10px'
                   }}>
                     <strong>{result.testName}</strong>
                     <small>{result.timestamp}</small>
                   </div>
-                  
+
                   {result.success ? (
-                    <div style={{ 
-                      backgroundColor: 'rgba(255,255,255,0.8)', 
-                      padding: '15px', 
+                    <div style={{
+                      backgroundColor: 'rgba(255,255,255,0.8)',
+                      padding: '15px',
                       borderRadius: '4px',
                       fontSize: '14px',
                       maxHeight: '400px',
@@ -454,9 +572,9 @@ const PresetTestsPage = () => {
                       {formatResult(result.data, result.testName)}
                     </div>
                   ) : (
-                    <div style={{ 
-                      backgroundColor: 'rgba(255,255,255,0.8)', 
-                      padding: '10px', 
+                    <div style={{
+                      backgroundColor: 'rgba(255,255,255,0.8)',
+                      padding: '10px',
                       borderRadius: '4px',
                       color: '#721c24'
                     }}>
