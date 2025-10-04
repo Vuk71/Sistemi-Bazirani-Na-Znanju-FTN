@@ -1,0 +1,150 @@
+// Ovo je template za ažuriranje BC trace-a
+// Kopiraj ovaj kod u BackwardChainingPage.js
+
+{queryResult.queryType === 'IS_DISEASE_PROBABLE' && (
+  <div>
+    <div style={{ color: '#007bff', marginBottom: '5px', fontWeight: 'bold' }}>
+      🎯 GOAL: IS_DISEASE_PROBABLE({queryResult.diseaseName})
+    </div>
+    <div style={{ marginLeft: '20px', marginBottom: '5px', color: '#6c757d', fontStyle: 'italic' }}>
+      ↓ Backward chaining: Tražim pravilo koje može dokazati ovaj cilj
+    </div>
+    
+    {queryResult.result && queryResult.result.includes('DA') ? (
+      <>
+        <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+          ├─ 📋 PRAVILO: "BC-FACT: Bolest je verovatna"
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+          │  WHEN: Disease(probability ≥ 50.0)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: Pronađi Disease({queryResult.diseaseName})
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Pretraga Working Memory...
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Biljka: {plantData.cropType} - {plantData.variety}
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Uslovi: T={plantData.currentConditions?.temperature}°C, RH={plantData.currentConditions?.humidity}%
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Pronađen: Disease({queryResult.diseaseName}, probability={probability !== null ? probability.toFixed(1) : '?'}%)
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ✅ Uslov zadovoljen: {probability !== null ? probability.toFixed(1) : '?'}% ≥ 50.0%
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: not Fact(DISEASE_PROBABLE, {queryResult.diseaseName})
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Pretraga Working Memory...
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ✅ Fakt ne postoji (može se kreirati)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#28a745' }}>
+          │  └─ ✅ SVI USLOVI ZADOVOLJENI → Aktiviram THEN deo
+        </div>
+        <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+          ├─ ⚡ AKCIJA: insert(new Fact("DISEASE_PROBABLE", "{queryResult.diseaseName}"))
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  └─ Kreiran novi fakt u Working Memory
+        </div>
+        <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+          ├─ 📋 PRAVILO: "BC-QUERY: Da li je bolest verovatna?"
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+          │  WHEN: DiagnosticQuery + Fact(DISEASE_PROBABLE)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: Pronađi DiagnosticQuery(IS_DISEASE_PROBABLE)
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ✅ Pronađen query objekat
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: Pronađi Fact(DISEASE_PROBABLE, {queryResult.diseaseName})
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ✅ Pronađen fakt (kreiran u prethodnom pravilu)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  └─ ⚡ AKCIJA: Postavljam result i explanation na query
+        </div>
+        <div style={{ color: '#28a745', marginLeft: '20px', fontWeight: 'bold' }}>
+          └─ ✅ FINALNI ZAKLJUČAK: DA - Bolest {queryResult.diseaseName} je verovatna ({probability !== null ? probability.toFixed(1) : '?'}%)
+        </div>
+        <div style={{ marginLeft: '40px', marginTop: '10px', padding: '10px', backgroundColor: '#e7f3ff', borderRadius: '5px', fontSize: '12px' }}>
+          💡 Rekurzivni lanac: Cilj → Pravilo 1 (kreira fakt) → Pravilo 2 (koristi fakt) → Odgovor
+        </div>
+      </>
+    ) : (
+      <>
+        <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+          ├─ 📋 PRAVILO: "BC-FACT: Bolest je verovatna"
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+          │  WHEN: Disease(probability ≥ 50.0)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: Pronađi Disease({queryResult.diseaseName})
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Pretraga Working Memory...
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Biljka: {plantData.cropType} - {plantData.variety}
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Uslovi: T={plantData.currentConditions?.temperature}°C, RH={plantData.currentConditions?.humidity}%
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  ├─ Pronađen: Disease({queryResult.diseaseName}, probability={probability !== null ? probability.toFixed(1) : '?'}%)
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ❌ Uslov NIJE zadovoljen: {probability !== null ? probability.toFixed(1) : '?'}% &lt; 50.0%
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#dc3545' }}>
+          │  └─ ❌ Pravilo se NE aktivira
+        </div>
+        <div style={{ marginLeft: '20px', marginBottom: '5px' }}>
+          ├─ 📋 PRAVILO: "BC-QUERY: Nema dovoljno činjenica za bolest" (FALLBACK)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px', color: '#6c757d' }}>
+          │  WHEN: DiagnosticQuery + Disease(probability &lt; 50) + not Fact(DISEASE_PROBABLE)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: Pronađi DiagnosticQuery
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ✅ Pronađen query objekat
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: Pronađi Disease(probability &lt; 50%)
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ✅ Pronađen: Disease({probability !== null ? probability.toFixed(1) : '?'}%)
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  ├─ 🔄 REKURZIVNI PODCILJ: not Fact(DISEASE_PROBABLE)
+        </div>
+        <div style={{ marginLeft: '60px', marginBottom: '5px' }}>
+          │  │  └─ ✅ Fakt ne postoji
+        </div>
+        <div style={{ marginLeft: '40px', marginBottom: '5px' }}>
+          │  └─ ⚡ AKCIJA: Postavljam negativan rezultat
+        </div>
+        <div style={{ color: '#dc3545', marginLeft: '20px', fontWeight: 'bold' }}>
+          └─ ❌ FINALNI ZAKLJUČAK: NE - Nedovoljno činjenica za potvrdu bolesti {queryResult.diseaseName}
+        </div>
+        <div style={{ marginLeft: '40px', marginTop: '10px', padding: '10px', backgroundColor: '#fff3e0', borderRadius: '5px', fontSize: '12px' }}>
+          💡 Rekurzivni lanac: Cilj → Pravilo 1 (neuspeh) → Pravilo 2 (fallback) → Odgovor
+        </div>
+      </>
+    )}
+  </div>
+)}

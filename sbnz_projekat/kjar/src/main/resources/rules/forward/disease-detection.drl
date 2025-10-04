@@ -47,6 +47,18 @@ rule "R04 - Pepelnica sa belim naslagama"
         update($disease);
 end
 
+// R04B: Ako pepelnica i žutilo → dodatni simptom
+rule "R04B - Pepelnica sa žutilom"
+    when
+        $disease: Disease(name == "Pepelnica", probability >= 40.0, probability < 55.0)
+        $symptom: Symptom(type == SymptomType.YELLOWING, present == true)
+    then
+        $disease.increaseProbability(15.0);
+        System.out.println("R04B: Detektovano žutilo uz pepelnicu - dodatni simptom");
+        System.out.println("     Povećana verovatnoća pepelnice na: " + $disease.getProbability() + "%");
+        update($disease);
+end
+
 // R06: Ako siva prevlaka i RH>90% → siva trulež; uklanjanje + ventilacija
 rule "R06 - Siva trulež sa sivom prevlakom"
     when

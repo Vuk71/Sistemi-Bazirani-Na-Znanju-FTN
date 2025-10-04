@@ -67,6 +67,33 @@ public class BackwardChainingController {
         return backwardChainingService.testWhatCausedPepelnicaRisk();
     }
 
+    @GetMapping("/test-what-caused-siva-trulez")
+    public DiagnosticQuery testWhatCausedSivaTrulezRisk() {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("TEST: BC-C3 - Koji uslovi su doveli do rizika sive truleži?");
+        System.out.println("=".repeat(60));
+        
+        return backwardChainingService.testWhatCausedSivaTrulezRisk();
+    }
+
+    @GetMapping("/test-what-caused-fuzarijum")
+    public DiagnosticQuery testWhatCausedFuzarijumRisk() {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("TEST: BC-C3 - Koji uslovi su doveli do rizika fuzarijuma?");
+        System.out.println("=".repeat(60));
+        
+        return backwardChainingService.testWhatCausedFuzarijumRisk();
+    }
+
+    @GetMapping("/test-what-caused-virus-mozaika")
+    public DiagnosticQuery testWhatCausedVirusMozaikaRisk() {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("TEST: BC-C3 - Koji uslovi su doveli do rizika virusa mozaika?");
+        System.out.println("=".repeat(60));
+        
+        return backwardChainingService.testWhatCausedVirusMozaikaRisk();
+    }
+
     @GetMapping("/test-all-backward")
     public String testAllBackwardChainingScenarios() {
         StringBuilder result = new StringBuilder();
@@ -95,6 +122,18 @@ public class BackwardChainingController {
         result.append("6. Test uzroka rizika pepelnice:\n");
         DiagnosticQuery query6 = testWhatCausedPepelnicaRisk();
         result.append(formatQuery(query6)).append("\n\n");
+        
+        result.append("7. Test uzroka rizika sive truleži:\n");
+        DiagnosticQuery query7 = testWhatCausedSivaTrulezRisk();
+        result.append(formatQuery(query7)).append("\n\n");
+        
+        result.append("8. Test uzroka rizika fuzarijuma:\n");
+        DiagnosticQuery query8 = testWhatCausedFuzarijumRisk();
+        result.append(formatQuery(query8)).append("\n\n");
+        
+        result.append("9. Test uzroka rizika virusa mozaika:\n");
+        DiagnosticQuery query9 = testWhatCausedVirusMozaikaRisk();
+        result.append(formatQuery(query9)).append("\n\n");
         
         return result.toString();
     }
@@ -150,9 +189,43 @@ public class BackwardChainingController {
         demo.append("GET /api/backward-chaining/test-treatment-blocked-fruiting\n");
         demo.append("GET /api/backward-chaining/test-what-caused-plamenjaca\n");
         demo.append("GET /api/backward-chaining/test-what-caused-pepelnica\n");
+        demo.append("GET /api/backward-chaining/test-what-caused-siva-trulez\n");
+        demo.append("GET /api/backward-chaining/test-what-caused-fuzarijum\n");
+        demo.append("GET /api/backward-chaining/test-what-caused-virus-mozaika\n");
         demo.append("GET /api/backward-chaining/test-all-backward\n");
         
         return demo.toString();
+    }
+
+    @PostMapping("/query-disease-with-plant")
+    public DiagnosticQuery queryDiseaseWithPlant(@RequestBody PlantQueryRequest request) {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("QUERY: Da li je " + request.getDiseaseName() + " verovatna?");
+        System.out.println("Biljka: " + request.getPlant().getCropType() + " - " + request.getPlant().getVariety());
+        System.out.println("Fenofaza: " + request.getPlant().getPhenophase());
+        System.out.println("Temperatura: " + request.getPlant().getTemperature() + "°C");
+        System.out.println("Vlažnost: " + request.getPlant().getHumidity() + "%");
+        System.out.println("=".repeat(60));
+        
+        return backwardChainingService.queryDiseaseProbabilityWithPlant(
+            request.getDiseaseName(), 
+            request.getPlant()
+        );
+    }
+
+    @PostMapping("/query-what-caused-with-plant")
+    public DiagnosticQuery queryWhatCausedWithPlant(@RequestBody PlantQueryRequest request) {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("QUERY C3: Koji uslovi su doveli do rizika " + request.getDiseaseName() + "?");
+        System.out.println("Biljka: " + request.getPlant().getCropType() + " - " + request.getPlant().getVariety());
+        System.out.println("Temperatura: " + request.getPlant().getTemperature() + "°C");
+        System.out.println("Vlažnost: " + request.getPlant().getHumidity() + "%");
+        System.out.println("=".repeat(60));
+        
+        return backwardChainingService.queryWhatCausedWithPlant(
+            request.getDiseaseName(), 
+            request.getPlant()
+        );
     }
 
     @GetMapping("/query-disease/{diseaseName}")

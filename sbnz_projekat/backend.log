@@ -1,0 +1,2837 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.ftn.sbnz:service >------------------------
+[INFO] Building service 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:2.7.9:run (default-cli) > test-compile @ service >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ service ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 0 resource
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ service ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /Users/vdimitrov/Documents/SBNZ/Sistemi-Bazirani-Na-Znanju-FTN/sbnz_projekat/service/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot-maven-plugin:2.7.9:run (default-cli) < test-compile @ service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.7.9:run (default-cli) @ service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.9)
+
+2025-10-01 11:08:06.070  INFO 19159 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Starting ServiceApplication using Java 11.0.28 on C14788 with PID 19159 (/Users/vdimitrov/Documents/SBNZ/Sistemi-Bazirani-Na-Znanju-FTN/sbnz_projekat/service/target/classes started by vdimitrov in /Users/vdimitrov/Documents/SBNZ/Sistemi-Bazirani-Na-Znanju-FTN/sbnz_projekat/service)
+2025-10-01 11:08:06.071  INFO 19159 --- [           main] com.ftn.sbnz.service.ServiceApplication  : No active profile set, falling back to 1 default profile: "default"
+2025-10-01 11:08:06.336  INFO 19159 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-10-01 11:08:06.339  INFO 19159 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-01 11:08:06.339  INFO 19159 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2025-10-01 11:08:06.373  INFO 19159 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-01 11:08:06.373  INFO 19159 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 289 ms
+2025-10-01 11:08:06.407  INFO 19159 --- [           main] o.d.c.k.builder.impl.KieRepositoryImpl   : Adding KieModule from classpath: file:/Users/vdimitrov/.m2/repository/com/ftn/sbnz/kjar/0.0.1-SNAPSHOT/kjar-0.0.1-SNAPSHOT.jar
+2025-10-01 11:08:06.524  WARN 19159 --- [           main] o.a.m.i.embedder.MavenSettings           : Environment variable M2_HOME is not set
+2025-10-01 11:08:11.207  WARN 19159 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xerces:xercesImpl:2.12.0.SP03
+2025-10-01 11:08:11.983  WARN 19159 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xmlpull:xmlpull:1.2.0
+2025-10-01 11:08:12.695  WARN 19159 --- [           main] o.a.maven.integration.MavenRepository    : Unable to resolve artifact: xpp3:xpp3_min:1.2.0
+2025-10-01 11:08:12.710  INFO 19159 --- [           main] com.ftn.sbnz.service.SampleAppService    : Initialising a new example session.
+2025-10-01 11:08:12.796  INFO 19159 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2025-10-01 11:08:12.800  INFO 19159 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Started ServiceApplication in 6.916 seconds (JVM running for 7.063)
+
+============================================================
+POKRETANJE TESTOVA EKSPERTSKOG SISTEMA
+============================================================
+
+--- TEST 1: PLAMENJAČA ---
+2025-10-01 11:08:12.803  WARN 19159 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:08:12.803  WARN 19159 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:08:12.803  WARN 19159 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:08:12.803  WARN 19159 --- [           main] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+
+Rezultat dijagnoze:
+  Dijagnostikovane bolesti:
+    - Plamenjača (95.0%)
+  Preporučeni tretmani:
+    - Bakarni preparat (Hemijski)
+
+--- TEST 2: PEPELNICA ---
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=24.0°C, RH=75.0%
+Kultura: Krastavac (Plodonošenje)
+Simptomi:
+  - Bele naslage
+
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Biološki fungicid
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Trichoderma
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 15
+
+Rezultat dijagnoze:
+  Dijagnostikovane bolesti:
+    - Pepelnica (40.0%)
+  Preporučeni tretmani:
+    - Trichoderma (Biološki)
+    - Biološki fungicid (Biološki)
+
+--- TEST 3: SIVA TRULEŽ ---
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=22.0°C, RH=95.0%
+Kultura: Paprika (Cvetanje)
+Simptomi:
+  - Siva prevlaka
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 40.0%
+SUMNJA: Plamenjača sa verovatnoćom 40.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 50.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 60.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 70.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 70.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (70.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 80.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 90.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 30
+
+Rezultat dijagnoze:
+  Dijagnostikovane bolesti:
+    - Siva trulež (35.714285714285715%)
+    - Plamenjača (64.28571428571429%)
+  Preporučeni tretmani:
+    - Biološki fungicid (Biološki)
+    - Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+    - Bakarni preparat (Hemijski)
+
+--- TEST 4: FUZARIJUM ---
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=28.0°C, RH=70.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Uvenuće
+  - Posmeđenje
+
+R07: Detektovano uvenuće i posmeđenje žila - fuzarijum
+     Povećana verovatnoća fuzarijuma na: 45.0%
+     PREPORUKA: Proveriti pH zemljišta
+R08: Preporučen Trichoderma tretman za fuzarijum
+     Doza: 5g/L
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Fuzarijum sa verovatnoćom 45.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Fuzarijum detektovan - Trichoderma efikasna
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 7
+
+Rezultat dijagnoze:
+  Dijagnostikovane bolesti:
+    - Fuzarijum (45.0%)
+  Preporučeni tretmani:
+    - Trichoderma (Biološki)
+
+--- TEST 5: VIRUS MOZAIKA ---
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=26.0°C, RH=65.0%
+Kultura: Duvanski list (Vegetativni rast)
+Simptomi:
+  - Mozaik
+
+R09: Detektovane mozaik šare bez gljivičnih prevlaka - virus mozaika
+     Povećana verovatnoća virusa mozaika na: 60.0%
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Uklanjanje zaraženih biljaka
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Dezinfekcija alata
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Dezinfekcija alata
+SUMNJA: Virus mozaika sa verovatnoćom 60.0%
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Dezinfekcija alata (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+Rezultat dijagnoze:
+  Dijagnostikovane bolesti:
+    - Virus mozaika (60.0%)
+  Preporučeni tretmani:
+    - Dezinfekcija alata (Higijensko-sanitarne mere)
+    - Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+
+============================================================
+SVI TESTOVI ZAVRŠENI
+============================================================
+2025-10-01 11:08:13.187  INFO 19159 --- [           main] com.ftn.sbnz.service.ServiceApplication  : Application beans:
+CEPController
+CEPService
+applicationAvailability
+applicationTaskExecutor
+backwardChainingController
+backwardChainingService
+basicErrorController
+beanNameHandlerMapping
+beanNameViewResolver
+characterEncodingFilter
+conventionErrorViewResolver
+corsConfigurer
+defaultServletHandlerMapping
+defaultViewResolver
+diagnosisController
+diagnosisService
+dispatcherServlet
+dispatcherServletRegistration
+error
+errorAttributes
+errorPageCustomizer
+errorPageRegistrarBeanPostProcessor
+flashMapManager
+forceAutoProxyCreatorToUseClassProxying
+formContentFilter
+handlerExceptionResolver
+handlerFunctionAdapter
+httpRequestHandlerAdapter
+jacksonObjectMapper
+jacksonObjectMapperBuilder
+jsonComponentModule
+jsonMixinModule
+kieContainer
+lifecycleProcessor
+localeCharsetMappingsCustomizer
+localeResolver
+mainDemoController
+mappingJackson2HttpMessageConverter
+messageConverters
+multipartConfigElement
+multipartResolver
+mvcContentNegotiationManager
+mvcConversionService
+mvcHandlerMappingIntrospector
+mvcPathMatcher
+mvcPatternParser
+mvcResourceUrlProvider
+mvcUriComponentsContributor
+mvcUrlPathHelper
+mvcValidator
+mvcViewResolver
+org.springframework.aop.config.internalAutoProxyCreator
+org.springframework.boot.autoconfigure.AutoConfigurationPackages
+org.springframework.boot.autoconfigure.aop.AopAutoConfiguration
+org.springframework.boot.autoconfigure.aop.AopAutoConfiguration$ClassProxyingConfiguration
+org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration
+org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration
+org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration
+org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration
+org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration
+org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration$StringHttpMessageConverterConfiguration
+org.springframework.boot.autoconfigure.http.JacksonHttpMessageConvertersConfiguration
+org.springframework.boot.autoconfigure.http.JacksonHttpMessageConvertersConfiguration$MappingJackson2HttpMessageConverterConfiguration
+org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration
+org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration
+org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration
+org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
+org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
+org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration
+org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration
+org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration$TomcatWebServerFactoryCustomizerConfiguration
+org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration$DispatcherServletConfiguration
+org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration$DispatcherServletRegistrationConfiguration
+org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryConfiguration$EmbeddedTomcat
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$DefaultErrorViewResolverConfiguration
+org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration
+org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration
+org.springframework.boot.autoconfigure.websocket.servlet.WebSocketServletAutoConfiguration$TomcatWebSocketConfiguration
+org.springframework.boot.context.internalConfigurationPropertiesBinder
+org.springframework.boot.context.internalConfigurationPropertiesBinderFactory
+org.springframework.boot.context.properties.BoundConfigurationProperties
+org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor
+org.springframework.boot.context.properties.EnableConfigurationPropertiesRegistrar.methodValidationExcludeFilter
+org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer$DependsOnDatabaseInitializationPostProcessor
+org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+org.springframework.context.annotation.internalCommonAnnotationProcessor
+org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+org.springframework.context.event.internalEventListenerFactory
+org.springframework.context.event.internalEventListenerProcessor
+parameterNamesModule
+preserveErrorControllerTargetClassPostProcessor
+propertySourcesPlaceholderConfigurer
+requestContextFilter
+requestMappingHandlerAdapter
+requestMappingHandlerMapping
+resourceHandlerMapping
+restTemplateBuilder
+restTemplateBuilderConfigurer
+routerFunctionMapping
+sampleAppController
+sampleAppService
+sampleHomeController
+server-org.springframework.boot.autoconfigure.web.ServerProperties
+serviceApplication
+servletWebServerFactoryCustomizer
+simpleControllerHandlerAdapter
+spring.info-org.springframework.boot.autoconfigure.info.ProjectInfoProperties
+spring.jackson-org.springframework.boot.autoconfigure.jackson.JacksonProperties
+spring.lifecycle-org.springframework.boot.autoconfigure.context.LifecycleProperties
+spring.mvc-org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties
+spring.servlet.multipart-org.springframework.boot.autoconfigure.web.servlet.MultipartProperties
+spring.sql.init-org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties
+spring.task.execution-org.springframework.boot.autoconfigure.task.TaskExecutionProperties
+spring.task.scheduling-org.springframework.boot.autoconfigure.task.TaskSchedulingProperties
+spring.web-org.springframework.boot.autoconfigure.web.WebProperties
+standardJacksonObjectMapperBuilderCustomizer
+stringHttpMessageConverter
+taskExecutorBuilder
+taskSchedulerBuilder
+testRunner
+themeResolver
+tomcatServletWebServerFactory
+tomcatServletWebServerFactoryCustomizer
+tomcatWebServerFactoryCustomizer
+viewControllerHandlerMapping
+viewNameTranslator
+viewResolver
+webServerFactoryCustomizerBeanPostProcessor
+websocketServletWebServerCustomizer
+welcomePageHandlerMapping
+
+2025-10-01 11:11:24.827  INFO 19159 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-01 11:11:24.843  INFO 19159 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-01 11:11:24.858  INFO 19159 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+
+============================================================
+TEST: Više verovatnih bolesti - Bayes analiza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=24.0°C, RH=92.0%
+Kultura: Paradajz (Cvetanje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Siva prevlaka
+  - Uvenuće
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 92.0%, T: 24.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 92.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 27
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=24.0°C, RH=75.0%
+Kultura: Krastavac (Plodonošenje)
+Simptomi:
+  - Bele naslage
+
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Biološki fungicid
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Trichoderma
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 15
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=22.0°C, RH=95.0%
+Kultura: Paprika (Cvetanje)
+Simptomi:
+  - Siva prevlaka
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 40.0%
+SUMNJA: Plamenjača sa verovatnoćom 40.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 50.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 60.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 70.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 70.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (70.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 80.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 90.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 30
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=28.0°C, RH=70.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Uvenuće
+  - Posmeđenje
+
+R07: Detektovano uvenuće i posmeđenje žila - fuzarijum
+     Povećana verovatnoća fuzarijuma na: 45.0%
+     PREPORUKA: Proveriti pH zemljišta
+R08: Preporučen Trichoderma tretman za fuzarijum
+     Doza: 5g/L
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Fuzarijum sa verovatnoćom 45.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Fuzarijum detektovan - Trichoderma efikasna
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 7
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=26.0°C, RH=65.0%
+Kultura: Duvanski list (Vegetativni rast)
+Simptomi:
+  - Mozaik
+
+R09: Detektovane mozaik šare bez gljivičnih prevlaka - virus mozaika
+     Povećana verovatnoća virusa mozaika na: 60.0%
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Uklanjanje zaraženih biljaka
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Dezinfekcija alata
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Dezinfekcija alata
+SUMNJA: Virus mozaika sa verovatnoćom 60.0%
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Dezinfekcija alata (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Više verovatnih bolesti - Bayes analiza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=24.0°C, RH=92.0%
+Kultura: Paradajz (Cvetanje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Siva prevlaka
+  - Uvenuće
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 92.0%, T: 24.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 92.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 27
+
+============================================================
+TEST: Ograničenja tretmana - karenca i fenofaza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Plodonošenje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 12
+
+============================================================
+TEST: Više verovatnih bolesti - Bayes analiza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=24.0°C, RH=92.0%
+Kultura: Paradajz (Cvetanje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Siva prevlaka
+  - Uvenuće
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 92.0%, T: 24.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 92.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 27
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=28.0°C, RH=70.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Uvenuće
+  - Posmeđenje
+
+R07: Detektovano uvenuće i posmeđenje žila - fuzarijum
+     Povećana verovatnoća fuzarijuma na: 45.0%
+     PREPORUKA: Proveriti pH zemljišta
+R08: Preporučen Trichoderma tretman za fuzarijum
+     Doza: 5g/L
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Fuzarijum sa verovatnoćom 45.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Fuzarijum detektovan - Trichoderma efikasna
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 7
+
+============================================================
+CUSTOM QUERY: Da li je Siva trulež verovatna?
+============================================================
+2025-10-01 11:32:17.462  WARN 19159 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:32:17.464  WARN 19159 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:32:17.464  WARN 19159 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:32:17.470  WARN 19159 --- [nio-8080-exec-1] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Siva trulež
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Siva trulež je verovatna (60.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FRUITING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Plodonošenje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Plodonošenje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Plodonošenje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Plodonošenje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Plodonošenje
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+2025-10-01 11:32:59.060  WARN 19159 --- [nio-8080-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:32:59.060  WARN 19159 --- [nio-8080-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:32:59.061  WARN 19159 --- [nio-8080-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 11:32:59.061  WARN 19159 --- [nio-8080-exec-3] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 94.06736405158998% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=28.0°C, RH=70.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Uvenuće
+  - Posmeđenje
+
+R07: Detektovano uvenuće i posmeđenje žila - fuzarijum
+     Povećana verovatnoća fuzarijuma na: 45.0%
+     PREPORUKA: Proveriti pH zemljišta
+R08: Preporučen Trichoderma tretman za fuzarijum
+     Doza: 5g/L
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Fuzarijum sa verovatnoćom 45.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Fuzarijum detektovan - Trichoderma efikasna
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 7
+2025-10-01 13:26:53.678  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.680  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.680  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.680  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.749  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.749  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.749  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.749  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.832  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/backward/backward.drl' is in folder 'BOOT-INF/classes/rules/backward' but declares package 'backward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.833  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/disease-detection.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.833  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/forward/treatment-recommendation.drl' is in folder 'BOOT-INF/classes/rules/forward' but declares package 'forward'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.833  WARN 19159 --- [        Timer-0] o.d.c.kie.builder.impl.KieBuilderImpl    : File 'BOOT-INF/classes/rules/cep/cep.drl' is in folder 'BOOT-INF/classes/rules/cep' but declares package 'cep'. It is advised to have a correspondance between package and folder names.
+2025-10-01 13:26:53.919  INFO 19159 --- [        Timer-0] org.kie.api.builder.KieScanner           : The following artifacts have been updated: {com.ftn.sbnz:kjar:0.0.1-SNAPSHOT=com.ftn.sbnz:kjar:jar:0.0.1-SNAPSHOT}
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 94.70548029391144% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Bakarni preparat dozvoljen u VEGETATIVE?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Bakarni preparat
+Fenofaza: Vegetativni rast
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Vegetativni rast
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Vegetativni rast
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Vegetativni rast
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Vegetativni rast
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Bakarni preparat je dozvoljen u Vegetativni rast
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Pepelnica verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Pepelnica
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Pepelnica je verovatna (55.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Pepelnica je verovatna (55.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Siva trulež verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Siva trulež
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Siva trulež je verovatna (60.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Fuzarijum verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Fuzarijum
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Nedovoljno činjenica za Fuzarijum
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: NE - Nedovoljno činjenica za potvrdu bolesti Fuzarijum
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 93.83071022141644% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Pepelnica verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Pepelnica
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Pepelnica je verovatna (55.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Pepelnica je verovatna (55.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Fuzarijum verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Fuzarijum
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Nedovoljno činjenica za Fuzarijum
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: NE - Nedovoljno činjenica za potvrdu bolesti Fuzarijum
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Fuzarijum verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Fuzarijum
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Nedovoljno činjenica za Fuzarijum
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: NE - Nedovoljno činjenica za potvrdu bolesti Fuzarijum
+
+============================================================
+CUSTOM QUERY: Da li je Siva trulež verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Siva trulež
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Siva trulež je verovatna (60.0%)
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 92.48898721981624% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Pepelnica verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Pepelnica
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Pepelnica je verovatna (55.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Pepelnica je verovatna (55.0%)
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 92.2595724907138% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=22.0°C, RH=95.0%
+Kultura: Paprika (Cvetanje)
+Simptomi:
+  - Siva prevlaka
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 40.0%
+SUMNJA: Plamenjača sa verovatnoćom 40.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 50.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 60.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 70.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 70.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (70.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 80.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 90.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 30
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=22.0°C, RH=95.0%
+Kultura: Paprika (Cvetanje)
+Simptomi:
+  - Siva prevlaka
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 40.0%
+SUMNJA: Plamenjača sa verovatnoćom 40.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 50.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 60.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 70.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 70.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (70.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 80.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 90.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 30
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 92.46809811543231% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 91.63909671498996% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Pepelnica verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Pepelnica
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Pepelnica je verovatna (55.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Pepelnica je verovatna (55.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Siva trulež verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Siva trulež
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Siva trulež je verovatna (60.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Fuzarijum verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Fuzarijum
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Nedovoljno činjenica za Fuzarijum
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: NE - Nedovoljno činjenica za potvrdu bolesti Fuzarijum
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Fuzarijum verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Fuzarijum
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Nedovoljno činjenica za Fuzarijum
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: NE - Nedovoljno činjenica za potvrdu bolesti Fuzarijum
+
+============================================================
+CUSTOM QUERY: Da li je Fuzarijum verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Fuzarijum
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Nedovoljno činjenica za Fuzarijum
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: NE - Nedovoljno činjenica za potvrdu bolesti Fuzarijum
+
+============================================================
+CUSTOM QUERY: Da li je Siva trulež verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Siva trulež
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Siva trulež je verovatna (60.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Biološki fungicid dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Biološki fungicid
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Biološki fungicid je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Trichoderma dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Trichoderma
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Trichoderma je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Trichoderma dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Trichoderma
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Trichoderma je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Siva trulež verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Siva trulež
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Siva trulež je verovatna (60.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Virus mozaika verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Virus mozaika
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 3
+Odgovor: null
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 91.664658155265% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+CUSTOM QUERY: Da li je Uklanjanje biljaka dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Uklanjanje biljaka
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Trichoderma dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Trichoderma
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Trichoderma je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Uklanjanje biljaka dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Uklanjanje biljaka
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: null
+
+============================================================
+CUSTOM QUERY: Da li je Bakarni preparat dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Bakarni preparat
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Bakarni preparat je dozvoljen u Cvetanje
+
+============================================================
+CUSTOM QUERY: Da li je Plamenjača verovatna?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Plamenjača
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Plamenjača je verovatna (75.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Plamenjača je verovatna (75.0%)
+
+============================================================
+CUSTOM QUERY: Da li je Bakarni preparat dozvoljen u FLOWERING?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je tretman dozvoljen?
+Tretman: Bakarni preparat
+Fenofaza: Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Bakarni preparat je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Biološki fungicid je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Trichoderma je dozvoljen u Cvetanje
+BC-FACT: Kreiran fakt dozvole - Tretman Uklanjanje zaraženih biljaka je dozvoljen u Cvetanje
+BC-QUERY: Rekurzivni odgovor o tretmanu na osnovu fakta
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: DA - Tretman Bakarni preparat je dozvoljen u Cvetanje
+
+============================================================
+TEST: Kritični uslovi za plamenjaču (CEP-E1)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 12
+Događaji navodnjavanja: 0
+Događaji ventilacije: 0
+CEP-E1: SLIDING WINDOW ALARM - Kritični uslovi za plamenjaču!
+        RH > 85% (6 očitavanja u 6h)
+        T: 22-28°C (6 očitavanja u 6h)
+        Preporuka: Povećati ventilaciju, smanjiti vlažnost, pripremiti preventivni tretman
+CEP-E4: TEMPORALNI NOT ALARM - Nedostajući događaj!
+        RH: 92.21499650340353% > 90%
+        Temporalni NOT: Nema aktivne ventilacije
+        Preporuka: HITNO: Aktivirati ventilaciju, proveriti sistem
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 2
+Generisano alertova: 2
+
+============================================================
+TEST: BC-C3 - Koji uslovi su doveli do rizika pepelnice?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Koji uslovi su doveli do rizika?
+Bolest: Pepelnica
+Uslovi: T=23.0°C, RH=70.0%
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-FACT: Kreiran fakt uzroka - Identifikovan uzrok rizika za Pepelnica
+BC-QUERY: Rekurzivna analiza kroz stablo činjenica
+          Korišćeni fakti: DISEASE_PROBABLE + RISK_CAUSE
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 5
+Odgovor: REKURZIVNI ODGOVOR - Identifikovan uzrok rizika za Pepelnica
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+
+============================================================
+TEST: BC-C1 - Da li je bolest sa niskom verovatnoćom dijagnostikovana?
+============================================================
+=== BACKWARD CHAINING UPIT ===
+Tip upita: Da li je bolest verovatna?
+Bolest: Pepelnica
+BC-FACT: Kreiran fakt - Bolest Plamenjača je verovatna (75.0%)
+BC-FACT: Kreiran fakt - Bolest Pepelnica je verovatna (55.0%)
+BC-FACT: Kreiran fakt - Bolest Siva trulež je verovatna (60.0%)
+BC-QUERY: Rekurzivni odgovor na osnovu fakta
+          Fakt: Bolest Pepelnica je verovatna (55.0%)
+
+=== REZULTAT BC UPITA ===
+Aktivirano pravila: 4
+Odgovor: DA - Bolest Pepelnica je verovatna (55.0%)
+
+============================================================
+TEST: Rizik Botrytis nakon navodnjavanja (CEP-E3)
+============================================================
+=== POKRETANJE CEP ANALIZE ===
+Senzorska očitavanja: 2
+Događaji navodnjavanja: 1
+Događaji ventilacije: 0
+CEP-E3: TEMPORALNI SEKVENCIJALNI ALARM - Botrytis!
+        Sekvenca: Navodnjavanje → RH: 90.0% → CO2: 1300.0ppm
+        Temporalni operatori: after[0s,2h] i after[0s,3h]
+        Preporuka: Poboljšati cirkulaciju vazduha, smanjiti CO2, kontrolisati vlažnost
+
+=== REZULTAT CEP ANALIZE ===
+Aktivirano pravila: 1
+Generisano alertova: 1
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 11
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=24.0°C, RH=75.0%
+Kultura: Krastavac (Plodonošenje)
+Simptomi:
+  - Bele naslage
+
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Biološki fungicid
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R05: Preporučen biološki fungicid za pepelnicu u plodonošenju
+     Tretman: Trichoderma
+     Razlog: Bezbednost u fazi plodonošenja
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Pepelnica u fazi plodonošenja - samo biološki tretmani
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 15
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=22.0°C, RH=95.0%
+Kultura: Paprika (Cvetanje)
+Simptomi:
+  - Siva prevlaka
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 95.0%, T: 22.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 95.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 40.0%
+SUMNJA: Plamenjača sa verovatnoćom 40.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 50.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 60.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 70.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 70.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (70.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 80.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 90.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 35.7% (normalizovano)
+     Plamenjača: 64.3% (normalizovano)
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 30
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=28.0°C, RH=70.0%
+Kultura: Paradajz (Vegetativni rast)
+Simptomi:
+  - Uvenuće
+  - Posmeđenje
+
+R07: Detektovano uvenuće i posmeđenje žila - fuzarijum
+     Povećana verovatnoća fuzarijuma na: 45.0%
+     PREPORUKA: Proveriti pH zemljišta
+R08: Preporučen Trichoderma tretman za fuzarijum
+     Doza: 5g/L
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+SUMNJA: Fuzarijum sa verovatnoćom 45.0%
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+PREPORUČEN TRETMAN: Trichoderma (Biološki)
+     Razlog: Fuzarijum detektovan - Trichoderma efikasna
+PRIORITET 2 (BIOLOŠKI): Trichoderma
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 7
+=== POKRETANJE DIJAGNOSTIKE ===
+Uslovi: T=26.0°C, RH=65.0%
+Kultura: Duvanski list (Vegetativni rast)
+Simptomi:
+  - Mozaik
+
+R09: Detektovane mozaik šare bez gljivičnih prevlaka - virus mozaika
+     Povećana verovatnoća virusa mozaika na: 60.0%
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Uklanjanje zaraženih biljaka
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+R10: Preporučene sanitarne mere za virus mozaika
+     Tretman: Dezinfekcija alata
+     HITNO: Sprečiti širenje virusa
+PRIORITET 1 (HITNO): Dezinfekcija alata
+SUMNJA: Virus mozaika sa verovatnoćom 60.0%
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Dezinfekcija alata (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Virus mozaika - potrebne hitne sanitarne mere
+PRIORITET 1 (HITNO): Dezinfekcija alata
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+
+=== REZULTAT DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Kompleksno ulančavanje pravila
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Vegetativni rast)
+Istorija tretmana: 1 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Bele naslage
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R04: Detektovane bele naslage bez kondenzacije - verovatna pepelnica
+     Povećana verovatnoća pepelnice na: 40.0%
+SUMNJA: Pepelnica sa verovatnoćom 40.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Pepelnica: 29.6% (normalizovano)
+     Plamenjača: 70.4% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 14
+
+============================================================
+TEST: Više verovatnih bolesti - Bayes analiza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=24.0°C, RH=92.0%
+Kultura: Paradajz (Cvetanje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+  - Siva prevlaka
+  - Uvenuće
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 92.0%, T: 24.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R06: Detektovana siva prevlaka uz visoku vlažnost - siva trulež
+     Povećana verovatnoća sive truleži na: 50.0%
+     PREPORUKA: Uklanjanje zaraženih delova + poboljšanje ventilacije
+R16: Kombinovani tretman za sivu trulež
+     1. Uklanjanje zaraženih biljaka
+     2. Biološki fungicid
+     RH: 92.0% - kritično!
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+SUMNJA: Siva trulež sa verovatnoćom 50.0%
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Biološki fungicid (Biološki)
+     Razlog: Preventivni tretman nakon uklanjanja
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PREPORUČEN TRETMAN: Uklanjanje zaraženih biljaka (Higijensko-sanitarne mere)
+     Razlog: Siva trulež + visoka vlažnost - hitno uklanjanje
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 1 (HITNO): Uklanjanje zaraženih biljaka
+PRIORITET 2 (BIOLOŠKI): Biološki fungicid
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R15: Detektovano više verovatnih bolesti - Bayes analiza
+     Siva trulež: 34.5% (normalizovano)
+     Plamenjača: 65.5% (normalizovano)
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 27
+
+============================================================
+TEST: Ograničenja tretmana - karenca i fenofaza
+============================================================
+=== KOMPLEKSNA DIJAGNOSTIKA SA ULANČAVANJEM ===
+Uslovi: T=25.0°C, RH=87.0%
+Kultura: Paradajz (Plodonošenje)
+Istorija tretmana: 0 aplikacija
+Simptomi:
+  - Vodenaste lezije
+
+R01: Detektovani kritični uslovi za plamenjaču - RH: 87.0%, T: 25.0°C
+     Povećana verovatnoća plamenjače na: 30.0%
+R02: Detektovane vodenaste lezije uz visok rizik plamenjače
+     Povećana verovatnoća plamenjače na: 55.0%
+SUMNJA: Plamenjača sa verovatnoćom 55.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 65.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 75.0%
+R03: Preporučen bakarni preparat za plamenjaču
+     Verovatnoća: 75.0%
+     Doza: 2-3g/L
+     Karenca: 14 dana
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+PREPORUČEN TRETMAN: Bakarni preparat (Hemijski)
+     Razlog: Visoka verovatnoća plamenjače (75.0%)
+PRIORITET 3 (HEMIJSKI): Bakarni preparat
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 85.0%
+R11: Visoka vlažnost povećava rizik plamenjače
+     Povećana verovatnoća plamenjače na: 95.0%
+R14: BLOKIRAN TRETMAN - Karenca duža od 7 dana u fazi plodonošenja!
+     Tretman: Bakarni preparat
+     Karenca: 14 dana
+     PREPORUKA: Koristiti tretman bez karence
+
+=== REZULTAT KOMPLEKSNE DIJAGNOSTIKE ===
+Aktivirano pravila: 12

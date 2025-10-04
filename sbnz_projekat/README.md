@@ -1,6 +1,6 @@
 # Pametni sistem za preporuku tretmana biljnih bolesti u plastenicima
 
-Napredni ekspertski sistem koji implementira **tri kompleksna mehanizma** za dijagnostiku biljnih bolesti i preporuku tretmana:
+Napredni ekspertski sistem koji implementira kompleksne mehanizme za dijagnostiku biljnih bolesti i preporuku tretmana:
 
 - **Forward Chaining** - Operativne odluke i preporuke tretmana
 - **Backward Chaining** - Dijagnostički upiti i objašnjavanje
@@ -10,6 +10,8 @@ Napredni ekspertski sistem koji implementira **tri kompleksna mehanizma** za dij
 
 - **Java 11** ili noviji
 - **Maven 3.6+** (ili koristi uključeni Maven wrapper)
+- **Node.js 16+** (za frontend aplikaciju)
+- **npm** ili **yarn** (za frontend dependencies)
 
 ### Instalacija Java-e na macOS
 
@@ -24,9 +26,9 @@ echo 'export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"' >> ~/.zshrc
 sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
 ```
 
-## 🚀 Pokretanje sistema
+## Pokretanje sistema
 
-### 1. Build projekta
+### 1. Build backend projekta
 
 ```bash
 # Pozicioniraj se u root direktorijum
@@ -36,16 +38,41 @@ cd sbnz_projekat
 ./mvnw clean install
 ```
 
-### 2. Pokretanje aplikacije
+### 2. Pokretanje backend aplikacije
 
 ```bash
 # Pokretanje Spring Boot aplikacije
 ./mvnw spring-boot:run -pl service
 ```
 
+Backend će biti dostupan na `http://localhost:8080`
+
+### 3. Pokretanje frontend aplikacije
+
+```bash
+# Pozicioniraj se u frontend direktorijum
+cd frontend
+
+# Instaliraj dependencies
+npm install
+
+# Pokreni React aplikaciju
+npm start
+```
+
+Frontend će biti dostupan na `http://localhost:3000`
+
+### 4. Kompletna demonstracija
+
+Za finalnu odbranu, pokrenite oba dela sistema:
+1. Backend na portu 8080
+2. Frontend na portu 3000
+3. Otvorite `http://localhost:3000` u browser-u
+4. Navigirajte kroz sekcije i testirajte funkcionalnosti
+
 ### 3. Testiranje sistema
 
-#### 🔄 Forward Chaining - Dijagnostika i tretmani
+#### Forward Chaining - Dijagnostika i tretmani
 
 ```bash
 # Osnovni testovi dijagnoze
@@ -64,7 +91,7 @@ curl http://localhost:8080/api/diagnosis/test-treatment-restrictions
 curl http://localhost:8080/api/diagnosis/test-all
 ```
 
-#### 🔍 Backward Chaining - Dijagnostički upiti
+#### Backward Chaining - Dijagnostički upiti
 
 ```bash
 # C1: Da li je bolest verovatna?
@@ -78,6 +105,9 @@ curl http://localhost:8080/api/backward-chaining/test-treatment-blocked-fruiting
 # C3: Koji uslovi su doveli do rizika?
 curl http://localhost:8080/api/backward-chaining/test-what-caused-plamenjaca
 curl http://localhost:8080/api/backward-chaining/test-what-caused-pepelnica
+curl http://localhost:8080/api/backward-chaining/test-what-caused-siva-trulez
+curl http://localhost:8080/api/backward-chaining/test-what-caused-fuzarijum
+curl http://localhost:8080/api/backward-chaining/test-what-caused-virus-mozaika
 
 # Svi Backward Chaining testovi
 curl http://localhost:8080/api/backward-chaining/test-all-backward
@@ -130,6 +160,12 @@ sbnz_projekat/
 ├── model/          # Domenski model (entiteti, enumi)
 ├── kjar/           # Drools pravila i konfiguracija
 ├── service/        # Spring Boot aplikacija i servisi
+├── frontend/       # React klijentska aplikacija
+│   ├── src/
+│   │   ├── components/     # React komponente
+│   │   ├── services/       # API servisi
+│   │   └── ...
+│   └── package.json
 └── pom.xml         # Parent POM
 ```
 
@@ -138,10 +174,11 @@ sbnz_projekat/
 - **model**: Sadrži domenski model (Disease, Symptom, Treatment, itd.)
 - **kjar**: Sadrži Drools pravila organizovana po kategorijama
 - **service**: Spring Boot aplikacija sa REST API-jem i business logikom
+- **frontend**: React aplikacija sa kompletnim korisničkim interfejsom
 
-## 🎯 Implementirani kompleksni mehanizmi
+## Implementirani kompleksni mehanizmi
 
-### 🔄 Forward Chaining - Operativne odluke (3+ nivoa ulančavanja)
+### Forward Chaining - Operativne odluke (3+ nivoa ulančavanja)
 
 | Pravilo | Opis | Ulančavanje |
 |---------|------|-------------|
@@ -160,22 +197,23 @@ sbnz_projekat/
 
 | Komponenta | Opis | Implementacija |
 |------------|------|----------------|
-| **Stablo činjenica** | Hijerarhijska struktura znanja | ✅ Fact klasa sa tipovima |
-| **Rekurzivni upiti** | Upiti koji koriste postojeće činjenice | ✅ Query → Fact → Query |
-| **C1** | Da li je bolest X verovatna? | ✅ Rekurzivno kroz DISEASE_PROBABLE |
-| **C2** | Da li je tretman Y dozvoljen? | ✅ Rekurzivno kroz TREATMENT_ALLOWED |
-| **C3** | Analiza uzroka kroz stablo | ✅ Kombinuje RISK_CAUSE + DISEASE_PROBABLE |
+| **Stablo činjenica** | Hijerarhijska struktura znanja | Fact klasa sa tipovima |
+| **Rekurzivni upiti** | Upiti koji koriste postojeće činjenice | Query → Fact → Query |
+| **C1** | Da li je bolest X verovatna? | Rekurzivno kroz DISEASE_PROBABLE |
+| **C2** | Da li je tretman Y dozvoljen? | Rekurzivno kroz TREATMENT_ALLOWED |
+| **C3** | Analiza uzroka kroz stablo | Kombinuje RISK_CAUSE + DISEASE_PROBABLE |
+| **C3 - Sve bolesti** | Analiza uzroka za 5 bolesti | Plamenjača, Pepelnica, Siva trulež, Fuzarijum, Virus mozaika |
 
-### ⚡ Complex Event Processing (CEP) - Pravi temporalni operatori
+### Complex Event Processing (CEP) - Pravi temporalni operatori
 
 | Obrazac | Opis | Temporalni operator |
 |---------|------|---------------------|
-| **E1** | Kritični uslovi za plamenjaču | ✅ `over window:time(6h)` - SLIDING WINDOW |
-| **E2** | Rizik kondenzacije | ✅ `over window:time(24h)` - TUMBLING WINDOW |
-| **E3** | Rizik Botrytis sekvencijalno | ✅ `after[0s,2h]` - TEMPORALNI SEKVENCIJALNI |
-| **E4** | Alarm ventilacije | ✅ `not ... after[0s,30m]` - TEMPORALNI NOT |
-| **E5** | Stabilni uslovi za pepelnicu | ✅ `over window:time(4h)` - TEMPORALNI DURING |
-| **E6** | Rastući trend vlažnosti | ✅ `after[30m,2h]` - TEMPORALNI BEFORE |
+| **E1** | Kritični uslovi za plamenjaču | `over window:time(6h)` - SLIDING WINDOW |
+| **E2** | Rizik kondenzacije | `over window:time(24h)` - TUMBLING WINDOW |
+| **E3** | Rizik Botrytis sekvencijalno | `after[0s,2h]` - TEMPORALNI SEKVENCIJALNI |
+| **E4** | Alarm ventilacije | `not ... after[0s,30m]` - TEMPORALNI NOT |
+| **E5** | Stabilni uslovi za pepelnicu | `over window:time(4h)` - TEMPORALNI DURING |
+| **E6** | Rastući trend vlažnosti | `after[30m,2h]` - TEMPORALNI BEFORE |
 
 ### Podržane bolesti
 
@@ -267,14 +305,7 @@ Generisano alertova: 4
 Korišćeni temporalni operatori: 8
 ```
 
-## Tehnologije
-
-- **Java 11** - Programski jezik
-- **Spring Boot 2.7.9** - Application framework
-- **Drools 7.49.0.Final** - Rule engine
-- **Maven** - Build tool i dependency management
-
-## 📁 Struktura pravila
+## Struktura pravila
 
 ```
 kjar/src/main/resources/rules/
@@ -301,34 +332,31 @@ kjar/src/main/resources/rules/
 </kbase>
 ```
 
-## Troubleshooting
+## Kako rade CEP parametri
 
-### Java nije instalirana
-```bash
-# Proverite instalaciju
-java -version
+### Interaktivno podešavanje parametara
 
-# Ako nije instalirana, sledite instrukcije za instalaciju iznad
-```
+CEP sistem ima **funkcionalne parametre** koji stvarno utiču na ponašanje sistema:
 
-### Maven build greške
-```bash
-# Očistite cache i rebuild
-./mvnw clean
-./mvnw install
-```
+#### 1. Prozor analize (Analysis Window)
+- **1h** - Brza detekcija kratkoročnih promena
+- **6h** - SLIDING WINDOW za kontinuiranu analizu (Plamenjača)
+- **24h** - TUMBLING WINDOW za dnevne obrasce (Siva trulež)
 
-### Port 8080 je zauzet
-```bash
-# Promenite port u application.properties ili zaustavite proces na portu 8080
-lsof -ti:8080 | xargs kill -9
+#### 2. Prag vlažnosti (Humidity Threshold)
+- Minimalna vlažnost za aktiviranje alarma
+- **≥ 85%** → Aktivira test za Plamenjaču (E1)
+- **≥ 90%** → Aktivira test za Sivu trulež (E2)
+- **60-80%** → Aktivira test za Pepelnicu (E5)
+- **≥ 88%** → Aktivira test za Botrytis (E3)
 
-# Alternativno, pokrenite na drugom portu
-./mvnw spring-boot:run -pl service -Dspring-boot.run.arguments=--server.port=8081
-```
+#### 3. Temperaturni opseg
+- Optimalni opseg za razvoj bolesti
+- **22-28°C** → Plamenjača
+- **20-25°C** → Pepelnica
+- **15-25°C** → Siva trulež
 
-### Standalone testiranje (bez Spring Boot-a)
-```bash
-# Direktno testiranje Drools pravila
-./mvnw exec:java -Dexec.mainClass="com.ftn.sbnz.service.StandaloneDemo" -Dexec.classpathScope=test -pl service
-```
+#### 4. Timeout ventilacije
+- Maksimalno vreme bez ventilacije
+- **> 20 min** → Aktivira alarm ventilacije (E4)
+- Koristi TEMPORALNI NOT operator za detekciju nedostajućih događaja

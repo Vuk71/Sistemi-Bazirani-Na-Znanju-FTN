@@ -8,7 +8,7 @@ import java.util.ArrayList;
 // Rekurzivni upiti koji grade stablo zavisnosti
 
 // Osnovni fakt - bolest je verovatna ako je verovatnoća >= 50%
-rule "BC-FACT: Bolest je verovatna"
+rule "BC-FACT: Bolest je verovatna (visoka)"
     when
         $disease: Disease(probability >= 50.0)
         not Fact(type == "DISEASE_PROBABLE", subject == $disease.getName())
@@ -16,9 +16,24 @@ rule "BC-FACT: Bolest je verovatna"
         Fact fact = new Fact("DISEASE_PROBABLE", $disease.getName(), 
                             "Bolest " + $disease.getName() + " je verovatna (" + $disease.getProbability() + "%)");
         fact.addEvidence("Verovatnoća: " + $disease.getProbability() + "%");
-        fact.addEvidence("Prag: >= 50%");
+        fact.addEvidence("Prag: >= 50% (VISOKA VEROVATNOĆA)");
         
         System.out.println("BC-FACT: Kreiran fakt - " + fact.getDescription());
+        insert(fact);
+end
+
+// Dodatni fakt - bolest je moguća ako je verovatnoća >= 30%
+rule "BC-FACT: Bolest je moguća (umerena)"
+    when
+        $disease: Disease(probability >= 30.0, probability < 50.0)
+        not Fact(type == "DISEASE_PROBABLE", subject == $disease.getName())
+    then
+        Fact fact = new Fact("DISEASE_PROBABLE", $disease.getName(), 
+                            "Bolest " + $disease.getName() + " je moguća (" + $disease.getProbability() + "%)");
+        fact.addEvidence("Verovatnoća: " + $disease.getProbability() + "%");
+        fact.addEvidence("Prag: >= 30% (UMERENA VEROVATNOĆA)");
+        
+        System.out.println("BC-FACT: Kreiran fakt (umerena) - " + fact.getDescription());
         insert(fact);
 end
 
@@ -92,7 +107,7 @@ end
 // Složeniji rekurzivni upit - analiza uzroka kroz stablo činjenica
 rule "BC-FACT: Uzrok rizika - kritični uslovi"
     when
-        $disease: Disease($diseaseName: name, probability > 0)
+        $disease: Disease($diseaseName: name, probability >= 30.0)
         $env: EnvironmentalCondition()
         eval(isRiskyCause($diseaseName, $env))
         not Fact(type == "RISK_CAUSE", subject == $diseaseName)
@@ -100,13 +115,39 @@ rule "BC-FACT: Uzrok rizika - kritični uslovi"
         Fact causeFact = new Fact("RISK_CAUSE", $diseaseName, 
                                 "Identifikovan uzrok rizika za " + $diseaseName);
         
-        if ($diseaseName.equals("Plamenjača") && $env.getHumidity() > 85 && 
-            $env.getTemperature() >= 22 && $env.getTemperature() <= 28) {
-            causeFact.addEvidence("Kritični uslovi: RH=" + $env.getHumidity() + "%, T=" + $env.getTemperature() + "°C");
-            causeFact.addEvidence("Optimalni uslovi za Phytophthora infestans");
+        if ($diseaseName.equals("Plamenjača")) {
+            causeFact.addEvidence("Trenutni uslovi: RH=" + $env.getHumidity() + "%, T=" + $env.getTemperature() + "°C");
+            
+            if ($env.getHumidity() > 85 && $env.getTemperature() >= 22 && $env.getTemperature() <= 28) {
+                causeFact.addEvidence("KRITIČNI USLOVI: Optimalni za Phytophthora infestans");
+                causeFact.addEvidence("  - Visoka vlažnost (RH > 85%)");
+                causeFact.addEvidence("  - Optimalna temperatura (22-28°C)");
+            } else if ($env.getHumidity() > 80) {
+                causeFact.addEvidence("FAKTOR RIZIKA: Visoka vlažnost (RH=" + $env.getHumidity() + "% > 80%)");
+                if ($env.getTemperature() < 22) {
+                    causeFact.addEvidence("  - Temperatura niska (" + $env.getTemperature() + "°C < 22°C) - sporiji razvoj");
+                } else if ($env.getTemperature() > 28) {
+                    causeFact.addEvidence("  - Temperatura visoka (" + $env.getTemperature() + "°C > 28°C) - sporiji razvoj");
+                }
+                causeFact.addEvidence("  - Rizik postoji, ali nije optimalan za brzi razvoj");
+            } else if ($env.getTemperature() >= 18 && $env.getTemperature() <= 30) {
+                causeFact.addEvidence("FAKTOR RIZIKA: Temperatura u opsegu (" + $env.getTemperature() + "°C)");
+                causeFact.addEvidence("  - Vlažnost nedovoljna (RH=" + $env.getHumidity() + "% < 80%)");
+            }
         } else if ($diseaseName.equals("Pepelnica") && $env.getHumidity() >= 60 && $env.getHumidity() <= 80) {
             causeFact.addEvidence("Umerena vlažnost: RH=" + $env.getHumidity() + "%");
             causeFact.addEvidence("Pepelnica preferira umerenu vlažnost");
+        } else if ($diseaseName.equals("Siva trulež") && $env.getHumidity() > 90) {
+            causeFact.addEvidence("Ekstremno visoka vlažnost: RH=" + $env.getHumidity() + "%");
+            causeFact.addEvidence("Botrytis cinerea zahteva RH > 90%");
+        } else if ($diseaseName.equals("Fuzarijum") && $env.getTemperature() > 25) {
+            causeFact.addEvidence("Visoka temperatura: T=" + $env.getTemperature() + "°C");
+            causeFact.addEvidence("Fusarium oxysporum aktivan na visokim temperaturama");
+            causeFact.addEvidence("Napomena: Fuzarijum je bolest zemljišta");
+        } else if ($diseaseName.equals("Virus mozaika")) {
+            causeFact.addEvidence("Virus mozaika se ne prenosi kroz atmosferske uslove");
+            causeFact.addEvidence("Glavni uzroci: mehanička transmisija, vektori (insekti)");
+            causeFact.addEvidence("Trenutni uslovi: T=" + $env.getTemperature() + "°C, RH=" + $env.getHumidity() + "%");
         }
         
         System.out.println("BC-FACT: Kreiran fakt uzroka - " + causeFact.getDescription());
@@ -115,12 +156,13 @@ end
 
 // Rekurzivni upit koji koristi stablo činjenica
 rule "BC-QUERY: Rekurzivna analiza uzroka"
+    salience 10
     when
         $query: DiagnosticQuery(queryType == "WHAT_CAUSED_RISK", result == null)
         $causeFact: Fact(type == "RISK_CAUSE", subject == $query.getDiseaseName())
         $probableFact: Fact(type == "DISEASE_PROBABLE", subject == $query.getDiseaseName())
     then
-        $query.setResult("REKURZIVNI ODGOVOR - " + $causeFact.getDescription());
+        $query.setResult($causeFact.getDescription());
         
         List<String> combinedEvidence = new ArrayList<>();
         combinedEvidence.add("=== STABLO ČINJENICA ===");
@@ -137,17 +179,32 @@ rule "BC-QUERY: Rekurzivna analiza uzroka"
         update($query);
 end
 
+// Jednostavniji C3 upit - samo sa uzrokom, bez potrebe za DISEASE_PROBABLE faktom
+rule "BC-QUERY: Analiza uzroka bez fakta verovatnoće"
+    salience 5
+    when
+        $query: DiagnosticQuery(queryType == "WHAT_CAUSED_RISK", result == null)
+        $causeFact: Fact(type == "RISK_CAUSE", subject == $query.getDiseaseName())
+    then
+        $query.setResult($causeFact.getDescription());
+        $query.setExplanation($causeFact.getEvidence());
+        
+        System.out.println("BC-QUERY: Analiza uzroka na osnovu RISK_CAUSE fakta");
+        
+        update($query);
+end
+
 // Fallback pravila za slučajeve kada nema dovoljno činjenica
 rule "BC-QUERY: Nema dovoljno činjenica za bolest"
     when
         $query: DiagnosticQuery(queryType == "IS_DISEASE_PROBABLE", result == null)
-        $disease: Disease(name == $query.getDiseaseName(), probability < 50.0)
+        $disease: Disease(name == $query.getDiseaseName(), probability < 30.0)
         not Fact(type == "DISEASE_PROBABLE", subject == $query.getDiseaseName())
     then
         $query.setResult("NE - Nedovoljno činjenica za potvrdu bolesti " + $query.getDiseaseName());
         
         List<String> explanations = new ArrayList<>();
-        explanations.add("Verovatnoća: " + $disease.getProbability() + "% < 50%");
+        explanations.add("Verovatnoća: " + $disease.getProbability() + "% < 30%");
         explanations.add("Potrebni dodatni simptomi ili uslovi");
         
         $query.setExplanation(explanations);
@@ -178,16 +235,56 @@ rule "BC-QUERY: Tretman nije dozvoljen"
         update($query);
 end
 
+rule "BC-QUERY: Nema uzroka - bolest nije verovatna"
+    when
+        $query: DiagnosticQuery(queryType == "WHAT_CAUSED_RISK", result == null)
+        $disease: Disease(name == $query.getDiseaseName(), probability < 30.0)
+        not Fact(type == "RISK_CAUSE", subject == $query.getDiseaseName())
+    then
+        $query.setResult("NE - Bolest " + $query.getDiseaseName() + " nije dovoljno verovatna za analizu uzroka");
+        
+        List<String> explanations = new ArrayList<>();
+        explanations.add("Verovatnoća bolesti: " + $disease.getProbability() + "% < 30%");
+        explanations.add("Analiza uzroka je moguća samo za verovatne bolesti (≥ 30%)");
+        explanations.add("Preporuka: Prvo povećajte verovatnoću bolesti kroz simptome ili uslove");
+        
+        $query.setExplanation(explanations);
+        
+        System.out.println("BC-QUERY: Nema uzroka - bolest nije verovatna (" + $disease.getProbability() + "%)");
+        
+        update($query);
+end
+
 // Pomoćne funkcije za evaluaciju
 function boolean isHighRiskEnvironment(String diseaseName, EnvironmentalCondition env) {
     if ("Plamenjača".equals(diseaseName)) {
         return env.getHumidity() > 85 && env.getTemperature() >= 22 && env.getTemperature() <= 28;
     } else if ("Pepelnica".equals(diseaseName)) {
         return env.getHumidity() >= 60 && env.getHumidity() <= 80 && env.getTemperature() >= 20 && env.getTemperature() <= 25;
+    } else if ("Siva trulež".equals(diseaseName)) {
+        return env.getHumidity() > 90;
+    } else if ("Fuzarijum".equals(diseaseName)) {
+        return env.getTemperature() > 25;
+    } else if ("Virus mozaika".equals(diseaseName)) {
+        return true; // Virus ne zavisi od atmosferskih uslova
     }
     return false;
 }
 
 function boolean isRiskyCause(String diseaseName, EnvironmentalCondition env) {
-    return isHighRiskEnvironment(diseaseName, env);
+    // Relaksirani uslovi - prihvata bilo koji faktor rizika
+    if ("Plamenjača".equals(diseaseName)) {
+        // Prihvati ako je BILO KOJI uslov ispunjen
+        return env.getHumidity() > 80 || 
+               (env.getTemperature() >= 18 && env.getTemperature() <= 30);
+    } else if ("Pepelnica".equals(diseaseName)) {
+        return env.getHumidity() >= 50 && env.getHumidity() <= 85;
+    } else if ("Siva trulež".equals(diseaseName)) {
+        return env.getHumidity() > 85; // Relaksirano sa 90 na 85
+    } else if ("Fuzarijum".equals(diseaseName)) {
+        return env.getTemperature() > 20; // Relaksirano sa 25 na 20
+    } else if ("Virus mozaika".equals(diseaseName)) {
+        return true; // Virus ne zavisi od atmosferskih uslova
+    }
+    return false;
 }

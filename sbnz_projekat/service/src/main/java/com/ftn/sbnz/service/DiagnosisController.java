@@ -239,4 +239,72 @@ public class DiagnosisController {
         
         return sb.toString();
     }
+
+    @PostMapping("/diagnose")
+    public DiagnosisResult diagnoseWithActivePlant(@RequestBody DiagnosisRequest request) {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("DIJAGNOZA SA AKTIVNOM BILJKOM");
+        System.out.println("=".repeat(60));
+        System.out.println("Biljka: " + request.getCropType() + " - " + request.getVariety());
+        System.out.println("Fenofaza: " + request.getPhenophase());
+        System.out.println("Uslovi: T=" + request.getTemperature() + "°C, RH=" + request.getHumidity() + "%");
+        
+        // Kreiranje simptoma iz request-a
+        List<Symptom> symptoms = new ArrayList<>();
+        
+        if (request.isVodenasteLezioni()) {
+            Symptom s = new Symptom("Vodenaste lezije", SymptomType.WATERY_LESIONS);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        if (request.isTamneMarlje()) {
+            Symptom s = new Symptom("Tamne mrlje", SymptomType.LESIONS);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        if (request.isBelePrevlake()) {
+            Symptom s = new Symptom("Bele prevlake", SymptomType.WHITE_DEPOSITS);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        if (request.isSivaPrevlaka()) {
+            Symptom s = new Symptom("Siva prevlaka", SymptomType.GRAY_COATING);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        if (request.isZutilo()) {
+            Symptom s = new Symptom("Žutilo", SymptomType.YELLOWING);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        if (request.isUvenuće()) {
+            Symptom s = new Symptom("Uvenuće", SymptomType.WILTING);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        if (request.isPosmeđenjeZila()) {
+            Symptom s = new Symptom("Posmeđenje žila", SymptomType.BROWNING);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        if (request.isMozaikSare()) {
+            Symptom s = new Symptom("Mozaik šare", SymptomType.MOSAIC);
+            s.setPresent(true);
+            symptoms.add(s);
+        }
+        
+        // Kreiranje EnvironmentalCondition
+        EnvironmentalCondition environment = new EnvironmentalCondition();
+        environment.setTemperature(request.getTemperature());
+        environment.setHumidity(request.getHumidity());
+        environment.setCo2Level(request.getCo2Level());
+        environment.setVentilationActive(request.isVentilationActive());
+        
+        // Kreiranje Crop
+        Crop crop = new Crop(request.getCropType(), request.getVariety(), 
+                            Phenophase.valueOf(request.getPhenophase()));
+        
+        // Pokretanje dijagnostike
+        return diagnosisService.diagnoseDisease(symptoms, environment, crop);
+    }
 }
