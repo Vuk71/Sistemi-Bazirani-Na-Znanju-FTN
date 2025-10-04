@@ -212,58 +212,70 @@ public class CEPService {
         LocalDateTime now = LocalDateTime.now();
         int windowHours = parseWindowHours(request.getAnalysisWindow());
         
-        double humidityThreshold = request.getAlertThresholds().getHumidity();
-        double tempMin = request.getAlertThresholds().getTemperature().getMin();
-        double tempMax = request.getAlertThresholds().getTemperature().getMax();
-        int ventTimeout = request.getAlertThresholds().getVentilationTimeout();
+        // Provera da li postoje podaci aktivne biljke
+        if (request.getPlantData() == null) {
+            throw new IllegalArgumentException("Podaci aktivne biljke su obavezni za CEP analizu");
+        }
         
-        System.out.println("\n=== GENERISANJE TESTNIH PODATAKA ===");
-        System.out.println("Generišem podatke za prozor od " + windowHours + "h");
-        System.out.println("Sa pragom vlažnosti: " + humidityThreshold + "%");
-        System.out.println("Temperaturni opseg: " + tempMin + "-" + tempMax + "°C");
+        double baseTempValue = request.getPlantData().getTemperature();
+        double baseHumidityValue = request.getPlantData().getHumidity();
+        double baseCO2Value = request.getPlantData().getCo2Level();
+        boolean ventilationActive = request.getPlantData().isVentilationActive();
         
-        // Generisanje senzorskih očitavanja na osnovu parametara
+        System.out.println("\n=== CEP ANALIZA SA AKTIVNOM BILJKOM ===");
+        System.out.println("Prozor analize: " + windowHours + "h");
+        System.out.println("Bazne vrednosti iz biljke:");
+        System.out.println("  Temperatura: " + baseTempValue + "°C");
+        System.out.println("  Vlažnost: " + baseHumidityValue + "%");
+        System.out.println("  CO2: " + baseCO2Value + " ppm");
+        System.out.println("  Ventilacija: " + (ventilationActive ? "Aktivna" : "Neaktivna"));
+        System.out.println("Generišem varijacije: ±5°C, ±5%, ±200ppm");
+        
+        // Generisanje senzorskih očitavanja sa varijacijama
         for (int i = 0; i < windowHours; i++) {
             LocalDateTime timestamp = now.minusHours(i);
             
-            // Temperatura u zadatom opsegu
-            double temp = tempMin + (Math.random() * (tempMax - tempMin));
+            // Temperatura: ±5°C varijacija
+            double tempVariation = (Math.random() - 0.5) * 10; // -5 do +5
+            double temp = baseTempValue + tempVariation;
             SensorReading tempReading = new SensorReading(SensorType.TEMPERATURE, temp, timestamp);
             readings.add(tempReading);
             
-            // Vlažnost iznad praga
-            double humidity = humidityThreshold + (Math.random() * 10);
+            // Vlažnost: ±5% varijacija
+            double humidityVariation = (Math.random() - 0.5) * 10; // -5 do +5
+            double humidity = baseHumidityValue + humidityVariation;
             SensorReading humidityReading = new SensorReading(SensorType.HUMIDITY, humidity, timestamp);
             readings.add(humidityReading);
             
-            // CO2 za Botrytis scenario
-            if (humidityThreshold >= 88) {
-                SensorReading co2Reading = new SensorReading(SensorType.CO2, 1200.0 + (Math.random() * 200), timestamp);
-                readings.add(co2Reading);
-            }
+            // CO2: ±200 ppm varijacija
+            double co2Variation = (Math.random() - 0.5) * 400; // -200 do +200
+            double co2 = baseCO2Value + co2Variation;
+            SensorReading co2Reading = new SensorReading(SensorType.CO2, co2, timestamp);
+            readings.add(co2Reading);
         }
         
-        // Dodavanje događaja navodnjavanja za Botrytis scenario
-        if (humidityThreshold >= 88) {
+        // Dodavanje događaja navodnjavanja za Botrytis scenario (ako je vlažnost visoka)
+        if (baseHumidityValue >= 88) {
             IrrigationEvent irrigation = new IrrigationEvent(UUID.randomUUID(), 50.0, 30, now.minusHours(1));
             irrigationEvents.add(irrigation);
+            System.out.println("Dodat događaj navodnjavanja (visoka vlažnost)");
         }
         
-        // Dodavanje događaja ventilacije (ili nedostatak istih)
-        if (ventTimeout > 20) {
-            // Ne dodajemo ventilaciju - simuliramo "missing event"
-            System.out.println("Simuliram nedostatak ventilacije (timeout: " + ventTimeout + " min)");
-        } else {
-            // Dodajemo normalne ventilacione događaje
+        // Dodavanje događaja ventilacije na osnovu stanja biljke
+        if (ventilationActive) {
+            // Dodajemo ventilacione događaje
             for (int i = 0; i < windowHours / 2; i++) {
                 VentilationEvent ventEvent = new VentilationEvent(true, now.minusHours(i * 2));
                 ventilationEvents.add(ventEvent);
             }
+            System.out.println("Generisano " + ventilationEvents.size() + " ventilacionih događaja");
+        } else {
+            // Ne dodajemo ventilaciju - simuliramo "missing event"
+            System.out.println("Ventilacija neaktivna - CEP će detektovati missing event (E4)");
         }
         
         System.out.println("Generisano " + readings.size() + " senzorskih očitavanja");
         System.out.println("Generisano " + irrigationEvents.size() + " događaja navodnjavanja");
-        System.out.println("Generisano " + ventilationEvents.size() + " događaja ventilacije");
         
         return processEvents(readings, irrigationEvents, ventilationEvents);
     }

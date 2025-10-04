@@ -213,7 +213,7 @@ const BackwardChainingPage = () => {
 
         {/* Detaljno objašnjenje Backward Chaining trace-a */}
         <div className="card" style={{ marginBottom: '20px' }}>
-          <h4> Backward Chaining - Trace rekurzivnog zaključivanja</h4>
+          <h4> Backward Chaining - Trace</h4>
           <br />
 
           {/* Simulacija pravog BC trace-a */}

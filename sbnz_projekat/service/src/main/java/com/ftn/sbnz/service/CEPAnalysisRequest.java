@@ -2,78 +2,66 @@ package com.ftn.sbnz.service;
 
 public class CEPAnalysisRequest {
     private String analysisWindow;
-    private AlertThresholds alertThresholds;
-    
-    public CEPAnalysisRequest() {}
-    
+    private PlantData plantData;
+
+    public CEPAnalysisRequest() {
+    }
+
     public String getAnalysisWindow() {
         return analysisWindow;
     }
-    
+
     public void setAnalysisWindow(String analysisWindow) {
         this.analysisWindow = analysisWindow;
     }
-    
-    public AlertThresholds getAlertThresholds() {
-        return alertThresholds;
+
+    public PlantData getPlantData() {
+        return plantData;
     }
-    
-    public void setAlertThresholds(AlertThresholds alertThresholds) {
-        this.alertThresholds = alertThresholds;
+
+    public void setPlantData(PlantData plantData) {
+        this.plantData = plantData;
     }
-    
-    public static class AlertThresholds {
+
+    public static class PlantData {
+        private double temperature;
         private double humidity;
-        private TemperatureRange temperature;
-        private int ventilationTimeout;
-        
-        public AlertThresholds() {}
-        
+        private double co2Level;
+        private boolean ventilationActive;
+
+        public PlantData() {
+        }
+
+        public double getTemperature() {
+            return temperature;
+        }
+
+        public void setTemperature(double temperature) {
+            this.temperature = temperature;
+        }
+
         public double getHumidity() {
             return humidity;
         }
-        
+
         public void setHumidity(double humidity) {
             this.humidity = humidity;
         }
-        
-        public TemperatureRange getTemperature() {
-            return temperature;
+
+        public double getCo2Level() {
+            return co2Level;
         }
-        
-        public void setTemperature(TemperatureRange temperature) {
-            this.temperature = temperature;
+
+        public void setCo2Level(double co2Level) {
+            this.co2Level = co2Level;
         }
-        
-        public int getVentilationTimeout() {
-            return ventilationTimeout;
+
+        public boolean isVentilationActive() {
+            return ventilationActive;
         }
-        
-        public void setVentilationTimeout(int ventilationTimeout) {
-            this.ventilationTimeout = ventilationTimeout;
-        }
-    }
-    
-    public static class TemperatureRange {
-        private double min;
-        private double max;
-        
-        public TemperatureRange() {}
-        
-        public double getMin() {
-            return min;
-        }
-        
-        public void setMin(double min) {
-            this.min = min;
-        }
-        
-        public double getMax() {
-            return max;
-        }
-        
-        public void setMax(double max) {
-            this.max = max;
+
+        public void setVentilationActive(boolean ventilationActive) {
+            this.ventilationActive = ventilationActive;
         }
     }
 }

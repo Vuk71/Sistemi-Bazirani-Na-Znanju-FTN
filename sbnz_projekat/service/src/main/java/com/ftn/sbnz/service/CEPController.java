@@ -126,10 +126,10 @@ public class CEPController {
         System.out.println("CEP ANALIZA SA PARAMETRIMA");
         System.out.println("=".repeat(60));
         System.out.println("Prozor: " + request.getAnalysisWindow());
-        System.out.println("Prag vlažnosti: " + request.getAlertThresholds().getHumidity() + "%");
-        System.out.println("Temperatura: " + request.getAlertThresholds().getTemperature().getMin() + 
-                         "-" + request.getAlertThresholds().getTemperature().getMax() + "°C");
-        System.out.println("Ventilacija timeout: " + request.getAlertThresholds().getVentilationTimeout() + " min");
+        System.out.println("Biljka - Temperatura: " + request.getPlantData().getTemperature() + "°C");
+        System.out.println("Biljka - Vlažnost: " + request.getPlantData().getHumidity() + "%");
+        System.out.println("Biljka - CO2: " + request.getPlantData().getCo2Level() + " ppm");
+        System.out.println("Biljka - Ventilacija: " + (request.getPlantData().isVentilationActive() ? "Aktivna" : "Neaktivna"));
         
         return cepService.analyzeWithParameters(request);
     }
